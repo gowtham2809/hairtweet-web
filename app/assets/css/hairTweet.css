@@ -1,0 +1,53 @@
+.mx-w-xl {
+    max-width: 320px;
+}
+
+.mx-w {
+    max-width: 200px;
+}
+
+.mx-w-lg {
+    max-width: 280px;
+}
+
+.control-label-form {
+    padding-top: 7px;
+    margin-bottom: 0;
+    text-align: left;
+}
+
+.mx-w-sm {
+    max-width: 150px;
+}
+
+.row-eq-height {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.row-eq-height > [class*='col-'] {
+    display: flex;
+    flex-direction: column;
+}
+
+.p-b {
+    padding-bottom: 15px;
+}
+
+.p-b-sm {
+    padding-bottom: 10px;
+}
+
+.p-b-xs {
+    padding-bottom: 5px;
+}
+
+.box-shadow-light {
+    -o-box-shadow: 0 2px 9px rgba(0, 0, 0, 0.20);
+    -moz-box-shadow: 0 2px 9px rgba(0, 0, 0, 0.20);
+    -webkit-box-shadow: 0 2px 9px rgba(0, 0, 0, 0.20);
+    box-shadow: 0 2px 9px rgba(0, 0, 0, 0.20);
+}
