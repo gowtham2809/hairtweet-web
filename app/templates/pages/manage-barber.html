@@ -1,0 +1,20 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-controller="BarberManageController" ng-init="getAllBarbers()">
+    <div class="wrapper-md">
+        <div class="list-group list-group-lg list-group-sp col-md-4" ng-repeat="barber in allBarbers">
+            <a herf class="list-group-item clearfix">
+                <div class="mx-w-xl m-b-xs ">
+                    <span class="h3 text-primary">{{barber.first_name}}{{barber.last_name}}</span>
+                </div>
+                <div class="mx-w m-b-xs"><i class="glyphicon glyphicon-earphone m-r-xs"></i>
+                    {{barber.phone_number}}
+                </div>
+                <div class="mx-w-lg m-b-xs"><i class="icon-envelope-open m-r-xs"></i>
+                    {{barber.email}}
+                </div>
+                <div class="mx-w-xl">
+                    Shop Name : {{barber.shop_name}}
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
