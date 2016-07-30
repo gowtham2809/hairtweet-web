@@ -3,7 +3,6 @@
 angular.module('app')
     .controller('ApplicationController',
         function ($rootScope, $scope, $localStorage, $window, $location) {
-
             $scope.app = {
                 name: 'Hair Tweet',
                 version: '0.0.0',

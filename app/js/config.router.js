@@ -7,11 +7,13 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, JQ_CONFI
         $stateProvider
             .state('app', {
                 url: '/app',
-                templateUrl: 'templates/app.html'
+                templateUrl: 'templates/app.html',
+                resolve: load(['js/controllers/header.js', 'js/controllers/nav.js', 'user'])
             })
-            .state('app.home', {
-                url: '/home',
-                templateUrl: 'templates/pages/manage-barber.html'
+            .state('app.manage-barber', {
+                url: '/manage-barber',
+                templateUrl: 'templates/pages/manage-barber.html',
+                resolve: load(['js/controllers/manage-barber.js', 'barber'])
             })
 
             .state('access', {

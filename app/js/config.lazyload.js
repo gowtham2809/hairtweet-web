@@ -9,7 +9,8 @@ angular.module('app')
             'js/models/user.js',
             'js/models/token.js'
         ],
-        user: ['js/models/user.js']
+        user: ['js/models/user.js'],
+        barber: ['js/models/barber.js']
     })
     .constant('MODULE_CONFIG', [
 
