@@ -15,6 +15,11 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, JQ_CONFI
                 templateUrl: 'templates/pages/manage-barber.html',
                 resolve: load(['js/controllers/manage-barber.js', 'barber'])
             })
+            .state('app.add-barber', {
+                url: '/add-barber',
+                templateUrl: 'templates/pages/add-barber.html',
+                resolve: load(['js/controllers/add-barber.js', 'barber'])
+            })
 
             .state('access', {
                 url: '/access',
