@@ -2,7 +2,6 @@ angular.module('app')
             .controller('BarberManageController', function ($rootScope, $scope, BarberModel) {
                 $scope.allBarbers = [];
 
-
                     $rootScope.$broadcast('showLoading');
                     BarberModel.getAllBarbers({
                     }, getAllBarbersSuccess, getAllBarbersFailure);

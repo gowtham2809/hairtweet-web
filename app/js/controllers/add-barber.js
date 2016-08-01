@@ -3,6 +3,7 @@
 angular.module('app')
     .controller('AddBarberController', function ($scope, $state, BarberModel) {
         $scope.addBarber = function () {
+            console.log($scope.barber.logo);
             BarberModel.addBarber({
                 firstName: $scope.barber.first_name,
                 lastName: $scope.barber.last_name,

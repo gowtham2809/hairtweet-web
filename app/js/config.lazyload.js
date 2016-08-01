@@ -10,7 +10,8 @@ angular.module('app')
             'js/models/token.js'
         ],
         user: ['js/models/user.js'],
-        barber: ['js/models/barber.js']
+        barber: ['js/models/barber.js'],
+        screenfull: ['bower_components/screenfull/dist/screenfull.js']
     })
     .constant('MODULE_CONFIG', [
 

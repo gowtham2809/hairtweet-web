@@ -20,6 +20,26 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, JQ_CONFI
                 templateUrl: 'templates/pages/add-barber.html',
                 resolve: load(['js/controllers/add-barber.js', 'barber'])
             })
+            .state('app.barber-detail', {
+                url: '/barber/:barberId',
+                templateUrl: 'templates/pages/barber-detail.html',
+                resolve: load(['js/controllers/barber-details.js', 'barber'])
+            })
+            .state('app.update-barber', {
+                url: '/update-barber/:barberId',
+                templateUrl: 'templates/pages/update-barber.html',
+                resolve: load(['js/controllers/manage-barber.js', 'barber'])
+            })
+            .state('app.active-barber', {
+                url: '/active-barber/:barberId',
+                templateUrl: 'templates/pages/barber-detail.html',
+                resolve: load(['js/controllers/manage-barber.js', 'barber'])
+            })
+            .state('app.barber-bookings', {
+                url: '/barber-bookings/:barberId',
+                templateUrl: 'templates/pages/barber-bookings.html',
+                resolve: load(['js/controllers/manage-barber.js', 'barber'])
+            })
 
             .state('access', {
                 url: '/access',
