@@ -8,6 +8,12 @@
                         <a class="h5 text-primary m-l-sm" ng-click="setEditMode(true)" ng-hide="inEditMode"> Edit</a>
                         <div class="form-horizontal m-t" ng-hide="inEditMode">
                             <div class="form-group">
+                                <label class="col-sm-2 control-label font-bold">Shop Logo</label>
+                                <div class="col-sm-6">
+                                    <img ng-src="{{barber.logo}}" class="thumb-lg img-circle center-crop">
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-sm-2 control-label font-bold">Name</label>
                                 <div class="col-sm-3">
                                     <div class="control-label-form ">{{barber.first_name}}{{barber.last_name}}</div>
@@ -33,13 +39,19 @@
                                     <div class="control-label-form ">{{barber.email}}</div>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label font-bold">Shop Name</label>
+                                <div class="col-sm-3">
+                                    <div class="control-label-form ">{{barber.shop_name}}</div>
+                                </div>
+                            </div>
                         </div>
                         <form class="form-horizontal m-t" ng-show="inEditMode" novalidate>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label font-bold">Shop Logo</label>
                                 <div class="col-sm-6">
                                     <img ng-src="{{barber.logo}}" class="thumb-lg img-circle center-crop">
-                                    <input type="file" nv-file-select="" class="m-t" uploader="uploader"/>
+                                    <input type="file" nv-file-select="" class="m-t" file-model="myFile"/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -79,19 +91,26 @@
                                     <input type="email" class="form-control input-sm" value="{{barber.email}}">
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label font-bold">Shop Name</label>
+                                <div class="col-sm-6">
+                                    <input type="email" class="form-control input-sm" value="{{barber.shop_name}}">
+                                </div>
+                            </div>
 
                             <!--Submit button-->
                             <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-2">
                                     <button type="submit" class="btn btn-default" ng-click="setEditMode(false)">Cancel
                                     </button>
-                                    <button type="submit" class="btn btn-primary" ng-click="updateBarber()">Update</button>
+                                    <button type="submit" class="btn btn-primary" ng-click="updateBarber()">Update
+                                    </button>
                                 </div>
                             </div>
                         </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
