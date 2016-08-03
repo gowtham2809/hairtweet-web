@@ -7,18 +7,23 @@ angular.module('app')
             get_barber: BASE_URL + '/barber/{barberId}/detail'
         };
         model.addBarber = function (requestParams, successCallback, failureCallback) {
+            var fd = new FormData();
+            //post data via formdata ,append all data in fd
+            fd.append('logo', requestParams.logo);
+            fd.append('first_name', requestParams.firstName);
+            fd.append('last_name', requestParams.lastName);
+            fd.append('email', requestParams.email);
+            fd.append('password', requestParams.password);
+            fd.append('phone_number', requestParams.phoneNumber);
+            fd.append('shop_name', requestParams.shopName);
+            fd.append('address_line_1', requestParams.address1);
+            fd.append('address_line_2', requestParams.address2);
+            fd.append('address_line_3', requestParams.address3);
             $http = $injector.get('$http');
-            $http.post(urls.add_barber, {
-                first_name: requestParams.firstName,
-                last_name: requestParams.lastName,
-                email: requestParams.email,
-                password: requestParams.password,
-                phone_number: requestParams.phoneNumber,
-                shop_name: requestParams.shopName,
-                logo: requestParams.logo,
-                address_line_1: requestParams.address1,
-                address_line_2: requestParams.address2,
-                address_line_3: requestParams.address3
+            $http.post(urls.add_barber, fd, {
+                //add headers to upload
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
             }).success(function (response) {
                 successCallback(response);
             }).error(function (data) {
@@ -36,7 +41,7 @@ angular.module('app')
         };
         model.loadBarberDetails = function (barberId, successCallback, failureCallback) {
             $http = $injector.get('$http');
-            var url = urls.get_barber.replace('{barberId}',barberId);
+            var url = urls.get_barber.replace('{barberId}', barberId);
             $http.get(url).success(function (response) {
                 console.log(response);
                 successCallback(response);
