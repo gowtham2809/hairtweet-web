@@ -1,24 +1,26 @@
 <div class="hbox hbox-auto-xs hbox-auto-sm" ng-controller="BarberController" ng-init="loadBarberDetails()">
     <div class="col" ng-hide="isLoading">
         <div style="background-size:cover">
+            <div class="wrapper-lg" ng-style="{'background-color': coverColor}">
+                <div class="row m-t">
+                    <div class="col-sm-7">
+                        <a href class="thumb-lg pull-left m-r">
+                            <img src="{{barber.logo}}" class="img-circle box-shadow-light center-crop" vibrant>
+                        </a>
+                        <div class="clear m-b">
+                            <div class="m-b m-t-sm">
+                                <span class="h3 text-white">{{barber.first_name}} {{barber.last_name}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="tab-container">
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab_1">
                         <h1 class="m-n font-thin h3 text-black block inline">Barber Details</h1>
                         <a class="h5 text-primary m-l-sm" ng-click="setEditMode(true)" ng-hide="inEditMode"> Edit</a>
                         <div class="form-horizontal m-t" ng-hide="inEditMode">
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label font-bold">Shop Logo</label>
-                                <div class="col-sm-6">
-                                    <img ng-src="{{barber.logo}}" class="thumb-lg img-circle center-crop">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label font-bold">Name</label>
-                                <div class="col-sm-3">
-                                    <div class="control-label-form ">{{barber.first_name}}{{barber.last_name}}</div>
-                                </div>
-                            </div>
                             <div class="form-group" ng-if="getBarberAddress(barber) != null">
                                 <label class="col-sm-2 control-label font-bold">Address</label>
                                 <div class="col-sm-3">
@@ -50,51 +52,54 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label font-bold">Shop Logo</label>
                                 <div class="col-sm-6">
-                                    <img ng-src="{{barber.logo}}" class="thumb-lg img-circle center-crop">
-                                    <input type="file" nv-file-select="" class="m-t" file-model="myFile"/>
+                                    <input type="file" nv-file-select="" class="m-t"
+                                           file-model="myFile"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label font-bold">First Name</label>
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control input-sm"
-                                           value="{{barber.first_name}}">
+                                           value="{{barberCopy.first_name}}" ng-model="barberCopy.first_name">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label font-bold">Last Name</label>
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control input-sm"
-                                           value="{{barber.last_name}}">
+                                           value="{{barberCopy.last_name}}" ng-model="barberCopy.last_name">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label font-bold">Address</label>
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control input-sm m-b"
-                                           value="{{barber.address_line_1}}">
+                                           value="{{barberCopy.address_line_1}}" ng-model="barberCopy.address_line_1">
                                     <input type="text" class="form-control input-sm m-b"
-                                           value="{{barber.address_line_2}}">
+                                           value="{{barberCopy.address_line_2}}" ng-model="barberCopy.address_line_2">
                                     <input type="text" class="form-control input-sm"
-                                           value="{{barber.address_line_3}}">
+                                           value="{{barberCopy.address_line_3}}" ng-model="barberCopy.address_line_3">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label font-bold">Phone</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control input-sm" value="{{barber.phone_number}}">
+                                    <input type="text" class="form-control input-sm" value="{{barberCopy.phone_number}}"
+                                           ng-model="barberCopy.phone_number">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label font-bold">Email</label>
                                 <div class="col-sm-6">
-                                    <input type="email" class="form-control input-sm" value="{{barber.email}}">
+                                    <input type="email" class="form-control input-sm" value="{{barberCopy.email}}"
+                                           ng-model="barberCopy.email">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label font-bold">Shop Name</label>
                                 <div class="col-sm-6">
-                                    <input type="email" class="form-control input-sm" value="{{barber.shop_name}}">
+                                    <input type="email" class="form-control input-sm" value="{{barberCopy.shop_name}}"
+                                           ng-model="barberCopy.shop_name">
                                 </div>
                             </div>
 

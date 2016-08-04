@@ -11,7 +11,11 @@
 <!-- content -->
 <div class="app-content">
     <!--Butterbar moved to header-->
-    <!--<div ui-butterbar></div>-->
+    <div ui-butterbar></div>
+    <!-- toaster directive -->
+    <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true, 'time-out': 2000,
+    'limit':5, 'tap-to-dismiss':true}"></toaster-container>
+    <!-- / toaster directive -->
     <a href class="off-screen-toggle hide" ui-toggle-class="off-screen" data-target=".app-aside" ></a>
     <div class="app-content-body fade-in-up" ui-view></div>
 </div>
