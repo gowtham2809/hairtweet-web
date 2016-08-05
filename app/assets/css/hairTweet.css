@@ -51,3 +51,9 @@
     -webkit-box-shadow: 0 2px 9px rgba(0, 0, 0, 0.20);
     box-shadow: 0 2px 9px rgba(0, 0, 0, 0.20);
 }
+
+.text-ellipses {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

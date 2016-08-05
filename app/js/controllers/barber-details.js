@@ -27,6 +27,10 @@ angular.module('app')
             return BarberModel.getBarberAddress(barber);
         };
         $scope.updateBarber = function () {
+            BarberModel.setBarberActivateState({
+                id: $stateParams.barberId,
+                condition: $scope.barberCopy.is_active
+            }, setSuccess, setFailure);
             BarberModel.updateBarber({
                 id: $stateParams.barberId,
                 first_name: $scope.barberCopy.first_name,
@@ -52,5 +56,15 @@ angular.module('app')
         function updateFailure($message) {
             ToasterService.error(null, $message);
             $rootScope.$broadcast('hideLoading');
+        }
+        function setSuccess(updateResponse) {
+        }
+
+        function setFailure($message) {
+        }
+
+        $scope.isBarberActive = function (barber) {
+            if (_.isUndefined(barber))return;
+            return BarberModel.isBarberActive(barber);
         }
     });

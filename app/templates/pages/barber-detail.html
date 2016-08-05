@@ -14,10 +14,11 @@
                         </div>
                     </div>
                 </div>
+
             </div>
             <div class="tab-container">
                 <div class="tab-content">
-                    <div class="tab-pane active" id="tab_1">
+                    <div>
                         <h1 class="m-n font-thin h3 text-black block inline">Barber Details</h1>
                         <a class="h5 text-primary m-l-sm" ng-click="setEditMode(true)" ng-hide="inEditMode"> Edit</a>
                         <div class="form-horizontal m-t" ng-hide="inEditMode">
@@ -60,46 +61,61 @@
                                 <label class="col-sm-2 control-label font-bold">First Name</label>
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control input-sm"
-                                           value="{{barberCopy.first_name}}" ng-model="barberCopy.first_name">
+                                           value="{{barberCopy.first_name}}" placeholder="first name"
+                                           ng-model="barberCopy.first_name">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label font-bold">Last Name</label>
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control input-sm"
-                                           value="{{barberCopy.last_name}}" ng-model="barberCopy.last_name">
+                                           value="{{barberCopy.last_name}}" placeholder="last name"
+                                           ng-model="barberCopy.last_name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label font-bold">Activate</label>
+                                <div class="col-sm-10">
+                                    <label class="i-switch m-t-xs m-r">
+                                        <input type="checkbox" name="isActive" ng-checked="isBarberActive(barberCopy)"
+                                               ng-model="barberCopy.is_active">
+                                        <i></i>
+                                    </label>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label font-bold">Address</label>
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control input-sm m-b"
-                                           value="{{barberCopy.address_line_1}}" ng-model="barberCopy.address_line_1">
+                                           value="{{barberCopy.address_line_1}}" placeholder="address"
+                                           ng-model="barberCopy.address_line_1">
                                     <input type="text" class="form-control input-sm m-b"
-                                           value="{{barberCopy.address_line_2}}" ng-model="barberCopy.address_line_2">
+                                           value="{{barberCopy.address_line_2}}" placeholder="address"
+                                           ng-model="barberCopy.address_line_2">
                                     <input type="text" class="form-control input-sm"
-                                           value="{{barberCopy.address_line_3}}" ng-model="barberCopy.address_line_3">
+                                           value="{{barberCopy.address_line_3}}" placeholder="address"
+                                           ng-model="barberCopy.address_line_3">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label font-bold">Phone</label>
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control input-sm" value="{{barberCopy.phone_number}}"
-                                           ng-model="barberCopy.phone_number">
+                                           placeholder="phone number" ng-model="barberCopy.phone_number">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label font-bold">Email</label>
                                 <div class="col-sm-6">
                                     <input type="email" class="form-control input-sm" value="{{barberCopy.email}}"
-                                           ng-model="barberCopy.email">
+                                           placeholder="email" ng-model="barberCopy.email">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label font-bold">Shop Name</label>
                                 <div class="col-sm-6">
                                     <input type="email" class="form-control input-sm" value="{{barberCopy.shop_name}}"
-                                           ng-model="barberCopy.shop_name">
+                                           placeholder="shop name" ng-model="barberCopy.shop_name">
                                 </div>
                             </div>
 

@@ -1,110 +1,117 @@
-<div  ng-controller="AddBarberController">
+<div ng-controller="AddBarberController">
 
-        <!--<form name="addBarberForm" class="form-validation" novalidate>-->
+    <!--<form name="addBarberForm" class="form-validation" novalidate>-->
 
-            <!--<div class="list-group list-group-sm">-->
-                <!--<div class="list-group-item">-->
-                    <!--<input type="text" class="form-control no-border"-->
-                           <!--ng-model="barber.first_name" required>-->
-                <!--</div>-->
-                <!--<div class="list-group-item">-->
-                    <!--<input type="text" class="form-control no-border"-->
-                           <!--ng-model="barber.last_name" required>-->
-                <!--</div>-->
-                <!--<div class="list-group-item">-->
-                    <!--<input type="email" class="form-control no-border"-->
-                           <!--ng-model="barber.email" required>-->
-                <!--</div>-->
-                <!--<div class="list-group-item">-->
-                    <!--<input type="text" class="form-control no-border"-->
-                           <!--ng-model="barber.phone_number" required>-->
-                <!--</div>-->
-                <!--<div class="list-group-item">-->
-                    <!--<input type="password" class="form-control no-border"-->
-                           <!--ng-model="barber.password" required>-->
-                <!--</div>-->
-                <!--<div class="list-group-item">-->
-                    <!--<input type="text" class="form-control no-border"-->
-                           <!--ng-model="barber.shop_name" required>-->
-                <!--</div>-->
+    <!--<div class="list-group list-group-sm">-->
+    <!--<div class="list-group-item">-->
+    <!--<input type="text" class="form-control no-border"-->
+    <!--ng-model="barber.first_name" required>-->
+    <!--</div>-->
+    <!--<div class="list-group-item">-->
+    <!--<input type="text" class="form-control no-border"-->
+    <!--ng-model="barber.last_name" required>-->
+    <!--</div>-->
+    <!--<div class="list-group-item">-->
+    <!--<input type="email" class="form-control no-border"-->
+    <!--ng-model="barber.email" required>-->
+    <!--</div>-->
+    <!--<div class="list-group-item">-->
+    <!--<input type="text" class="form-control no-border"-->
+    <!--ng-model="barber.phone_number" required>-->
+    <!--</div>-->
+    <!--<div class="list-group-item">-->
+    <!--<input type="password" class="form-control no-border"-->
+    <!--ng-model="barber.password" required>-->
+    <!--</div>-->
+    <!--<div class="list-group-item">-->
+    <!--<input type="text" class="form-control no-border"-->
+    <!--ng-model="barber.shop_name" required>-->
+    <!--</div>-->
 
-            <!--</div>-->
-            <!--<button type="submit" class="btn btn-lg btn-primary btn-block" ng-click="addBarber()" ng-disabled='loginForm.$invalid'>Add</button>-->
-        <!--</form>-->
-    <h1 class="m-n font-thin h3 text-black block inline">Add Barber</h1>
+    <!--</div>-->
+    <!--<button type="submit" class="btn btn-lg btn-primary btn-block" ng-click="addBarber()" ng-disabled='loginForm.$invalid'>Add</button>-->
+    <!--</form>-->
+        <div class="tab-container">
 
-    <form name="addBarberForm" class="form-horizontal m-t" novalidate>
-        <div class="form-group">
-            <label class="col-sm-2 control-label font-bold">Shop Logo</label>
-            <div class="col-sm-6">
-                <!--<input type="file" name="logo" nv-file-select="" class="m-t" uploader="uploader"-->
-                       <!--ng-model="barber.logo"/>-->
-                <!-- to upload image add file-model directive-->
-                <input type = "file" file-model = "barber.myFile"/>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label font-bold">First Name</label>
-            <div class="col-sm-6">
-                <input type="text" class="form-control input-sm" ng-model="barber.first_name" required>
-            </div>
-        </div>
+            <div class="tab-content">
+                <h1 class="m-n font-thin h3 text-black block inline">Add Barber</h1>
 
-        <div class="form-group">
-            <label class="col-sm-2 control-label font-bold">Last Name</label>
-            <div class="col-sm-6">
-                <input type="text" class="form-control input-sm" ng-model="barber.last_name" required>
+                <form name="addBarberForm" class="form-horizontal m-t" novalidate>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label font-bold">Shop Logo</label>
+                        <div class="col-sm-6">
+                            <!--<input type="file" name="logo" nv-file-select="" class="m-t" uploader="uploader"-->
+                            <!--ng-model="barber.logo"/>-->
+                            <!-- to upload image add file-model directive-->
+                            <input type="file" file-model="barber.myFile"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label font-bold">First Name</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control input-sm" placeholder="first name" ng-model="barber.first_name" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label font-bold">Last Name</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control input-sm" placeholder="last name" ng-model="barber.last_name" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label font-bold">Email</label>
+                        <div class="col-sm-6">
+                            <input type="email" class="form-control input-sm" placeholder="email" ng-model="barber.email" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label font-bold">Phone Number</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control input-sm" placeholder="phone number" ng-model="barber.phone_number" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label font-bold">Password</label>
+                        <div class="col-sm-6">
+                            <input type="password" class="form-control input-sm" placeholder="password" ng-model="barber.password" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label font-bold">Shop Name</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control input-sm" placeholder="shop name" ng-model="barber.shop_name" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label font-bold">Address Line 1</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control input-sm" placeholder="address" ng-model="barber.address_line_1" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label font-bold">Address Line 2</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control input-sm" placeholder="address" ng-model="barber.address_line_2" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label font-bold">Address Line 3</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control input-sm" placeholder="address" ng-model="barber.address_line_3" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-2">
+                            <button type="submit" class="btn btn-default">Cancel
+                            </button>
+                            <button type="submit" class="btn btn-primary" ng-click="addBarber()"
+                                    ng-disabled='addBarberForm.$invalid'>Add
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label font-bold">Email</label>
-            <div class="col-sm-6">
-                <input type="email" class="form-control input-sm" ng-model="barber.email" required>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label font-bold">Phone Number</label>
-            <div class="col-sm-6">
-                <input type="text" class="form-control input-sm" ng-model="barber.phone_number" required>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label font-bold">Password</label>
-            <div class="col-sm-6">
-                <input type="password" class="form-control input-sm" ng-model="barber.password" required>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label font-bold">Shop Name</label>
-            <div class="col-sm-6">
-                <input type="text" class="form-control input-sm" ng-model="barber.shop_name" required>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label font-bold">Address Line 1</label>
-            <div class="col-sm-6">
-                <input type="text" class="form-control input-sm" ng-model="barber.address_line_1" required>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label font-bold">Address Line 2</label>
-            <div class="col-sm-6">
-                <input type="text" class="form-control input-sm" ng-model="barber.address_line_2" required>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label font-bold">Address Line 3</label>
-            <div class="col-sm-6">
-                <input type="text" class="form-control input-sm" ng-model="barber.address_line_3" required>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-4 col-sm-offset-2">
-                <button type="submit" class="btn btn-default">Cancel
-                </button>
-                <button type="submit" class="btn btn-primary" ng-click="addBarber()" ng-disabled='addBarberForm.$invalid'>Add</button>
-            </div>
-        </div>
-    </form>
     </div>
 
