@@ -35,9 +35,12 @@ angular.module('app')
 
         model.getAllBarbers = function (requestParams, successCallback, failureCallback) {
             $http = $injector.get('$http');
-            $http.get(urls.get_all_barbers).success(function (response) {
-                console.log(response);
-                successCallback(response);
+            $http.get(urls.get_all_barbers,{
+                params: {
+                    page: requestParams.page
+                }
+            }).success(function (response) {
+                successCallback(response.data);
             }).error(function (data) {
                 failureCallback(data.error.message)
             });

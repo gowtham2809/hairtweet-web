@@ -1,20 +1,38 @@
 <div class="hbox hbox-auto-xs hbox-auto-sm" ng-controller="BarberManageController" ng-init="getAllBarbers()">
+    <div class="bg-light lter b-b wrapper-md">
+        <div class="row">
+            <div class="col-sm-6 col-xs-12">
+                <h1 class="m-n font-thin h3 text-black">Manage Barber</h1>
+                <small class="text-muted">List of barbers available in hairtweet</small>
+            </div>
+        </div>
+    </div>
     <div class="wrapper-md">
-        <div class="list-group list-group-lg list-group-sp col-md-4" ng-repeat="barber in allBarbers">
-            <a ui-sref="app.barber-detail({barberId:barber.id})" class="list-group-item clearfix">
-            <div class="mx-w-xl m-b-xs ">
-                    <span class="h3 text-primary">{{barber.first_name}} {{barber.last_name}}</span>
-                </div>
-                <div class="mx-w m-b-xs"><i class="glyphicon glyphicon-earphone m-r-xs"></i>
-                    {{barber.phone_number}}
-                </div>
-                <div class="mx-w-lg m-b-xs"><i class="icon-envelope-open m-r-xs"></i>
-                    {{barber.email}}
-                </div>
-                <div class="text-ellipses">
-                    Shop Name : {{barber.shop_name}}
-                </div>
-            </a>
+        <div infinite-scroll="nextPage()" infinite-scroll-disabled="isBusy" infinite-scroll-distance='1'>
+            <div class="list-group list-group-lg list-group-sp col-md-6" ng-repeat="barber in allBarbers">
+                <a ui-sref="app.barber-detail({barberId:barber.id})" class="list-group-item clearfix">
+                    <div class="col-sm-9">
+                        <div class="mx-w-xl m-b-xs ">
+                            <span class="h3 text-primary">{{barber.first_name}} {{barber.last_name}}</span>
+                            <button class="badge badge-sm btn-info" ng-if="barber.is_active == 0">
+                                inactive
+                            </button>
+                        </div>
+                        <div class="mx-w m-b-xs"><i class="glyphicon glyphicon-earphone m-r-xs"></i>
+                            {{barber.phone_number}}
+                        </div>
+                        <div class="mx-w-lg m-b-xs"><i class="icon-envelope-open m-r-xs"></i>
+                            {{barber.email}}
+                        </div>
+                        <div class="text-ellipses mx-w-lg">
+                            Shop Name : {{barber.shop_name}}
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <img src="{{barber.logo}}" class="pull-right thumb-lg img-circle box-shadow-light center-crop">
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
 </div>

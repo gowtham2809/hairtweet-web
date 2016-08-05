@@ -11,6 +11,7 @@ angular.module('app')
         ],
         user: ['js/models/user.js'],
         barber: ['js/models/barber.js'],
+        customer:['js/models/customer.js'],
         screenfull: ['bower_components/screenfull/dist/screenfull.js']
     })
     .constant('MODULE_CONFIG', [
