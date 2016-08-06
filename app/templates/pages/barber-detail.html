@@ -1,4 +1,5 @@
-<div class="hbox hbox-auto-xs hbox-auto-sm" ng-controller="BarberController" ng-init="loadBarberDetails()">
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-controller="BarberController"
+     ng-init="loadBarberDetails()||getServices()">
     <div class="col" ng-hide="isLoading">
         <div style="background-size:cover">
             <div class="wrapper-lg" ng-style="{'background-color': coverColor}">
@@ -14,13 +15,19 @@
                         </div>
                     </div>
                 </div>
-
+            </div>
+            <div class="wrapper bg-white b-b">
+                <ul class="nav nav-pills nav-sm">
+                    <li class="active"><a href data-toggle="tab" data-target="#tab_1">Info</a></li>
+                    <li><a href data-toggle="tab" data-target="#tab_2">Services</a></li>
+                </ul>
             </div>
             <div class="tab-container">
                 <div class="tab-content">
-                    <div>
+                    <div class="tab-pane active" id="tab_1">
                         <h1 class="m-n font-thin h3 text-black block inline">Barber Details</h1>
-                        <a class="h5 text-primary m-l-sm" ng-click="setEditMode(true)" ng-hide="inEditMode"> Edit</a>
+                        <a class="h5 text-primary m-l-sm" ng-click="setEditMode(true)" ng-hide="inEditMode">
+                            Edit</a>
                         <div class="form-horizontal m-t" ng-hide="inEditMode">
                             <div class="form-group" ng-if="getBarberAddress(barber) != null">
                                 <label class="col-sm-2 control-label font-bold">Address</label>
@@ -130,8 +137,50 @@
                             </div>
                         </form>
                     </div>
+                    <div class="tab-pane" id="tab_2">
+                        <h1 class="m-n font-thin h3 text-black block inline">Barber Services</h1>
+                        <div class="wrapper-md">
+                            <div class="panel panel-default">
+                                <table st-table="rowCollectionBasic" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Service Name</th>
+                                        <th>Duration</th>
+                                        <th>Cost</th>
+                                        <th>Discount</th>
+                                        <th>Discount Type</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="service in services">
+                                        <td>{{service.service_name}}</td>
+                                        <td>{{service.duration}}</td>
+                                        <td>{{service.cost}}</td>
+                                        <td>{{service.discount}}</td>
+                                        <td>{{service.discount_type.type}}</td>
+                                        <td><a class="h5 text-primary m-l-sm" ng-click="open('lg',$index)">
+                                            Edit</a>
+                                            <a class="h5 text-danger m-l-sm" ng-click="openDeleteService('md',service.id)">
+                                                Delete</a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!--Update service Model START-->
+    <script type="text/ng-template" id="updateServiceModel.html">
+        <div ng-include="'templates/modals/update-service.html'"></div>
+    </script>
+    <!--Update service Model END-->
+
+    <script type="text/ng-template" id="deleteServiceModel.html">
+        <div ng-include="'templates/modals/delete-service.html'"></div>
+    </script>
 </div>

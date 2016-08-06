@@ -5,6 +5,7 @@ angular.module('app')
             get_all_barbers: BASE_URL + '/barber/get-all-barber',
             add_barber: BASE_URL + '/admin/add-barber',
             get_barber: BASE_URL + '/barber/{barberId}/detail',
+            get_services :BASE_URL + '/barber/{barberId}/services',
             update_barber: BASE_URL + '/admin/{barberId}/update-barber',
             activate_barber: BASE_URL + '/barber/{barberId}/activate'
         };
@@ -51,6 +52,16 @@ angular.module('app')
             var url = urls.get_barber.replace('{barberId}', barberId);
             $http.get(url).success(function (response) {
                 console.log(response);
+                successCallback(response);
+            }).error(function (data) {
+                failureCallback(data.error.message)
+            });
+        };
+
+        model.getServices =function (barberId ,successCallback,failureCallback) {
+            $http = $injector.get('$http');
+            var url = urls.get_services.replace('{barberId}', barberId);
+            $http.get(url).success(function (response) {
                 successCallback(response);
             }).error(function (data) {
                 failureCallback(data.error.message)

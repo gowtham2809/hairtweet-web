@@ -1,5 +1,68 @@
 angular.module('app')
-    .controller('BarberController', function ($rootScope, $scope, $stateParams, BarberModel, ToasterService) {
+    .controller('ServiceUpdateController', function ($stateParams, $scope, $modalInstance, $log, service, ServiceModel,ToasterService,$rootScope) {
+        $scope.service = service;
+        $scope.updateService = function () {
+            console.log($scope.service.singleSelect);
+            ServiceModel.updateService({
+                barberId: $stateParams.barberId,
+                id: $scope.service.id,
+                service_name: $scope.service.service_name,
+                duration: $scope.service.duration,
+                cost: $scope.service.cost,
+                discount: $scope.service.discount,
+                discount_type: $scope.service.singleSelect
+            }, updateServiceSuccess, updateServiceFailure);
+            $rootScope.$broadcast('showLoading');
+        };
+        function updateServiceSuccess(updateResponse) {
+            ToasterService.success(null, "Update successful!");
+            $rootScope.$broadcast('hideLoading');
+        }
+
+        function updateServiceFailure($message) {
+            ToasterService.error(null, $message);
+            $rootScope.$broadcast('hideLoading');
+        }
+    });
+
+angular.module('app')
+    .controller('BarberController', function ($rootScope, $scope, $stateParams, BarberModel, ToasterService, $modal, $log) {
+        $scope.open = function (size, selectedServicePos) {
+            var modalInstance = $modal.open({
+                templateUrl: 'updateServiceModel.html',
+                controller: 'ServiceUpdateController',
+                size: size,
+                resolve: {
+                    service: function () {
+                        return $scope.services[selectedServicePos];
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+        };
+        $scope.openDeleteService = function (size, id) {
+            var modalInstance = $modal.open({
+                templateUrl: 'deleteServiceModel.html',
+                controller: 'ServiceUpdateController',
+                size: size,
+                resolve: {
+                    id: function () {
+                        return $scope.services[selectedServicePos];
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+        };
         $scope.inEditMode = false;
         $scope.coverColor = "#78686F";
 
@@ -7,12 +70,6 @@ angular.module('app')
         BarberModel.loadBarberDetails($stateParams.barberId,
             getBarberSuccess, getBarberFailure);
 
-        $scope.setEditMode = function (state) {
-            if (state == true)
-            // deep copy
-                $scope.barberCopy = angular.copy($scope.barber);
-            $scope.inEditMode = state;
-        };
         function getBarberSuccess(response) {
             $scope.barber = response.data.barber;
             $rootScope.$broadcast('hideLoading');
@@ -22,6 +79,27 @@ angular.module('app')
             $rootScope.$broadcast('hideLoading');
             $scope.barber = [];
         }
+
+        BarberModel.getServices($stateParams.barberId,
+            getServiceSuccess, getServiceFailure);
+
+        function getServiceSuccess(response) {
+            $scope.services = response.data.services;
+            $rootScope.$broadcast('hideLoading');
+        }
+
+        function getServiceFailure() {
+            $rootScope.$broadcast('hideLoading');
+            $scope.services = [];
+        }
+
+        $scope.setEditMode = function (state) {
+            if (state == true)
+            // deep copy
+                $scope.barberCopy = angular.copy($scope.barber);
+            $scope.inEditMode = state;
+        };
+
 
         $scope.getBarberAddress = function (barber) {
             return BarberModel.getBarberAddress(barber);
@@ -57,6 +135,7 @@ angular.module('app')
             ToasterService.error(null, $message);
             $rootScope.$broadcast('hideLoading');
         }
+
         function setSuccess(updateResponse) {
         }
 
@@ -66,5 +145,5 @@ angular.module('app')
         $scope.isBarberActive = function (barber) {
             if (_.isUndefined(barber))return;
             return BarberModel.isBarberActive(barber);
-        }
+        };
     });

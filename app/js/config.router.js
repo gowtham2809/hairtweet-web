@@ -30,9 +30,19 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, JQ_CONFI
             templateUrl: 'templates/pages/barber-detail.html',
             resolve: load(['js/controllers/barber-details.js', 'barber'])
         })
+        .state('app.barber-services', {
+            url: '/barber/services/:barberId',
+            templateUrl: 'templates/pages/barber-detail.html',
+            resolve: load(['js/controllers/barber-details.js', 'barber'])
+        })
         .state('app.update-barber', {
             url: '/update-barber/:barberId',
             templateUrl: 'templates/pages/update-barber.html',
+            resolve: load(['js/controllers/barber-details.js', 'barber'])
+        })
+        .state('app.update-service', {
+            url: '/update-service/:serviceId',
+            templateUrl: 'templates/modals/update-service.html',
             resolve: load(['js/controllers/barber-details.js', 'barber'])
         })
         .state('app.active-barber', {

@@ -10,7 +10,7 @@ angular.module('app')
             'js/models/token.js'
         ],
         user: ['js/models/user.js'],
-        barber: ['js/models/barber.js'],
+        barber: ['js/models/barber.js','js/models/service.js'],
         customer:['js/models/customer.js'],
         screenfull: ['bower_components/screenfull/dist/screenfull.js']
     })
