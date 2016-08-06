@@ -1,32 +1,38 @@
 angular.module('app')
-    .controller('ServiceUpdateController', function ($stateParams, $scope, $modalInstance, $log, service, ServiceModel,ToasterService,$rootScope) {
+    .controller('ServiceUpdateController', function ($stateParams, $scope, $modalInstance, $log, service, ServiceModel, ToasterService, $rootScope) {
         $scope.service = service;
         $scope.updateService = function () {
-            console.log($scope.service.singleSelect);
             ServiceModel.updateService({
                 barberId: $stateParams.barberId,
                 id: $scope.service.id,
                 service_name: $scope.service.service_name,
-                duration: $scope.service.duration,
+                duration: $scope.service.duration_in_minutes,
                 cost: $scope.service.cost,
                 discount: $scope.service.discount,
-                discount_type: $scope.service.singleSelect
+                discount_type: $scope.service.discount_type_id
             }, updateServiceSuccess, updateServiceFailure);
             $rootScope.$broadcast('showLoading');
         };
         function updateServiceSuccess(updateResponse) {
             ToasterService.success(null, "Update successful!");
             $rootScope.$broadcast('hideLoading');
+            $scope.close();
         }
 
         function updateServiceFailure($message) {
             ToasterService.error(null, $message);
             $rootScope.$broadcast('hideLoading');
         }
-    });
 
+        $scope.close = function () {
+            $modalInstance.dismiss('cancel');
+        };
+    });
 angular.module('app')
-    .controller('BarberController', function ($rootScope, $scope, $stateParams, BarberModel, ToasterService, $modal, $log) {
+    .controller('ServiceDeleteController', function ($stateParams, $scope, $modalInstance, $log, id, ServiceModel, ToasterService, $rootScope) {
+    });
+angular.module('app')
+    .controller('BarberController', function ($rootScope, $scope, $stateParams, BarberModel, ServiceModel, ToasterService, $modal, $log) {
         $scope.open = function (size, selectedServicePos) {
             var modalInstance = $modal.open({
                 templateUrl: 'updateServiceModel.html',
@@ -48,11 +54,11 @@ angular.module('app')
         $scope.openDeleteService = function (size, id) {
             var modalInstance = $modal.open({
                 templateUrl: 'deleteServiceModel.html',
-                controller: 'ServiceUpdateController',
+                controller: 'ServiceDeleteController',
                 size: size,
                 resolve: {
                     id: function () {
-                        return $scope.services[selectedServicePos];
+                        return id;
                     }
                 }
             });
@@ -146,4 +152,8 @@ angular.module('app')
             if (_.isUndefined(barber))return;
             return BarberModel.isBarberActive(barber);
         };
+
+        $scope.getFormattedServiceTime = function (duration) {
+            return ServiceModel.getFormattedServiceTime(duration);
+        }
     });

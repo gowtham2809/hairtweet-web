@@ -1,54 +1,55 @@
-    <div class="wrapper-lg">
-        <h1 class="m-n font-thin h3 text-black block inline">Update Service</h1>
-        <div class="line line-dashed b-b line-lg pull-in"></div>
-        <form class="form-horizontal m-t" novalidate>
-            <div class="form-group">
-                <label class="col-sm-2 control-label font-bold">Service Name</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control input-sm"
-                           value="{{service.service_name}}" placeholder="service name"
-                           ng-model="service.service_name">
-                </div>
+<div class="wrapper-lg">
+    <h1 class="m-n font-thin h3 text-black block inline">Update Service</h1>
+    <div class="line line-dashed b-b line-lg pull-in"></div>
+    <form class="form-horizontal m-t" novalidate>
+        <div class="form-group">
+            <label class="col-sm-2 control-label font-bold">Service Name</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control input-sm"
+                       value="{{service.service_name}}" placeholder="service name"
+                       ng-model="service.service_name">
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label font-bold">Duration</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control input-sm"
-                           value="{{service.duration}}" placeholder="duration"
-                           ng-model="service.duration">
-                </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label font-bold">Duration</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control input-sm"
+                       value= "{{service.duration_in_minutes}}"
+                       placeholder="duration"
+                       ng-model="service.duration_in_minutes">
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label font-bold">Cost</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control input-sm"
-                           value="{{service.cost}}" placeholder="cost"
-                           ng-model="service.cost">
-                </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label font-bold">Cost</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control input-sm"
+                       value="{{service.cost}}" placeholder="cost"
+                       ng-model="service.cost">
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label font-bold">Discount</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control input-sm"
-                           value="{{service.discount}}" placeholder="discount"
-                           ng-model="service.discount">
-                </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label font-bold">Discount</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control input-sm"
+                       value="{{service.discount}}" placeholder="discount"
+                       ng-model="service.discount">
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Discount Type</label>
-                <div class="col-sm-10">
-                    <select class="input-sm" name="singleSelect" ng-model="service.singleSelect">
-                        <option  value="1" ng-selected="service.discount_type.id == 1">None</option>
-                        <option  value="2" ng-selected="service.discount_type.id == 2">Amount</option>
-                        <option  value="3" ng-selected="service.discount_type.id == 3">Percentage</option>
-                    </select>
-                </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Discount Type</label>
+            <div class="col-sm-10">
+                <select class="input-sm" name="discountType" ng-model="service.discount_type_id">
+                    <option value="1" ng-selected="service.discount_type.id == 1">None</option>
+                    <option value="2" ng-selected="service.discount_type.id == 2">Amount</option>
+                    <option value="3" ng-selected="service.discount_type.id == 3">Percentage</option>
+                </select>
             </div>
-            <div class="form-group">
-                <div class="col-sm-4 col-sm-offset-2">
-                    <button type="submit" class="btn btn-default">Cancel</button>
-                    <button type="submit" class="btn btn-primary" ng-click="updateService()">Save changes</button>
-                </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-4 col-sm-offset-2">
+                <button type="submit" class="btn btn-default" ng-click="close()">Cancel</button>
+                <button type="submit" class="btn btn-primary" ng-click="updateService()">Save changes</button>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
+</div>

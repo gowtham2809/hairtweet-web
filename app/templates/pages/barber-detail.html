@@ -155,13 +155,14 @@
                                     <tbody>
                                     <tr ng-repeat="service in services">
                                         <td>{{service.service_name}}</td>
-                                        <td>{{service.duration}}</td>
+                                        <td>{{getFormattedServiceTime(service.duration_in_minutes)}}</td>
                                         <td>{{service.cost}}</td>
                                         <td>{{service.discount}}</td>
                                         <td>{{service.discount_type.type}}</td>
                                         <td><a class="h5 text-primary m-l-sm" ng-click="open('lg',$index)">
                                             Edit</a>
-                                            <a class="h5 text-danger m-l-sm" ng-click="openDeleteService('md',service.id)">
+                                            <a class="h5 text-danger m-l-sm"
+                                               ng-click="openDeleteService('md',service.id)">
                                                 Delete</a></td>
                                     </tr>
                                     </tbody>
