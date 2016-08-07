@@ -1,4 +1,4 @@
-<div class="hbox hbox-auto-xs hbox-auto-sm" ng-controller="CustomerManageController" ng-init="getAllCustomers()">
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-controller="CustomerManageController as customerCtrl">
     <div class="bg-light lter b-b wrapper-md">
         <div class="row">
             <div class="col-sm-6 col-xs-12">
@@ -8,9 +8,10 @@
         </div>
     </div>
     <div class="wrapper-md">
-        <div infinite-scroll="next()" infinite-scroll-disabled="isBusy" infinite-scroll-distance='1'>
-            <div class="list-group list-group-lg list-group-sp col-md-4" ng-repeat="customer in allCustomers">
-                <a  class="list-group-item clearfix">
+        <div infinite-scroll="nextPage()" infinite-scroll-disabled="customerCtrl.busy" infinite-scroll-distance="1">
+            <div class="row" ng-repeat="row in allCustomers">
+                <div class="list-group list-group-lg list-group-sp col-md-4" ng-repeat="customer in row">
+                    <a class="list-group-item clearfix">
                         <div class="mx-w-xl m-b-xs ">
                             <span class="h3 text-primary">{{customer.first_name}} {{customer.last_name}}</span>
 
@@ -21,8 +22,10 @@
                         <div class="mx-w-lg m-b-xs"><i class="icon-envelope-open m-r-xs"></i>
                             {{customer.email}}
                         </div>
-                </a>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 </div>
+

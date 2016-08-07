@@ -8,7 +8,6 @@
         </div>
     </div>
     <div class="wrapper-md">
-        {{barberCtrl.busy}}
         <div infinite-scroll="nextPage()" infinite-scroll-disabled="barberCtrl.busy" infinite-scroll-distance="1">
             <div class="row" ng-repeat="row in allBarbers">
                 <div class="list-group list-group-lg list-group-sp col-md-6" ng-repeat="barber in row">
