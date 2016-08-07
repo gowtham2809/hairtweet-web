@@ -28,9 +28,11 @@ angular.module('app')
             $modalInstance.dismiss('cancel');
         };
     });
+
 angular.module('app')
     .controller('ServiceDeleteController', function ($stateParams, $scope, $modalInstance, $log, id, ServiceModel, ToasterService, $rootScope) {
     });
+
 angular.module('app')
     .controller('BarberController', function ($rootScope, $scope, $stateParams, BarberModel, ServiceModel, ToasterService, $modal, $log) {
         $scope.open = function (size, selectedServicePos) {

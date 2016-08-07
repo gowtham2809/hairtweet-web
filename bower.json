@@ -91,7 +91,7 @@
     "angular-touch": "1.4.7",
     "fullcalendar": "~2.7.1",
     "moment": ">=2.5.0",
-    "angular": "1.5.8",
+    "angular": "1.2.30",
     "screenfull": "^3.0.0"
   }
 }

@@ -2,9 +2,10 @@ angular.module('app')
     .controller('BarberManageController', function ($rootScope, $scope, BarberModel) {
         var controller = this;
         $scope.allBarbers = [];
-        $scope.isBusy = false;
+        controller.busy = false;
         controller.page = 1;
         controller.hasMore = true;
+        var tempArray = [];
 
         $scope.nextPage = function () {
             if (controller.busy || !controller.hasMore)
@@ -17,22 +18,28 @@ angular.module('app')
         };
 
         function getAllBarbersSuccess(response) {
-            console.log(response);
             var barbers = response.barbers.data;
             for (var i = 0; i < barbers.length; i++) {
-                $scope.allBarbers.push(barbers[i]);
+                tempArray.push(barbers[i]);
+                if (tempArray.length >= 2) {
+                    $scope.allBarbers.push(tempArray);
+                    tempArray = [];
+                }
             }
             controller.page++;
             if (response.barbers.last_page < controller.page) {
                 controller.hasMore = false;
+                // push the remaining array
+                $scope.allBarbers.push(tempArray);
+                tempArray = [];
             }
             controller.busy = false;
-            $rootScope.$broadcast('hideLoading');        }
+            $rootScope.$broadcast('hideLoading');
+        }
 
         function getAllBarbersFailure() {
             $scope.allBarbers = [];
         }
-
     })
 ;
 
