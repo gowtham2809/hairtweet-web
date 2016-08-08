@@ -10,7 +10,7 @@
     <div class="wrapper-md">
         <div infinite-scroll="nextPage()" infinite-scroll-disabled="barberCtrl.busy" infinite-scroll-distance="1">
             <div class="row" ng-repeat="row in allBarbers">
-                <a class="list-group list-group-lg list-group-sp col-md-6" ng-repeat="barber in row">
+                <div class="list-group list-group-lg list-group-sp col-md-6" ng-repeat="barber in row">
                     <a ui-sref="app.barber-detail({barberId:barber.id})" class="list-group-item clearfix">
                         <div class="col-sm-9">
                             <div class="mx-w-xl m-b-xs ">
