@@ -8,5 +8,5 @@ var app = angular.module('app')
             app.constant = $provide.constant;
             app.value = $provide.value;
         })
-        .constant('BASE_URL', 'http://localhost:8888/api-admin/v1')
+        .constant('BASE_URL', 'http://hairtweet-api.tartlabs.com/api-admin/v1')
         .constant('DEBUG_ENABLED', true);
