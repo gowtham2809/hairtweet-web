@@ -2,7 +2,8 @@ angular.module('app')
     .service('ServiceModel', function ($injector, BASE_URL) {
         var model = this;
         var urls = {
-            update_service: BASE_URL + '/services/{serviceId}/update'
+            update_service: BASE_URL + '/services/{serviceId}/update',
+            delete_service: BASE_URL + '/services/{serviceId}/delete'
         };
 
         model.updateService = function (requestParams, successCallback, failureCallback) {
@@ -16,6 +17,17 @@ angular.module('app')
                 discount: requestParams.discount,
                 discount_type_id: requestParams.discount_type
             }).success(function (response) {
+                successCallback(response);
+            }).error(function (data, status) {
+                failureCallback(data.error.message)
+            });
+        };
+
+        model.deleteService = function (requestParams, successCallback, failureCallback) {
+            var url = urls.delete_service.replace('{serviceId}', requestParams.id);
+            return $http.post(url, {
+                    barber_id: requestParams.barberId
+                }).success(function (response) {
                 successCallback(response);
             }).error(function (data, status) {
                 failureCallback(data.error.message)

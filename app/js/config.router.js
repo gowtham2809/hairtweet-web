@@ -45,6 +45,11 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, JQ_CONFI
             templateUrl: 'templates/modals/update-service.html',
             resolve: load(['js/controllers/barber-details.js', 'barber'])
         })
+        .state('app.delete-service', {
+            url: '/delete-service/:serviceId',
+            templateUrl: 'templates/modals/delete-service.html',
+            resolve: load(['js/controllers/barber-details.js', 'barber'])
+        })
         .state('app.active-barber', {
             url: '/active-barber/:barberId',
             templateUrl: 'templates/pages/barber-detail.html',

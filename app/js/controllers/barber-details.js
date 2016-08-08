@@ -31,6 +31,29 @@ angular.module('app')
 
 angular.module('app')
     .controller('ServiceDeleteController', function ($stateParams, $scope, $modalInstance, $log, id, ServiceModel, ToasterService, $rootScope) {
+        $scope.id = id;
+        $scope.deleteService = function () {
+            console.log($stateParams.barberId);
+            ServiceModel.deleteService({
+                barberId: $stateParams.barberId,
+                id: id
+            }, deleteServiceSuccess, deleteServiceFailure);
+            $rootScope.$broadcast('showLoading');
+        };
+        function deleteServiceSuccess(deleteResponse) {
+            ToasterService.success(null, "Deleted successful!");
+            $rootScope.$broadcast('hideLoading');
+            $scope.close();
+        }
+
+        function deleteServiceFailure($message) {
+            ToasterService.error(null, $message);
+            $rootScope.$broadcast('hideLoading');
+        }
+
+        $scope.close = function () {
+            $modalInstance.dismiss('cancel');
+        };
     });
 
 angular.module('app')
