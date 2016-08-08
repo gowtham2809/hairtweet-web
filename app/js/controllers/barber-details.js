@@ -57,6 +57,33 @@ angular.module('app')
     });
 
 angular.module('app')
+    .controller('BookingApproveController', function ($stateParams, $scope, $modalInstance, $log, id, BookingModel, ToasterService, $rootScope) {
+        $scope.id = id;
+        $scope.approveBooking = function () {
+            BookingModel.approveBooking({
+                id: id,
+                barberId:$stateParams.barberId
+            }, approveBookingSuccess, approveBookingFailure);
+            $rootScope.$broadcast('showLoading');
+        };
+        function approveBookingSuccess(approveResponse) {
+            ToasterService.success(null, "Approved successful!");
+            $rootScope.$broadcast('hideLoading');
+            $scope.close();
+        }
+
+        function approveBookingFailure($message) {
+            ToasterService.error(null, $message);
+            $rootScope.$broadcast('hideLoading');
+        }
+
+        $scope.close = function () {
+            $modalInstance.dismiss('cancel');
+        };
+    });
+
+
+angular.module('app')
     .controller('BarberController', function ($rootScope, $scope, $stateParams, BarberModel, ServiceModel, ToasterService, $modal, $log) {
         $scope.open = function (size, selectedServicePos) {
             var modalInstance = $modal.open({
@@ -94,6 +121,24 @@ angular.module('app')
                 $log.info('Modal dismissed at: ' + new Date());
             });
         };
+        $scope.openApproveBooking = function (size, id) {
+            var modalInstance = $modal.open({
+                templateUrl: 'approveBookingModel.html',
+                controller: 'BookingApproveController',
+                size: size,
+                resolve: {
+                    id: function () {
+                        return id;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+        };
         $scope.inEditMode = false;
         $scope.coverColor = "#78686F";
 
@@ -113,7 +158,6 @@ angular.module('app')
 
         BarberModel.getServices($stateParams.barberId,
             getServiceSuccess, getServiceFailure);
-
         function getServiceSuccess(response) {
             $scope.services = response.data.services;
             $rootScope.$broadcast('hideLoading');
@@ -122,6 +166,18 @@ angular.module('app')
         function getServiceFailure() {
             $rootScope.$broadcast('hideLoading');
             $scope.services = [];
+        }
+
+        BarberModel.getBookings($stateParams.barberId,
+            getBookingSuccess, getBookingFailure);
+        function getBookingSuccess(response) {
+            $scope.bookings = response.data.bookings;
+            $rootScope.$broadcast('hideLoading');
+        }
+
+        function getBookingFailure() {
+            $rootScope.$broadcast('hideLoading');
+            $scope.bookings = [];
         }
 
         $scope.setEditMode = function (state) {
