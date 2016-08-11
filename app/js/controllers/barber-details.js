@@ -33,7 +33,6 @@ angular.module('app')
     .controller('ServiceDeleteController', function ($stateParams, $scope, $modalInstance, $log, id, ServiceModel, ToasterService, $rootScope) {
         $scope.id = id;
         $scope.deleteService = function () {
-            console.log($stateParams.barberId);
             ServiceModel.deleteService({
                 barberId: $stateParams.barberId,
                 id: id
@@ -78,8 +77,9 @@ angular.module('app')
         }
 
         $scope.close = function () {
-            $modalInstance.dismiss('cancel');
+            $approveBooking.dismiss('cancel');
         };
+
     });
 
 
@@ -87,7 +87,7 @@ angular.module('app')
     .controller('BarberController', function ($rootScope, $scope, $stateParams, BarberModel, ServiceModel, ToasterService, $modal, $log) {
         $scope.open = function (size, selectedServicePos) {
             var modalInstance = $modal.open({
-                templateUrl: 'updateServiceModel.html',
+                templateUrl: 'updateServiceModal.html',
                 controller: 'ServiceUpdateController',
                 size: size,
                 resolve: {
@@ -105,26 +105,8 @@ angular.module('app')
         };
         $scope.openDeleteService = function (size, id) {
             var modalInstance = $modal.open({
-                templateUrl: 'deleteServiceModel.html',
+                templateUrl: 'deleteServiceModal.html',
                 controller: 'ServiceDeleteController',
-                size: size,
-                resolve: {
-                    id: function () {
-                        return id;
-                    }
-                }
-            });
-
-            modalInstance.result.then(function (selectedItem) {
-                $scope.selected = selectedItem;
-            }, function () {
-                $log.info('Modal dismissed at: ' + new Date());
-            });
-        };
-        $scope.openApproveBooking = function (size, id) {
-            var modalInstance = $modal.open({
-                templateUrl: 'approveBookingModel.html',
-                controller: 'BookingApproveController',
                 size: size,
                 resolve: {
                     id: function () {
@@ -237,4 +219,24 @@ angular.module('app')
         $scope.getFormattedServiceTime = function (duration) {
             return ServiceModel.getFormattedServiceTime(duration);
         }
+
+        $scope.openApproveBooking = function (size, id) {
+            console.log('atatag');
+            var modalInstance = $modal.open({
+                templateUrl: 'approveBookingModal.html',
+                controller: 'BookingApproveController',
+                size: size,
+                resolve: {
+                    id: function () {
+                        return id;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+        };
     });

@@ -83,6 +83,13 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="col-sm-2 control-label font-bold">Shop Name</label>
+                                <div class="col-sm-6">
+                                    <input type="email" class="form-control input-sm" value="{{barberCopy.shop_name}}"
+                                           placeholder="shop name" ng-model="barberCopy.shop_name">
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-sm-2 control-label font-bold">Activate</label>
                                 <div class="col-sm-10">
                                     <label class="i-switch m-t-xs m-r">
@@ -120,14 +127,6 @@
                                            placeholder="email" ng-model="barberCopy.email">
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label font-bold">Shop Name</label>
-                                <div class="col-sm-6">
-                                    <input type="email" class="form-control input-sm" value="{{barberCopy.shop_name}}"
-                                           placeholder="shop name" ng-model="barberCopy.shop_name">
-                                </div>
-                            </div>
-
                             <!--Submit button-->
                             <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-2">
@@ -164,7 +163,7 @@
                                         <td><a class="h5 text-primary m-l-sm" ng-click="open('lg',$index)">
                                             Edit</a>
                                             <a class="h5 text-danger m-l-sm"
-                                               ng-click="openDeleteService('sm',service.id)">
+                                               ng-click="openDeleteService('sm',service)">
                                                 Delete</a></td>
                                     </tr>
                                     </tbody>
@@ -197,8 +196,8 @@
                                         <td>{{booking.total}}</td>
                                         <td><a class="h5 text-primary m-l-sm" ng-click="openApproveBooking('sm',booking.id)">
                                             Approve</a>
-                                            <a class="h5 text-primary m-l-sm">
-                                                Proposed</a></td>
+                                            <a class="h5 text-info m-l-sm">
+                                                Propose</a></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -220,16 +219,16 @@
     </div>
 
     <!--Update service Model START-->
-    <script type="text/ng-template" id="updateServiceModel.html">
+    <script type="text/ng-template" id="updateServiceModal.html">
         <div ng-include="'templates/modals/update-service.html'"></div>
     </script>
     <!--Update service Model END-->
 
-    <script type="text/ng-template" id="deleteServiceModel.html">
+    <script type="text/ng-template" id="deleteServiceModal.html">
         <div ng-include="'templates/modals/delete-service.html'"></div>
     </script>
 
-    <script type="text/ng-template" id="approveBookingModel.html">
+    <script type="text/ng-template" id="approveBookingModal.html">
         <div ng-include="'templates/modals/approve-booking.html'"></div>
     </script>
 </div>

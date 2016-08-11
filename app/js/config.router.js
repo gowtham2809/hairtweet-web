@@ -41,13 +41,13 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, JQ_CONFI
             resolve: load(['js/controllers/barber-details.js', 'barber'])
         })
         .state('app.approve-booking', {
-            url: '/approve/booking/:id',
+            url: '/approve/booking/:bookingId',
             templateUrl: 'templates/pages/barber-detail.html',
             resolve: load(['js/controllers/barber-details.js', 'booking'])
         })
         .state('app.update-barber', {
             url: '/update-barber/:barberId',
-            templateUrl: 'templates/pages/update-barber.html',
+            templateUrl: 'templates/pages/barber-detail.html',
             resolve: load(['js/controllers/barber-details.js', 'barber'])
         })
         .state('app.update-service', {
