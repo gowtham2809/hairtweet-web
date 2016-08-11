@@ -1,5 +1,5 @@
 <div class="hbox hbox-auto-xs hbox-auto-sm" ng-controller="BarberController"
-     ng-init="loadBarberDetails()||getServices()||getBookings()||approveBooking()">
+     ng-init="loadBarberDetails()||getBookings()||approveBooking()">
     <div class="col" ng-hide="isLoading">
         <div style="background-size:cover">
             <div class="wrapper-lg" ng-style="{'background-color': coverColor}">
@@ -19,7 +19,7 @@
             <div class="wrapper bg-white b-b">
                 <ul class="nav nav-pills nav-sm">
                     <li class="active"><a href data-toggle="tab" data-target="#tab_1">Info</a></li>
-                    <li><a href data-toggle="tab" data-target="#tab_2">Services</a></li>
+                    <li><a href data-toggle="tab" ui-sref="app.barber-detail.services" data-target="#tab_2">Services</a></li>
                     <li><a href data-toggle="tab" data-target="#tab_3">Bookings</a></li>
                     <li><a href data-toggle="tab" data-target="#tab_4">Settings</a></li>
                 </ul>
@@ -138,38 +138,8 @@
                             </div>
                         </form>
                     </div>
-                    <div class="tab-pane" id="tab_2">
-                        <h1 class="m-n font-thin h3 text-black block inline">Barber Services</h1>
-                        <div class="wrapper-md">
-                            <div class="panel panel-default">
-                                <table st-table="rowCollectionBasic"  class="table table-bordered table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>Service Name</th>
-                                        <th>Duration</th>
-                                        <th>Cost</th>
-                                        <th>Discount</th>
-                                        <th>Discount Type</th>
-                                        <th></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr ng-repeat="service in services">
-                                        <td>{{service.service_name}}</td>
-                                        <td>{{getFormattedServiceTime(service.duration_in_minutes)}}</td>
-                                        <td>{{service.cost}}</td>
-                                        <td>{{service.discount}}</td>
-                                        <td>{{service.discount_type.type}}</td>
-                                        <td><a class="h5 text-primary m-l-sm" ng-click="open('lg',$index)">
-                                            Edit</a>
-                                            <a class="h5 text-danger m-l-sm"
-                                               ng-click="openDeleteService('sm',service)">
-                                                Delete</a></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                    <div class="tab-pane" id="tab_2" ng-init="getServices()">
+                        <div ui-view="barber_service"></div>
                     </div>
                     <div class="tab-pane" id="tab_3">
                         <h1 class="m-n font-thin h3 text-black block inline">Barber Bookings</h1>

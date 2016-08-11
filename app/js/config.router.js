@@ -30,10 +30,14 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, JQ_CONFI
             templateUrl: 'templates/pages/barber-detail.html',
             resolve: load(['js/controllers/barber-details.js', 'barber'])
         })
-        .state('app.barber-services', {
-            url: '/barber/services/:barberId',
-            templateUrl: 'templates/pages/barber-detail.html',
-            resolve: load(['js/controllers/barber-details.js', 'barber'])
+        .state('app.barber-detail.services', {
+            url: '/service',
+            views : {
+              'barber_service' : {
+                  templateUrl: 'templates/blocks/barber-detail-services.html'
+              }
+            },
+            resolve: load(['js/controllers/barber-service.js', 'service'])
         })
         .state('app.bookings-barber', {
             url: '/barber/bookings/:barberId',

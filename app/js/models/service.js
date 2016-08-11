@@ -2,8 +2,19 @@ angular.module('app')
     .service('ServiceModel', function ($injector, BASE_URL) {
         var model = this;
         var urls = {
+            get_services: BASE_URL + '/barber/{barberId}/services',
             update_service: BASE_URL + '/services/{serviceId}/update',
             delete_service: BASE_URL + '/services/{serviceId}/delete'
+        };
+
+        model.getServices = function (barberId, successCallback, failureCallback) {
+            $http = $injector.get('$http');
+            var url = urls.get_services.replace('{barberId}', barberId);
+            $http.get(url).success(function (response) {
+                successCallback(response);
+            }).error(function (data) {
+                failureCallback(data.error.message)
+            });
         };
 
         model.updateService = function (requestParams, successCallback, failureCallback) {

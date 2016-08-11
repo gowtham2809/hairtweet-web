@@ -138,17 +138,7 @@ angular.module('app')
             $scope.barber = [];
         }
 
-        BarberModel.getServices($stateParams.barberId,
-            getServiceSuccess, getServiceFailure);
-        function getServiceSuccess(response) {
-            $scope.services = response.data.services;
-            $rootScope.$broadcast('hideLoading');
-        }
 
-        function getServiceFailure() {
-            $rootScope.$broadcast('hideLoading');
-            $scope.services = [];
-        }
 
         BarberModel.getBookings($stateParams.barberId,
             getBookingSuccess, getBookingFailure);

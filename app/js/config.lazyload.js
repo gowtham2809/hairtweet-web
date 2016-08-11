@@ -11,6 +11,7 @@ angular.module('app')
         ],
         user: ['js/models/user.js'],
         barber: ['js/models/barber.js','js/models/service.js'],
+        service: ['js/models/service.js'],
         customer:['js/models/customer.js'],
         booking: ['js/models/booking.js'],
         screenfull: ['bower_components/screenfull/dist/screenfull.js']
