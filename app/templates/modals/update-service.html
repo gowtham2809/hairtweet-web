@@ -13,7 +13,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-label font-bold">Duration</label>
             <div class="col-sm-6">
-                <input type="text" class="form-control input-sm"
+                <input type="number" class="form-control input-sm"
                        value= "{{service.duration_in_minutes}}"
                        placeholder="duration"
                        ng-model="service.duration_in_minutes">
@@ -22,17 +22,18 @@
         <div class="form-group">
             <label class="col-sm-2 control-label font-bold">Cost</label>
             <div class="col-sm-6">
-                <input type="text" class="form-control input-sm"
+                <input type="number" class="form-control input-sm"
                        value="{{service.cost}}" placeholder="cost"
-                       ng-model="service.cost">
+                       ng-model="service.cost"
+                       step="0.10">
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label font-bold">Discount</label>
             <div class="col-sm-6">
-                <input type="text" class="form-control input-sm"
+                <input type="number" class="form-control input-sm"
                        value="{{service.discount}}" placeholder="discount"
-                       ng-model="service.discount">
+                       ng-model="service.discount" step="0.10">
             </div>
         </div>
         <div class="form-group">

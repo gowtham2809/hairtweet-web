@@ -5,8 +5,7 @@ angular.module('app')
             get_all_barbers: BASE_URL + '/barber/get-all-barber',
             add_barber: BASE_URL + '/admin/add-barber',
             get_barber: BASE_URL + '/barber/{barberId}/detail',
-            update_barber: BASE_URL + '/admin/{barberId}/update-barber',
-            get_bookings: BASE_URL + '/barber/{barberId}/bookings'
+            update_barber: BASE_URL + '/admin/{barberId}/update-barber'
         };
         model.addBarber = function (requestParams, successCallback, failureCallback) {
             var fd = new FormData();
@@ -66,6 +65,8 @@ angular.module('app')
                 failureCallback(data.error.message)
             });
         };
+
+
 
         model.getBarberAddress = function (barber) {
             if (_.isUndefined(barber)) {

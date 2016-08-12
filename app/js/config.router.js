@@ -39,6 +39,15 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, JQ_CONFI
             },
             resolve: load(['js/controllers/barber-service.js', 'service'])
         })
+        .state('app.barber-detail.bookings', {
+            url: '/booking',
+            views : {
+                'barber_booking' : {
+                    templateUrl: 'templates/blocks/barber-detail-bookings.html'
+                }
+            },
+            resolve: load(['js/controllers/barber-booking.js', 'booking'])
+        })
         .state('app.bookings-barber', {
             url: '/barber/bookings/:barberId',
             templateUrl: 'templates/pages/barber-detail.html',

@@ -20,7 +20,7 @@
                 <ul class="nav nav-pills nav-sm">
                     <li class="active"><a href data-toggle="tab" data-target="#tab_1">Info</a></li>
                     <li><a href data-toggle="tab" ui-sref="app.barber-detail.services" data-target="#tab_2">Services</a></li>
-                    <li><a href data-toggle="tab" data-target="#tab_3">Bookings</a></li>
+                    <li><a href data-toggle="tab" ui-sref="app.barber-detail.bookings" data-target="#tab_3">Bookings</a></li>
                     <li><a href data-toggle="tab" data-target="#tab_4">Settings</a></li>
                 </ul>
             </div>
@@ -142,38 +142,8 @@
                     <div class="tab-pane" id="tab_2" ng-init="getServices()">
                         <div ui-view="barber_service"></div>
                     </div>
-                    <div class="tab-pane" id="tab_3">
-                        <h1 class="m-n font-thin h3 text-black block inline">Barber Bookings</h1>
-                        <div class="wrapper-md">
-                            <div class="panel panel-default">
-                                <table st-table="rowCollectionBasic"  class="table table-bordered table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>Order Number</th>
-                                        <th>Order Date</th>
-                                        <th>Customer Name</th>
-                                        <th>Slot Timing</th>
-                                        <th>Order State</th>
-                                        <th>Total</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr ng-repeat="booking in bookings">
-                                        <td>{{booking.order_number}}</td>
-                                        <td>{{booking.order_date}}</td>
-                                        <td>{{booking.user.first_name}} {{booking.user.last_name}}</td>
-                                        <td>{{booking.slot.slot_timings}}</td>
-                                        <td>{{booking.order_state.state}}</td>
-                                        <td>{{booking.total}}</td>
-                                        <td><a class="h5 text-primary m-l-sm" ng-click="openApproveBooking('sm',booking.id)">
-                                            Approve</a>
-                                            <a class="h5 text-info m-l-sm">
-                                                Propose</a></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                    <div class="tab-pane" id="tab_3" ng-init="getBookings()">
+                        <div ui-view="barber_booking"></div>
                     </div>
                     <div class="tab-pane" id="tab_4">
                         <h1 class="m-n font-thin h3 text-black block inline">Settings</h1>
@@ -195,11 +165,7 @@
     </script>
     <!--Update service Model END-->
 
-    <script type="text/ng-template" id="deleteServiceModal.html">
-        <div ng-include="'templates/modals/delete-service.html'"></div>
-    </script>
 
-    <script type="text/ng-template" id="approveBookingModal.html">
-        <div ng-include="'templates/modals/approve-booking.html'"></div>
-    </script>
+
+
 </div>

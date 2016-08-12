@@ -1,5 +1,5 @@
 <h1 class="m-n font-thin h3 text-black block inline">Barber Services</h1>
-<div class="wrapper-md" ng-controller="ServiceController">
+<div class="wrapper-md" ng-controller="ServiceController" ng-init="loadServices()">
     <div class="panel panel-default">
         <table st-table="rowCollectionBasic"  class="table table-bordered table-striped">
             <thead>
@@ -22,10 +22,13 @@
                 <td><a class="h5 text-primary m-l-sm" ng-click="open('lg',$index)">
                     Edit</a>
                     <a class="h5 text-danger m-l-sm"
-                       ng-click="openDeleteService('sm',service)">
+                       ng-click="openDeleteService('sm',service.id)">
                         Delete</a></td>
             </tr>
             </tbody>
         </table>
     </div>
+    <script type="text/ng-template" id="deleteServiceModal.html">
+        <div ng-include="'templates/modals/delete-service.html'"></div>
+    </script>
 </div>
