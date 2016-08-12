@@ -6,7 +6,6 @@ angular.module('app')
             add_barber: BASE_URL + '/admin/add-barber',
             get_barber: BASE_URL + '/barber/{barberId}/detail',
             update_barber: BASE_URL + '/admin/{barberId}/update-barber',
-            activate_barber: BASE_URL + '/barber/{barberId}/activate',
             get_bookings: BASE_URL + '/barber/{barberId}/bookings'
         };
         model.addBarber = function (requestParams, successCallback, failureCallback) {
@@ -81,6 +80,7 @@ angular.module('app')
             var fd = new FormData();
             fd.append('id', requestParams.id);
             fd.append('logo', requestParams.logo);
+            fd.append('condition', requestParams.condition);
             fd.append('first_name', requestParams.first_name);
             fd.append('last_name', requestParams.last_name);
             fd.append('email', requestParams.email);
@@ -99,25 +99,4 @@ angular.module('app')
                 failureCallback(data.error.message)
             });
         };
-        model.setBarberActivateState = function (requestParams, successCallback, failureCallback) {
-
-            var url = urls.activate_barber.replace('{barberId}', requestParams.id);
-            return $http.post(url, {
-                id: requestParams.id,
-                condition: requestParams.condition
-            }).success(function (response) {
-                successCallback(response);
-            }).error(function (data, status) {
-                failureCallback(data.error.message)
-            });
-        };
-
-        model.isBarberActive = function (barber) {
-            if (barber.is_active === "0")
-                return false;
-            else if (barber.is_active === "1")
-                return true;
-            else
-                return false;
-        }
     });

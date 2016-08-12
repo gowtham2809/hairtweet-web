@@ -61,7 +61,7 @@ angular.module('app')
         $scope.approveBooking = function () {
             BookingModel.approveBooking({
                 id: id,
-                barberId:$stateParams.barberId
+                barberId: $stateParams.barberId
             }, approveBookingSuccess, approveBookingFailure);
             $rootScope.$broadcast('showLoading');
         };
@@ -139,7 +139,6 @@ angular.module('app')
         }
 
 
-
         BarberModel.getBookings($stateParams.barberId,
             getBookingSuccess, getBookingFailure);
         function getBookingSuccess(response) {
@@ -155,19 +154,16 @@ angular.module('app')
         $scope.setEditMode = function (state) {
             if (state == true)
             // deep copy
-                $scope.barberCopy = angular.copy($scope.barber);
+            $scope.barberCopy = angular.copy($scope.barber);
+            $scope.barberCopy.is_active = $scope.barberCopy.is_active == 1;
             $scope.inEditMode = state;
         };
-
 
         $scope.getBarberAddress = function (barber) {
             return BarberModel.getBarberAddress(barber);
         };
         $scope.updateBarber = function () {
-            BarberModel.setBarberActivateState({
-                id: $stateParams.barberId,
-                condition: $scope.barberCopy.is_active
-            }, setSuccess, setFailure);
+            console.log($scope.barberCopy.is_active);
             BarberModel.updateBarber({
                 id: $stateParams.barberId,
                 first_name: $scope.barberCopy.first_name,
@@ -178,7 +174,8 @@ angular.module('app')
                 address_line_1: $scope.barberCopy.address_line_1,
                 address_line_2: $scope.barberCopy.address_line_2,
                 address_line_3: $scope.barberCopy.address_line_3,
-                logo: $scope.myFile
+                logo: $scope.myFile,
+                condition :$scope.barberCopy.is_active
             }, updateSuccess, updateFailure);
 
             $rootScope.$broadcast('showLoading');
@@ -195,11 +192,6 @@ angular.module('app')
             $rootScope.$broadcast('hideLoading');
         }
 
-        function setSuccess(updateResponse) {
-        }
-
-        function setFailure($message) {
-        }
 
         $scope.isBarberActive = function (barber) {
             if (_.isUndefined(barber))return;

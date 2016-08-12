@@ -85,7 +85,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label font-bold">Shop Name</label>
                                 <div class="col-sm-6">
-                                    <input type="email" class="form-control input-sm" value="{{barberCopy.shop_name}}"
+                                    <input type="text" class="form-control input-sm" value="{{barberCopy.shop_name}}"
                                            placeholder="shop name" ng-model="barberCopy.shop_name">
                                 </div>
                             </div>
@@ -93,8 +93,9 @@
                                 <label class="col-sm-2 control-label font-bold">Activate</label>
                                 <div class="col-sm-10">
                                     <label class="i-switch m-t-xs m-r">
-                                        <input type="checkbox" name="isActive" ng-checked="isBarberActive(barberCopy)"
+                                        <input type="checkbox" name="isActive" ng-checked="barberCopy.is_active == true"
                                                ng-model="barberCopy.is_active">
+
                                         <i></i>
                                     </label>
                                 </div>
