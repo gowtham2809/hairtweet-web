@@ -1,36 +1,4 @@
 <div ng-controller="AddBarberController">
-
-    <!--<form name="addBarberForm" class="form-validation" novalidate>-->
-
-    <!--<div class="list-group list-group-sm">-->
-    <!--<div class="list-group-item">-->
-    <!--<input type="text" class="form-control no-border"-->
-    <!--ng-model="barber.first_name" required>-->
-    <!--</div>-->
-    <!--<div class="list-group-item">-->
-    <!--<input type="text" class="form-control no-border"-->
-    <!--ng-model="barber.last_name" required>-->
-    <!--</div>-->
-    <!--<div class="list-group-item">-->
-    <!--<input type="email" class="form-control no-border"-->
-    <!--ng-model="barber.email" required>-->
-    <!--</div>-->
-    <!--<div class="list-group-item">-->
-    <!--<input type="text" class="form-control no-border"-->
-    <!--ng-model="barber.phone_number" required>-->
-    <!--</div>-->
-    <!--<div class="list-group-item">-->
-    <!--<input type="password" class="form-control no-border"-->
-    <!--ng-model="barber.password" required>-->
-    <!--</div>-->
-    <!--<div class="list-group-item">-->
-    <!--<input type="text" class="form-control no-border"-->
-    <!--ng-model="barber.shop_name" required>-->
-    <!--</div>-->
-
-    <!--</div>-->
-    <!--<button type="submit" class="btn btn-lg btn-primary btn-block" ng-click="addBarber()" ng-disabled='loginForm.$invalid'>Add</button>-->
-    <!--</form>-->
         <div class="tab-container">
 
             <div class="tab-content">
@@ -103,7 +71,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-4 col-sm-offset-2">
-                            <button type="submit" class="btn btn-default">Cancel
+                            <button type="submit" ui-sref="app.manage-barber" class="btn btn-default">Cancel
                             </button>
                             <button type="submit" class="btn btn-primary" ng-click="addBarber()"
                                     ng-disabled='addBarberForm.$invalid'>Add
