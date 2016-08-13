@@ -51,7 +51,26 @@ angular.module('app')
             $scope.bookings = [];
         }
 
+        $scope.showApproveButton = function (bookingStatusId) {
+            if (bookingStatusId == 1)
+                return true;
+            else
+                return false;
+        };
 
+        $scope.showProposeButton = function (bookingStatusId) {
+            if (bookingStatusId == 1)
+                return true;
+            else
+                return false;
+        };
+
+        $scope.showCancelButton = function (bookingStatusId) {
+            if (bookingStatusId == 2 || bookingStatusId == 3)
+                return true;
+            else
+                return false;
+        };
     });
 
 

@@ -1,10 +1,5 @@
-
-
-
 angular.module('app')
     .controller('BarberController', function ($rootScope, $scope, $stateParams, BarberModel, ServiceModel, ToasterService, $modal, $log) {
-
-
         $scope.inEditMode = false;
         $scope.coverColor = "#78686F";
 
@@ -21,9 +16,6 @@ angular.module('app')
             $rootScope.$broadcast('hideLoading');
             $scope.barber = [];
         }
-
-
-
 
         $scope.setEditMode = function (state) {
             if (state == true)
@@ -70,8 +62,5 @@ angular.module('app')
             if (_.isUndefined(barber))return;
             return BarberModel.isBarberActive(barber);
         };
-
-
-
 
     });
