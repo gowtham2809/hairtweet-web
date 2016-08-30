@@ -172,6 +172,42 @@ angular.module('app')
                 refreshServiceLocation();
             });
         };
+        $scope.deleteLocation = function (size, id) {
+            var modalInstance = $modal.open({
+                templateUrl: 'deleteServiceLocation.html',
+                controller: 'DeleteLocationController',
+                size: size,
+                resolve: {
+                    id: function () {
+                        return id;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                refreshServiceLocation();
+            });
+        };
+        $scope.addArea = function (size, id) {
+            var modalInstance = $modal.open({
+                templateUrl: 'addServiceArea.html',
+                controller: 'ServiceAreaController',
+                size: size,
+                resolve: {
+                    id: function () {
+                        return id;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                refreshServiceLocation();
+            });
+        };
         function refreshServiceLocation() {
             $scope.serviceLocations = [];
             $scope.loadServiceLocation();
@@ -213,7 +249,7 @@ angular.module('app')
         };
         $scope.updateLocations = function () {
             ServiceModel.updateLocations({
-                id:$scope.location.id,
+                id: $scope.location.id,
                 city: $scope.location.city_name,
                 latitude: $scope.location.latitude,
                 longitude: $scope.location.longitude
@@ -227,6 +263,58 @@ angular.module('app')
         }
 
         function updateLocationFailure($message) {
+            ToasterService.error(null, $message);
+            $rootScope.$broadcast('hideLoading');
+        }
+    });
+angular.module('app')
+    .controller('DeleteLocationController', function ($rootScope, $scope, id, $modalInstance, $stateParams, ServiceModel, ToasterService, $modal, $log) {
+        $scope.locationId = id;
+        $scope.close = function () {
+            $modalInstance.dismiss('cancel');
+        };
+        $scope.deleteServiceLocation = function () {
+            ServiceModel.deleteServiceLocation({
+                id: id
+            }, deleteServiceLocationSuccess, deleteServiceLocationFailure);
+            $rootScope.$broadcast('showLoading');
+        };
+        function deleteServiceLocationSuccess(deleteResponse) {
+            ToasterService.success(null, "Deleted successful!");
+            $rootScope.$broadcast('hideLoading');
+            $scope.close();
+        }
+
+        function deleteServiceLocationFailure($message) {
+            ToasterService.error(null, $message);
+            $rootScope.$broadcast('hideLoading');
+        }
+    });
+angular.module('app')
+    .controller('ServiceAreaController', function ($rootScope, $scope, id, $modalInstance, $stateParams, ServiceModel, ToasterService, $modal, $log) {
+        $scope.close = function () {
+            $modalInstance.dismiss('cancel');
+        };
+        $scope.location = {
+            latitude: 0,
+            longitude: 0
+        };
+        $scope.addServiceArea = function () {
+            ServiceModel.addServiceArea({
+                location_id: id,
+                area: $scope.location.area,
+                latitude: $scope.location.latitude,
+                longitude: $scope.location.longitude
+            }, addAreaSuccess, addAreaFailure);
+            $rootScope.$broadcast('showLoading');
+        };
+        function addAreaSuccess(Response) {
+            ToasterService.success(null, "added successful!");
+            $rootScope.$broadcast('hideLoading');
+            $scope.close();
+        }
+
+        function addAreaFailure($message) {
             ToasterService.error(null, $message);
             $rootScope.$broadcast('hideLoading');
         }

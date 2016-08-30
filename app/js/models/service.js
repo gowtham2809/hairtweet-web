@@ -6,8 +6,10 @@ angular.module('app')
             update_service: BASE_URL + '/services/{serviceId}/update',
             delete_service: BASE_URL + '/services/{serviceId}/delete',
             get_service_location: BASE_URL + '/get-service-locations',
-            add_location:BASE_URL + '/add/service-location',
-            update_location:BASE_URL+'/update/{id}/service-location'
+            add_location: BASE_URL + '/add/service-location',
+            update_location: BASE_URL + '/update/{id}/service-location',
+            delete_location: BASE_URL + '/delete/{id}/service-location',
+            add_area: BASE_URL + '/add/service-area'
         };
 
         model.getServices = function (barberId, successCallback, failureCallback) {
@@ -42,6 +44,14 @@ angular.module('app')
             return $http.post(url, {
                 barber_id: requestParams.barberId
             }).success(function (response) {
+                successCallback(response);
+            }).error(function (data, status) {
+                failureCallback(data.error.message)
+            });
+        };
+        model.deleteServiceLocation = function (requestParams, successCallback, failureCallback) {
+            var url = urls.delete_location.replace('{id}', requestParams.id);
+            return $http.post(url).success(function (response) {
                 successCallback(response);
             }).error(function (data, status) {
                 failureCallback(data.error.message)
@@ -83,8 +93,8 @@ angular.module('app')
             var url = urls.add_location;
             return $http.post(url, {
                 city_name: requestParams.city,
-                latitude:requestParams.latitude,
-                longitude:requestParams.longitude
+                latitude: requestParams.latitude,
+                longitude: requestParams.longitude
             }).success(function (response) {
                 successCallback(response);
             }).error(function (data, status) {
@@ -95,8 +105,21 @@ angular.module('app')
             var url = urls.update_location.replace('{id}', requestParams.id);
             return $http.post(url, {
                 city_name: requestParams.city,
-                latitude:requestParams.latitude,
-                longitude:requestParams.longitude
+                latitude: requestParams.latitude,
+                longitude: requestParams.longitude
+            }).success(function (response) {
+                successCallback(response);
+            }).error(function (data, status) {
+                failureCallback(data.error.message)
+            });
+        };
+        model.addServiceArea = function (requestParams, successCallback, failureCallback) {
+            var url = urls.add_area;
+            return $http.post(url, {
+                location_id: requestParams.location_id,
+                area: requestParams.area,
+                latitude: requestParams.latitude,
+                longitude: requestParams.longitude
             }).success(function (response) {
                 successCallback(response);
             }).error(function (data, status) {

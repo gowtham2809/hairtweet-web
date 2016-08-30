@@ -3,12 +3,12 @@
 app.controller('MapCtrl', ['$scope', function ($scope) {
 
     $scope.myMarker = null;
-    if(_.isUndefined($scope.location)){
+    if (_.isUndefined($scope.location)) {
         var myCenter = new google.maps.LatLng(11.1271, 78.6569);
-    }else{
-        if($scope.location.latitude != 0 && $scope.location.longitude != 0 ) {
+    } else {
+        if ($scope.location.latitude != 0 && $scope.location.longitude != 0) {
             var myCenter = new google.maps.LatLng($scope.location.latitude, $scope.location.longitude);
-        }else {
+        } else {
             var myCenter = new google.maps.LatLng(11.1271, 78.6569);
         }
     }
@@ -17,8 +17,11 @@ app.controller('MapCtrl', ['$scope', function ($scope) {
         if (_.isUndefined($scope.myMap)) {
             return;
         }
+        if (_.isUndefined($scope.location)) {
+            $scope.location = {}
+        }
         // my map is initialised
-        if($scope.location.latitude != 0 && $scope.location.longitude != 0 ){
+        if ($scope.location.latitude != 0 && $scope.location.longitude != 0) {
             var latLng = new google.maps.LatLng($scope.location.latitude, $scope.location.longitude);
             $scope.myMarker = new google.maps.Marker({
                 map: $scope.myMap,
