@@ -122,3 +122,112 @@ angular.module('app')
             $modalInstance.dismiss('cancel');
         };
     });
+
+angular.module('app')
+    .controller('AccordionCtrl', function ($stateParams, $scope, ServiceModel, ToasterService, $rootScope, $modal) {
+        $scope.oneAtATime = true;
+        $scope.loadServiceLocation = function () {
+            ServiceModel.getServiceLocations(
+                getServiceLocationSuccess, getServiceLocationFailure);
+        };
+
+        function getServiceLocationSuccess(response) {
+            $scope.serviceLocations = response.data.service_locations;
+            $rootScope.$broadcast('hideLoading');
+        }
+
+        function getServiceLocationFailure() {
+            $rootScope.$broadcast('hideLoading');
+            $scope.serviceLocations = [];
+        }
+
+        $scope.open = function (size) {
+            var modalInstance = $modal.open({
+                templateUrl: 'addServiceLocation.html',
+                controller: 'ServiceLocationController',
+                size: size
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                refreshServiceLocation();
+            });
+        };
+        $scope.editLocation = function (size, location) {
+            var modalInstance = $modal.open({
+                templateUrl: 'updateServiceLocation.html',
+                controller: 'UpdateLocationController',
+                size: size,
+                resolve: {
+                    location: function () {
+                        return location;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                refreshServiceLocation();
+            });
+        };
+        function refreshServiceLocation() {
+            $scope.serviceLocations = [];
+            $scope.loadServiceLocation();
+        }
+    });
+angular.module('app')
+    .controller('ServiceLocationController', function ($rootScope, $scope, $modalInstance, $stateParams, ServiceModel, ToasterService, $modal, $log) {
+        $scope.close = function () {
+            $modalInstance.dismiss('cancel');
+        };
+        $scope.location = {
+            latitude: 0,
+            longitude: 0
+        };
+        $scope.addLocation = function () {
+            ServiceModel.addLocation({
+                city: $scope.location.city,
+                latitude: $scope.location.latitude,
+                longitude: $scope.location.longitude
+            }, addLocationSuccess, addLocationFailure);
+            $rootScope.$broadcast('showLoading');
+        };
+        function addLocationSuccess(Response) {
+            ToasterService.success(null, "added successful!");
+            $rootScope.$broadcast('hideLoading');
+            $scope.close();
+        }
+
+        function addLocationFailure($message) {
+            ToasterService.error(null, $message);
+            $rootScope.$broadcast('hideLoading');
+        }
+    });
+angular.module('app')
+    .controller('UpdateLocationController', function ($rootScope, $scope, location, $modalInstance, $stateParams, ServiceModel, ToasterService, $modal, $log) {
+        $scope.location = location;
+        $scope.close = function () {
+            $modalInstance.dismiss('cancel');
+        };
+        $scope.updateLocations = function () {
+            ServiceModel.updateLocations({
+                id:$scope.location.id,
+                city: $scope.location.city_name,
+                latitude: $scope.location.latitude,
+                longitude: $scope.location.longitude
+            }, updateLocationSuccess, updateLocationFailure);
+            $rootScope.$broadcast('showLoading');
+        };
+        function updateLocationSuccess(Response) {
+            ToasterService.success(null, "Update successful!");
+            $rootScope.$broadcast('hideLoading');
+            $scope.close();
+        }
+
+        function updateLocationFailure($message) {
+            ToasterService.error(null, $message);
+            $rootScope.$broadcast('hideLoading');
+        }
+    });

@@ -20,6 +20,11 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, JQ_CONFI
             templateUrl: 'templates/pages/manage-customer.html',
             resolve: load(['js/controllers/manage-customer.js', 'customer'])
         })
+        .state('app.service-locations', {
+            url: '/service-locations',
+            templateUrl: 'templates/pages/service-locations.html',
+            resolve: load(['js/controllers/barber-service.js', 'service','js/map/load-google-maps.js', 'js/map/ui-map.js', 'js/map/map.js'], function(){ return loadGoogleMaps(); })
+        })
         .state('app.add-barber', {
             url: '/add-barber',
             templateUrl: 'templates/pages/add-barber.html',
