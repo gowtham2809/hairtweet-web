@@ -19,7 +19,7 @@ angular.module('app')
 
         $scope.getFormattedServiceTime = function (duration) {
             return ServiceModel.getFormattedServiceTime(duration);
-        }
+        };
 
         $scope.open = function (size, selectedServicePos) {
             var modalInstance = $modal.open({

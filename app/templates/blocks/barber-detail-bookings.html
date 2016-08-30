@@ -20,13 +20,13 @@
                 <td>{{booking.slot.slot_timings}}</td>
                 <td>{{booking.order_state.state}}</td>
                 <td>{{booking.total}}</td>
-                <td><a class="h5 text-primary m-l-sm" ng-show="booking.order_state_id == 1"
+                <td><a class="h5 text-primary m-l-sm" ng-show="showApproveButton(booking.order_state_id)"
                        ng-click="openApproveBooking('sm',booking.id)">
                     Approve</a>
-                    <a class="h5 text-info m-l-sm" ng-show="booking.order_state_id == 1"
+                    <a class="h5 text-info m-l-sm" ng-show="showProposeButton(booking.order_state_id)"
                        ng-click="openProposeBooking('sm',booking.id)">
                         Propose</a>
-                <a class="h5 text-danger m-l-sm" ng-show="booking.order_state_id == 2 || 3"
+                <a class="h5 text-danger m-l-sm" ng-show="showCancelButton(booking.order_state_id)"
                    ng-click="openCancelBooking('sm',booking.id)">
                     Cancel booking</a></td>
             </tr>

@@ -13,10 +13,11 @@ angular.module('app')
                 }
             });
 
-            modalInstance.result.then(function (selectedItem) {
-                $scope.selected = selectedItem;
-            }, function () {
-                $log.info('Modal dismissed at: ' + new Date());
+            modalInstance.result.then(function () {
+
+            },function(){
+                $scope.bookings = [];
+                getBookings();
             });
         };
 
@@ -38,9 +39,13 @@ angular.module('app')
                 $log.info('Modal dismissed at: ' + new Date());
             });
         };
+        function getBookings() {
+            BookingModel.getBookings($stateParams.barberId,
+                getBookingSuccess, getBookingFailure);
+        }
+        //load bookings at first launch
+        getBookings();
 
-        BookingModel.getBookings($stateParams.barberId,
-            getBookingSuccess, getBookingFailure);
         function getBookingSuccess(response) {
             $scope.bookings = response.data.bookings;
             $rootScope.$broadcast('hideLoading');
@@ -51,7 +56,26 @@ angular.module('app')
             $scope.bookings = [];
         }
 
+        $scope.showApproveButton = function (bookingStatusId) {
+            if (bookingStatusId == 1)
+                return true;
+            else
+                return false;
+        };
 
+        $scope.showProposeButton = function (bookingStatusId) {
+            if (bookingStatusId == 1)
+                return true;
+            else
+                return false;
+        };
+
+        $scope.showCancelButton = function (bookingStatusId) {
+            if (bookingStatusId == 2 || bookingStatusId == 3)
+                return true;
+            else
+                return false;
+        };
     });
 
 
@@ -66,7 +90,7 @@ angular.module('app')
             $rootScope.$broadcast('showLoading');
         };
         function approveBookingSuccess(approveResponse) {
-            ToasterService.success(null, "Approved successful!");
+            ToasterService.success(null, "Successfully approved!");
             $rootScope.$broadcast('hideLoading');
             $scope.close();
         }
