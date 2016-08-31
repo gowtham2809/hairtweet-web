@@ -9,7 +9,9 @@ angular.module('app')
             add_location: BASE_URL + '/add/service-location',
             update_location: BASE_URL + '/update/{id}/service-location',
             delete_location: BASE_URL + '/delete/{id}/service-location',
-            add_area: BASE_URL + '/add/service-area'
+            add_area: BASE_URL + '/add/service-area',
+            update_area: BASE_URL + '/update/{id}/service-area',
+            delete_area: BASE_URL + '/delete/{id}/service-area'
         };
 
         model.getServices = function (barberId, successCallback, failureCallback) {
@@ -121,6 +123,26 @@ angular.module('app')
                 latitude: requestParams.latitude,
                 longitude: requestParams.longitude
             }).success(function (response) {
+                successCallback(response);
+            }).error(function (data, status) {
+                failureCallback(data.error.message)
+            });
+        };
+        model.updateServiceArea = function (requestParams, successCallback, failureCallback) {
+            var url = urls.update_area.replace('{id}', requestParams.id);
+            return $http.post(url, {
+                area: requestParams.area,
+                latitude: requestParams.latitude,
+                longitude: requestParams.longitude
+            }).success(function (response) {
+                successCallback(response);
+            }).error(function (data, status) {
+                failureCallback(data.error.message)
+            });
+        };
+        model.deleteServiceArea = function (requestParams, successCallback, failureCallback) {
+            var url = urls.delete_area.replace('{id}', requestParams.id);
+            return $http.post(url).success(function (response) {
                 successCallback(response);
             }).error(function (data, status) {
                 failureCallback(data.error.message)

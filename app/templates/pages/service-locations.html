@@ -29,8 +29,8 @@
                     <div ng-repeat="area in location.area">
                         <span class="text-sm text-black">{{area.area}}</span><br>
                         <span class="pull-right">
-                            <a href><i class="fa fa-fw m-r-xs fa-pencil"></i></a>
-                            <a href><i class="fa fa-fw fa-times"></i></a>
+                            <a href ng-click="updateArea('lg',area)"><i class="fa fa-fw m-r-xs fa-pencil"></i></a>
+                            <a href ng-click="deleteArea('sm',area.id)"><i class="fa fa-fw fa-times"></i></a>
                         </span>
                         <hr>
                     </div>
@@ -51,6 +51,12 @@
     </script>
     <script type="text/ng-template" id="addServiceArea.html">
         <div ng-include="'templates/modals/add-service-area.html'"></div>
+    </script>
+    <script type="text/ng-template" id="updateServiceArea.html">
+        <div ng-include="'templates/modals/update-service-area.html'"></div>
+    </script>
+    <script type="text/ng-template" id="deleteServiceArea.html">
+        <div ng-include="'templates/modals/delete-service-area.html'"></div>
     </script>
 </div>
 

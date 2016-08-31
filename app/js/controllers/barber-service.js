@@ -208,6 +208,42 @@ angular.module('app')
                 refreshServiceLocation();
             });
         };
+        $scope.updateArea = function (size, area) {
+            var modalInstance = $modal.open({
+                templateUrl: 'updateServiceArea.html',
+                controller: 'UpdateAreaController',
+                size: size,
+                resolve: {
+                    area: function () {
+                        return area;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                refreshServiceLocation();
+            });
+        };
+        $scope.deleteArea = function (size, id) {
+            var modalInstance = $modal.open({
+                templateUrl: 'deleteServiceArea.html',
+                controller: 'DeleteAreaController',
+                size: size,
+                resolve: {
+                    id: function () {
+                        return id;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                refreshServiceLocation();
+            });
+        };
         function refreshServiceLocation() {
             $scope.serviceLocations = [];
             $scope.loadServiceLocation();
@@ -315,6 +351,54 @@ angular.module('app')
         }
 
         function addAreaFailure($message) {
+            ToasterService.error(null, $message);
+            $rootScope.$broadcast('hideLoading');
+        }
+    });
+angular.module('app')
+    .controller('UpdateAreaController', function ($rootScope, $scope, area, $modalInstance, $stateParams, ServiceModel, ToasterService, $modal, $log){
+        $scope.location = area;
+        $scope.close = function () {
+            $modalInstance.dismiss('cancel');
+        };
+        $scope.updateServiceArea = function () {
+            ServiceModel.updateServiceArea({
+                id: $scope.location.id,
+                area: $scope.location.area,
+                latitude: $scope.location.latitude,
+                longitude: $scope.location.longitude
+            }, updateAreaSuccess, updateAreaFailure);
+            $rootScope.$broadcast('showLoading');
+        };
+        function updateAreaSuccess(Response) {
+            ToasterService.success(null, "Update successful!");
+            $rootScope.$broadcast('hideLoading');
+            $scope.close();
+        }
+
+        function updateAreaFailure($message) {
+            ToasterService.error(null, $message);
+            $rootScope.$broadcast('hideLoading');
+        }
+    });
+angular.module('app')
+    .controller('DeleteAreaController', function ($rootScope, $scope, id, $modalInstance, $stateParams, ServiceModel, ToasterService, $modal, $log){
+        $scope.close = function () {
+            $modalInstance.dismiss('cancel');
+        };
+        $scope.deleteServiceArea = function () {
+            ServiceModel.deleteServiceArea({
+                id: id
+            }, deleteServiceAreaSuccess, deleteServiceAreaFailure);
+            $rootScope.$broadcast('showLoading');
+        };
+        function deleteServiceAreaSuccess(deleteResponse) {
+            ToasterService.success(null, "Deleted successful!");
+            $rootScope.$broadcast('hideLoading');
+            $scope.close();
+        }
+
+        function deleteServiceAreaFailure($message) {
             ToasterService.error(null, $message);
             $rootScope.$broadcast('hideLoading');
         }
