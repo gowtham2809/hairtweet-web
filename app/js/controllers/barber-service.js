@@ -59,6 +59,24 @@ angular.module('app')
             });
         };
 
+        $scope.addCategory = function (size) {
+            var modalInstance = $modal.open({
+                templateUrl: 'addCategoryModal.html',
+                controller: 'AddCategoryController',
+                size: size
+            });
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                refreshCategory();
+            });
+        };
+
+        function refreshCategory() {
+            $scope.categories = [];
+            $scope.loadServices();
+        }
+
         function refreshServices() {
             $scope.services = [];
             $scope.loadServices();
@@ -356,7 +374,7 @@ angular.module('app')
         }
     });
 angular.module('app')
-    .controller('UpdateAreaController', function ($rootScope, $scope, area, $modalInstance, $stateParams, ServiceModel, ToasterService, $modal, $log){
+    .controller('UpdateAreaController', function ($rootScope, $scope, area, $modalInstance, $stateParams, ServiceModel, ToasterService, $modal, $log) {
         $scope.location = area;
         $scope.close = function () {
             $modalInstance.dismiss('cancel');
@@ -382,7 +400,7 @@ angular.module('app')
         }
     });
 angular.module('app')
-    .controller('DeleteAreaController', function ($rootScope, $scope, id, $modalInstance, $stateParams, ServiceModel, ToasterService, $modal, $log){
+    .controller('DeleteAreaController', function ($rootScope, $scope, id, $modalInstance, $stateParams, ServiceModel, ToasterService, $modal, $log) {
         $scope.close = function () {
             $modalInstance.dismiss('cancel');
         };
@@ -399,6 +417,31 @@ angular.module('app')
         }
 
         function deleteServiceAreaFailure($message) {
+            ToasterService.error(null, $message);
+            $rootScope.$broadcast('hideLoading');
+        }
+    });
+angular.module('app')
+    .controller('AddCategoryController', function ($rootScope, $scope, $modalInstance, $stateParams, ServiceModel, ToasterService) {
+        $scope.category = {};
+        $scope.close = function () {
+            $modalInstance.dismiss('cancel');
+        };
+        $scope.addServiceCategory = function () {
+            ServiceModel.addServiceCategory({
+                barber_id: $stateParams.barberId,
+                category_name: $scope.category.name,
+                gender: $scope.category.gender
+            }, addCategorySuccess, addCategoryFailure);
+            $rootScope.$broadcast('showLoading');
+        };
+        function addCategorySuccess(Response) {
+            ToasterService.success(null, "added successful!");
+            $rootScope.$broadcast('hideLoading');
+            $scope.close();
+        }
+
+        function addCategoryFailure($message) {
             ToasterService.error(null, $message);
             $rootScope.$broadcast('hideLoading');
         }

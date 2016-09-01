@@ -1,8 +1,9 @@
+<div ng-controller="ServiceController">
 <h1 class="m-n font-thin h3 text-black block inline">Barber Services</h1>
-        <button class="btn btn-primary btn-addon btn-small pull-right" ng-click="addCategory('')"><i class="fa fa-plus"></i>Add
+        <button class="btn btn-primary btn-addon btn-small pull-right" ng-click="addCategory('lg')"><i class="fa fa-plus"></i>Add
             Category
         </button>
-<div class="wrapper-md" ng-controller="ServiceController" ng-init="loadServices()">
+<div class="wrapper-md"  ng-init="loadServices()">
     <accordion close-others="oneAtATime">
         <accordion-group is-open="status.open" ng-repeat="category in categories">
             <accordion-heading>
@@ -33,4 +34,8 @@
     <script type="text/ng-template" id="deleteServiceModal.html">
         <div ng-include="'templates/modals/delete-service.html'"></div>
     </script>
+    <script type="text/ng-template" id="addCategoryModal.html">
+        <div ng-include="'templates/modals/add-category.html'"></div>
+    </script>
+</div>
 </div>

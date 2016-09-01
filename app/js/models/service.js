@@ -11,7 +11,8 @@ angular.module('app')
             delete_location: BASE_URL + '/delete/{id}/service-location',
             add_area: BASE_URL + '/add/service-area',
             update_area: BASE_URL + '/update/{id}/service-area',
-            delete_area: BASE_URL + '/delete/{id}/service-area'
+            delete_area: BASE_URL + '/delete/{id}/service-area',
+            add_category: BASE_URL + '/category/add'
         };
 
         model.getServices = function (barberId, successCallback, failureCallback) {
@@ -143,6 +144,18 @@ angular.module('app')
         model.deleteServiceArea = function (requestParams, successCallback, failureCallback) {
             var url = urls.delete_area.replace('{id}', requestParams.id);
             return $http.post(url).success(function (response) {
+                successCallback(response);
+            }).error(function (data, status) {
+                failureCallback(data.error.message)
+            });
+        };
+        model.addServiceCategory = function (requestParams, successCallback, failureCallback) {
+            var url = urls.add_category;
+            return $http.post(url, {
+                barber_id: requestParams.barber_id,
+                category_name: requestParams.category_name,
+                gender: requestParams.gender
+            }).success(function (response) {
                 successCallback(response);
             }).error(function (data, status) {
                 failureCallback(data.error.message)
