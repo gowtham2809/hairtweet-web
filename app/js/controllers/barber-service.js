@@ -72,6 +72,42 @@ angular.module('app')
             });
         };
 
+        $scope.updateCategory = function (size, category) {
+            var modalInstance = $modal.open({
+                templateUrl: 'updateCategoryModal.html',
+                controller: 'UpdateCategoryController',
+                size: size,
+                resolve: {
+                    category: function () {
+                        return category;
+                    }
+                }
+            });
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                refreshCategory();
+            });
+        };
+
+        $scope.deleteCategory = function (size, id) {
+            var modalInstance = $modal.open({
+                templateUrl: 'deleteCategoryModal.html',
+                controller: 'DeleteCategoryController',
+                size: size,
+                resolve: {
+                    id: function () {
+                        return id;
+                    }
+                }
+            });
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                refreshCategory();
+            });
+        };
+
         function refreshCategory() {
             $scope.categories = [];
             $scope.loadServices();
@@ -442,6 +478,55 @@ angular.module('app')
         }
 
         function addCategoryFailure($message) {
+            ToasterService.error(null, $message);
+            $rootScope.$broadcast('hideLoading');
+        }
+    });
+angular.module('app')
+    .controller('UpdateCategoryController', function ($rootScope, $scope, category, $modalInstance, $stateParams, ServiceModel, ToasterService) {
+        $scope.category = category;
+        $scope.close = function () {
+            $modalInstance.dismiss('cancel');
+        };
+        $scope.updateServiceCategory = function () {
+            ServiceModel.updateServiceCategory({
+                category_id:category.id,
+                barber_id: $stateParams.barberId,
+                category_name: $scope.category.category_name,
+                gender: $scope.category.gender
+            }, updateCategorySuccess, updateCategoryFailure);
+            $rootScope.$broadcast('showLoading');
+        };
+        function updateCategorySuccess(Response) {
+            ToasterService.success(null, "Update successful!");
+            $rootScope.$broadcast('hideLoading');
+            $scope.close();
+        }
+
+        function updateCategoryFailure($message) {
+            ToasterService.error(null, $message);
+            $rootScope.$broadcast('hideLoading');
+        }
+    });
+angular.module('app')
+    .controller('DeleteCategoryController', function ($rootScope, $scope, id, $modalInstance, $stateParams, ServiceModel, ToasterService, $modal, $log){
+        $scope.close = function () {
+            $modalInstance.dismiss('cancel');
+        };
+        $scope.deleteServiceCategory = function () {
+            ServiceModel.deleteServiceCategory({
+                id: id,
+                barber_id:$stateParams.barberId
+            }, deleteServiceCategorySuccess, deleteServiceCategoryFailure);
+            $rootScope.$broadcast('showLoading');
+        };
+        function deleteServiceCategorySuccess(deleteResponse) {
+            ToasterService.success(null, "Deleted successful!");
+            $rootScope.$broadcast('hideLoading');
+            $scope.close();
+        }
+
+        function deleteServiceCategoryFailure($message) {
             ToasterService.error(null, $message);
             $rootScope.$broadcast('hideLoading');
         }
