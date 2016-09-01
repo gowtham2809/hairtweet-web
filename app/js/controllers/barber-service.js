@@ -1,6 +1,6 @@
 angular.module('app')
     .controller('ServiceController', function ($rootScope, $scope, $stateParams, BarberModel, ServiceModel, ToasterService, $modal, $log) {
-
+        $scope.oneAtATime = true;
         $scope.loadServices = function () {
             ServiceModel.getServices($stateParams.barberId,
                 getServiceSuccess, getServiceFailure);
@@ -8,13 +8,13 @@ angular.module('app')
 
 
         function getServiceSuccess(response) {
-            $scope.services = response.data.services;
+            $scope.categories = response.data.categories;
             $rootScope.$broadcast('hideLoading');
         }
 
         function getServiceFailure() {
             $rootScope.$broadcast('hideLoading');
-            $scope.services = [];
+            $scope.categories = [];
         }
 
         $scope.getFormattedServiceTime = function (duration) {

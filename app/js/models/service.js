@@ -2,7 +2,7 @@ angular.module('app')
     .service('ServiceModel', function ($injector, BASE_URL) {
         var model = this;
         var urls = {
-            get_services: BASE_URL + '/barber/{barberId}/services',
+            get_services: BASE_URL + '/barber/{id}/categories',
             update_service: BASE_URL + '/services/{serviceId}/update',
             delete_service: BASE_URL + '/services/{serviceId}/delete',
             get_service_location: BASE_URL + '/get-service-locations',
@@ -16,7 +16,7 @@ angular.module('app')
 
         model.getServices = function (barberId, successCallback, failureCallback) {
             $http = $injector.get('$http');
-            var url = urls.get_services.replace('{barberId}', barberId);
+            var url = urls.get_services.replace('{id}', barberId);
             $http.get(url).success(function (response) {
                 successCallback(response);
             }).error(function (data) {

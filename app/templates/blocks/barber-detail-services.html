@@ -1,33 +1,35 @@
 <h1 class="m-n font-thin h3 text-black block inline">Barber Services</h1>
+        <button class="btn btn-primary btn-addon btn-small pull-right" ng-click="addCategory('')"><i class="fa fa-plus"></i>Add
+            Category
+        </button>
 <div class="wrapper-md" ng-controller="ServiceController" ng-init="loadServices()">
-    <div class="panel panel-default">
-        <table st-table="rowCollectionBasic"  class="table table-bordered table-striped">
-            <thead>
-            <tr>
-                <th>Service Name</th>
-                <th>Duration</th>
-                <th>Cost</th>
-                <th>Discount</th>
-                <th>Discount Type</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="service in services">
-                <td>{{service.service_name}}</td>
-                <td>{{getFormattedServiceTime(service.duration_in_minutes)}}</td>
-                <td>{{service.cost}}</td>
-                <td>{{service.discount}}</td>
-                <td>{{service.discount_type.type}}</td>
-                <td><a class="h5 text-primary m-l-sm" ng-click="open('lg',$index)">
-                    Edit</a>
-                    <a class="h5 text-danger m-l-sm"
-                       ng-click="openDeleteService('sm',service.id)">
-                        Delete</a></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+    <accordion close-others="oneAtATime">
+        <accordion-group is-open="status.open" ng-repeat="category in categories">
+            <accordion-heading>
+                        <span class="pull-right">
+                            <a href><i class="fa fa-fw m-r-xs fa-pencil"></i></a>
+                            <a href><i class="fa fa-fw fa-times"></i></a>
+                        </span>
+                <i class="fa fa-angle-right m-r"
+                   ng-class="{'fa-angle-down': status.open, 'fa-angle-right': !status.open}"></i>
+                {{category.category_name}}<i class="fa fa-fw m-l icon-symbol-female" ng-if="category.gender == 'f'"></i>
+                <i class="fa fa-fw m-l icon-symbol-male" ng-if="category.gender == 'm'"></i>
+            </accordion-heading>
+            <div ng-repeat="service in category.services">
+                <span class="text-lg text-black">{{service.service_name}}</span><br>
+                <span class="text-sm text-black m-r">Duration :</span><span class="text-sm">{{service.duration_in_minutes}}</span><br>
+                <span class="text-sm text-black m-r">Cost :</span><span class="text-sm">{{service.cost}}</span><br>
+                <span class="text-sm text-black m-r">Discount :</span><span class="text-sm">{{service.discount}}</span><br>
+                <span class="text-sm text-black m-r">Discount Type :</span><span class="text-sm">{{service.discount_type.type}}</span>
+                <span class="pull-right">
+                            <a href><i class="fa fa-fw m-r-xs fa-pencil"></i></a>
+                            <a href><i class="fa fa-fw fa-times"></i></a>
+                        </span>
+                <hr>
+            </div>
+            <span class="text-primary">Add service</span>
+        </accordion-group>
+    </accordion>
     <script type="text/ng-template" id="deleteServiceModal.html">
         <div ng-include="'templates/modals/delete-service.html'"></div>
     </script>

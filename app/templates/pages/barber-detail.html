@@ -11,6 +11,9 @@
                         <div class="clear m-b">
                             <div class="m-b m-t-sm">
                                 <span class="h3 text-white">{{barber.first_name}} {{barber.last_name}}</span>
+                                <button class="badge badge-sm btn-danger" ng-if="barber.is_active == 0">
+                                    inactive
+                                </button>
                             </div>
                         </div>
                     </div>
