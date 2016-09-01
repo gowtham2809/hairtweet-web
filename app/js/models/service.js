@@ -14,7 +14,8 @@ angular.module('app')
             delete_area: BASE_URL + '/delete/{id}/service-area',
             add_category: BASE_URL + '/category/add',
             update_category: BASE_URL + '/category/{id}/update',
-            delete_category: BASE_URL + '/category/{id}/delete'
+            delete_category: BASE_URL + '/category/{id}/delete',
+            add_service: BASE_URL + '/services/add'
         };
 
         model.getServices = function (barberId, successCallback, failureCallback) {
@@ -36,7 +37,8 @@ angular.module('app')
                 duration_in_minutes: requestParams.duration,
                 cost: requestParams.cost,
                 discount: requestParams.discount,
-                discount_type_id: requestParams.discount_type
+                discount_type_id: requestParams.discount_type,
+                category_id:requestParams.category_id
             }).success(function (response) {
                 successCallback(response);
             }).error(function (data, status) {
@@ -177,7 +179,23 @@ angular.module('app')
         };
         model.deleteServiceCategory = function (requestParams, successCallback, failureCallback) {
             var url = urls.delete_category.replace('{id}', requestParams.id);
-            return $http.post(url,{barber_id:requestParams.barber_id}).success(function (response) {
+            return $http.post(url, {barber_id: requestParams.barber_id}).success(function (response) {
+                successCallback(response);
+            }).error(function (data, status) {
+                failureCallback(data.error.message)
+            });
+        };
+        model.addBarberService = function (requestParams, successCallback, failureCallback) {
+            var url = urls.add_service;
+            return $http.post(url, {
+                barber_id: requestParams.barber_id,
+                service_name: requestParams.service_name,
+                duration_in_minutes: requestParams.duration_in_minutes,
+                cost: requestParams.cost,
+                discount: requestParams.discount,
+                discount_type_id: requestParams.discount_type_id,
+                category_id: requestParams.category_id
+            }).success(function (response) {
                 successCallback(response);
             }).error(function (data, status) {
                 failureCallback(data.error.message)

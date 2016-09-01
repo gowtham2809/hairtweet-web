@@ -1,47 +1,57 @@
 <div ng-controller="ServiceController">
-<h1 class="m-n font-thin h3 text-black block inline">Barber Services</h1>
-        <button class="btn btn-primary btn-addon btn-small pull-right" ng-click="addCategory('md')"><i class="fa fa-plus"></i>Add
-            Category
-        </button>
-<div class="wrapper-md"  ng-init="loadServices()">
-    <accordion close-others="oneAtATime">
-        <accordion-group is-open="status.open" ng-repeat="category in categories">
-            <accordion-heading>
+    <h1 class="m-n font-thin h3 text-black block inline">Barber Services</h1>
+    <button class="btn btn-primary btn-addon btn-small pull-right" ng-click="addCategory('md')"><i
+            class="fa fa-plus"></i>Add
+        Category
+    </button>
+    <div class="wrapper-md" ng-init="loadServices()">
+        <accordion close-others="oneAtATime">
+            <accordion-group is-open="status.open" ng-repeat="category in categories">
+                <accordion-heading>
                         <span class="pull-right">
-                            <a href><i class="fa fa-fw m-r-xs fa-pencil" ng-click="updateCategory('md',category)"></i></a>
+                            <a href><i class="fa fa-fw m-r-xs fa-pencil"
+                                       ng-click="updateCategory('md',category)"></i></a>
                             <a href><i class="fa fa-fw fa-times" ng-click="deleteCategory('md',category.id)"></i></a>
                         </span>
-                <i class="fa fa-angle-right m-r"
-                   ng-class="{'fa-angle-down': status.open, 'fa-angle-right': !status.open}"></i>
-                {{category.category_name}}<i class="fa fa-fw m-l icon-symbol-female" ng-if="category.gender == 'f'"></i>
-                <i class="fa fa-fw m-l icon-symbol-male" ng-if="category.gender == 'm'"></i>
-            </accordion-heading>
-            <div ng-repeat="service in category.services">
-                <span class="text-lg text-black">{{service.service_name}}</span><br>
-                <span class="text-sm text-black m-r">Duration :</span><span class="text-sm">{{service.duration_in_minutes}}</span><br>
-                <span class="text-sm text-black m-r">Cost :</span><span class="text-sm">{{service.cost}}</span><br>
-                <span class="text-sm text-black m-r">Discount :</span><span class="text-sm">{{service.discount}}</span><br>
-                <span class="text-sm text-black m-r">Discount Type :</span><span class="text-sm">{{service.discount_type.type}}</span>
-                <span class="pull-right">
-                            <a href><i class="fa fa-fw m-r-xs fa-pencil"></i></a>
-                            <a href><i class="fa fa-fw fa-times"></i></a>
+                    <i class="fa fa-angle-right m-r"
+                       ng-class="{'fa-angle-down': status.open, 'fa-angle-right': !status.open}"></i>
+                    {{category.category_name}}<i class="fa fa-fw m-l icon-symbol-female"
+                                                 ng-if="category.gender == 'f'"></i>
+                    <i class="fa fa-fw m-l icon-symbol-male" ng-if="category.gender == 'm'"></i>
+                </accordion-heading>
+                <div ng-repeat="service in category.services">
+                    <span class="text-lg text-black">{{service.service_name}}</span><br>
+                    <span class="text-sm text-black m-r">Duration :</span><span class="text-sm">{{service.duration_in_minutes}}</span><br>
+                    <span class="text-sm text-black m-r">Cost :</span><span class="text-sm">{{service.cost}}</span><br>
+                    <span class="text-sm text-black m-r">Discount :</span><span
+                        class="text-sm">{{service.discount}}</span><br>
+                    <span class="text-sm text-black m-r">Discount Type :</span><span class="text-sm">{{service.discount_type.type}}</span>
+                    <span class="pull-right">
+                            <a href><i class="fa fa-fw m-r-xs fa-pencil" ng-click="serviceUpdate('md',service,category.id)"></i></a>
+                            <a href><i class="fa fa-fw fa-times" ng-click="openDeleteService('md',service.id)"></i></a>
                         </span>
-                <hr>
-            </div>
-            <span class="text-primary" ng-click="addService('md')">Add service</span>
-        </accordion-group>
-    </accordion>
-    <script type="text/ng-template" id="deleteServiceModal.html">
-        <div ng-include="'templates/modals/delete-service.html'"></div>
-    </script>
-    <script type="text/ng-template" id="addCategoryModal.html">
-        <div ng-include="'templates/modals/add-category.html'"></div>
-    </script>
-    <script type="text/ng-template" id="updateCategoryModal.html">
-        <div ng-include="'templates/modals/update-category.html'"></div>
-    </script>
-    <script type="text/ng-template" id="deleteCategoryModal.html">
-        <div ng-include="'templates/modals/delete-category.html'"></div>
-    </script>
-</div>
+                    <hr>
+                </div>
+                <span class="text-primary" ng-click="addService('md',category.id)">Add service</span>
+            </accordion-group>
+        </accordion>
+        <script type="text/ng-template" id="deleteServiceModal.html">
+            <div ng-include="'templates/modals/delete-service.html'"></div>
+        </script>
+        <script type="text/ng-template" id="addCategoryModal.html">
+            <div ng-include="'templates/modals/add-category.html'"></div>
+        </script>
+        <script type="text/ng-template" id="updateCategoryModal.html">
+            <div ng-include="'templates/modals/update-category.html'"></div>
+        </script>
+        <script type="text/ng-template" id="deleteCategoryModal.html">
+            <div ng-include="'templates/modals/delete-category.html'"></div>
+        </script>
+        <script type="text/ng-template" id="addServiceModal.html">
+            <div ng-include="'templates/modals/add-service.html'"></div>
+        </script>
+        <script type="text/ng-template" id="updateService.html">
+            <div ng-include="'templates/modals/update-service.html'"></div>
+        </script>
+    </div>
 </div>

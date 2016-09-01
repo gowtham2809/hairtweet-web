@@ -108,6 +108,46 @@ angular.module('app')
             });
         };
 
+        $scope.addService = function (size, id) {
+            var modalInstance = $modal.open({
+                templateUrl: 'addServiceModal.html',
+                controller: 'AddServiceController',
+                size: size,
+                resolve: {
+                    id: function () {
+                        return id;
+                    }
+                }
+            });
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                refreshCategory();
+            });
+        };
+
+        $scope.serviceUpdate = function (size, service, id) {
+            var modalInstance = $modal.open({
+                templateUrl: 'updateService.html',
+                controller: 'ServiceUpdateController',
+                size: size,
+                resolve: {
+                    service: function () {
+                        return service;
+                    },
+                    id: function () {
+                        return id;
+                    }
+                }
+            });
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                refreshCategory();
+            });
+        };
+
+
         function refreshCategory() {
             $scope.categories = [];
             $scope.loadServices();
@@ -121,7 +161,7 @@ angular.module('app')
 
 
 angular.module('app')
-    .controller('ServiceUpdateController', function ($stateParams, $scope, $modalInstance, $log, service, ServiceModel, ToasterService, $rootScope) {
+    .controller('ServiceUpdateController', function ($stateParams, id, $scope, $modalInstance, $log, service, ServiceModel, ToasterService, $rootScope) {
         $scope.service = service;
         $scope.updateService = function () {
             ServiceModel.updateService({
@@ -131,7 +171,8 @@ angular.module('app')
                 duration: $scope.service.duration_in_minutes,
                 cost: $scope.service.cost,
                 discount: $scope.service.discount,
-                discount_type: $scope.service.discount_type_id
+                discount_type: $scope.service.discount_type_id,
+                category_id: id
             }, updateServiceSuccess, updateServiceFailure);
             $rootScope.$broadcast('showLoading');
         };
@@ -490,7 +531,7 @@ angular.module('app')
         };
         $scope.updateServiceCategory = function () {
             ServiceModel.updateServiceCategory({
-                category_id:category.id,
+                category_id: category.id,
                 barber_id: $stateParams.barberId,
                 category_name: $scope.category.category_name,
                 gender: $scope.category.gender
@@ -509,14 +550,14 @@ angular.module('app')
         }
     });
 angular.module('app')
-    .controller('DeleteCategoryController', function ($rootScope, $scope, id, $modalInstance, $stateParams, ServiceModel, ToasterService, $modal, $log){
+    .controller('DeleteCategoryController', function ($rootScope, $scope, id, $modalInstance, $stateParams, ServiceModel, ToasterService, $modal, $log) {
         $scope.close = function () {
             $modalInstance.dismiss('cancel');
         };
         $scope.deleteServiceCategory = function () {
             ServiceModel.deleteServiceCategory({
                 id: id,
-                barber_id:$stateParams.barberId
+                barber_id: $stateParams.barberId
             }, deleteServiceCategorySuccess, deleteServiceCategoryFailure);
             $rootScope.$broadcast('showLoading');
         };
@@ -527,6 +568,35 @@ angular.module('app')
         }
 
         function deleteServiceCategoryFailure($message) {
+            ToasterService.error(null, $message);
+            $rootScope.$broadcast('hideLoading');
+        }
+    });
+angular.module('app')
+    .controller('AddServiceController', function ($rootScope, $scope, id, $modalInstance, $stateParams, ServiceModel, ToasterService) {
+        $scope.service = {};
+        $scope.close = function () {
+            $modalInstance.dismiss('cancel');
+        };
+        $scope.addBarberService = function () {
+            ServiceModel.addBarberService({
+                barber_id: $stateParams.barberId,
+                service_name: $scope.service.name,
+                duration_in_minutes: $scope.service.duration,
+                cost: $scope.service.cost,
+                discount: $scope.service.discount,
+                discount_type_id: $scope.service.discount_type,
+                category_id: id
+            }, addServiceSuccess, addServiceFailure);
+            $rootScope.$broadcast('showLoading');
+        };
+        function addServiceSuccess(Response) {
+            ToasterService.success(null, "added successful!");
+            $rootScope.$broadcast('hideLoading');
+            $scope.close();
+        }
+
+        function addServiceFailure($message) {
             ToasterService.error(null, $message);
             $rootScope.$broadcast('hideLoading');
         }
