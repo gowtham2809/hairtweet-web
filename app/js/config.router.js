@@ -35,6 +35,11 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, JQ_CONFI
             templateUrl: 'templates/pages/barber-detail.html',
             resolve: load(['js/controllers/barber-details.js', 'barber'])
         })
+        .state('app.customer-detail', {
+            url: '/customer/:customerId',
+            templateUrl: 'templates/pages/customer-detail.html',
+            resolve: load(['js/controllers/customer-details.js', 'customer'])
+        })
         .state('app.barber-detail.services', {
             url: '/service',
             views : {
@@ -49,6 +54,15 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, JQ_CONFI
             views : {
                 'barber_booking' : {
                     templateUrl: 'templates/blocks/barber-detail-bookings.html'
+                }
+            },
+            resolve: load(['js/controllers/barber-booking.js', 'booking'])
+        })
+        .state('app.customer-detail.bookings', {
+            url: '/booking',
+            views : {
+                'customer_booking' : {
+                    templateUrl: 'templates/blocks/customer-detail-booking.html'
                 }
             },
             resolve: load(['js/controllers/barber-booking.js', 'booking'])

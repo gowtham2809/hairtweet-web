@@ -11,7 +11,7 @@
         <div infinite-scroll="nextPage()" infinite-scroll-disabled="customerCtrl.busy" infinite-scroll-distance="1">
             <div class="row" ng-repeat="row in allCustomers">
                 <div class="list-group list-group-lg list-group-sp col-md-4" ng-repeat="customer in row">
-                    <a class="list-group-item clearfix">
+                    <a ui-sref="app.customer-detail({customerId:customer.id})" class="list-group-item clearfix">
                         <div class="mx-w-xl m-b-xs ">
                             <span class="h3 text-primary">{{customer.first_name}} {{customer.last_name}}</span>
 

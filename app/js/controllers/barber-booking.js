@@ -1,7 +1,6 @@
 angular.module('app')
-    .controller('BookingController', function ($rootScope, $scope, $stateParams, BookingModel, ServiceModel, ToasterService, $modal, $log) {
-
-        $scope.openApproveBooking = function (size, id) {
+    .controller('BookingController', function ($rootScope, $scope, $state, $stateParams, BookingModel, ToasterService, $modal, $log) {
+        $scope.openApproveBooking = function (size, id, barberId) {
             var modalInstance = $modal.open({
                 templateUrl: 'approveBookingModal.html',
                 controller: 'BookingApproveController',
@@ -9,19 +8,21 @@ angular.module('app')
                 resolve: {
                     id: function () {
                         return id;
+                    },
+                    barberId: function () {
+                        return barberId;
                     }
                 }
             });
 
             modalInstance.result.then(function () {
 
-            },function(){
-                $scope.bookings = [];
-                getBookings();
+            }, function () {
+                refreshBookings();
             });
         };
 
-        $scope.openProposeBooking = function (size, id) {
+        $scope.openProposeBooking = function (size, id, barberId) {
             var modalInstance = $modal.open({
                 templateUrl: 'proposeBookingModal.html',
                 controller: 'BookingProposeController',
@@ -29,6 +30,9 @@ angular.module('app')
                 resolve: {
                     id: function () {
                         return id;
+                    },
+                    barberId: function () {
+                        return barberId;
                     }
                 }
             });
@@ -36,22 +40,34 @@ angular.module('app')
             modalInstance.result.then(function (selectedItem) {
                 $scope.selected = selectedItem;
             }, function () {
-                $log.info('Modal dismissed at: ' + new Date());
+                refreshBookings();
             });
         };
-        function getBookings() {
+        $scope.getBookings = function () {
             BookingModel.getBookings($stateParams.barberId,
                 getBookingSuccess, getBookingFailure);
-        }
-        //load bookings at first launch
-        getBookings();
-
+        };
         function getBookingSuccess(response) {
             $scope.bookings = response.data.bookings;
             $rootScope.$broadcast('hideLoading');
         }
 
         function getBookingFailure() {
+            $rootScope.$broadcast('hideLoading');
+            $scope.bookings = [];
+        }
+
+        $scope.getCustomerBookings = function () {
+            BookingModel.getCustomerBookings($stateParams.customerId,
+                getCustomerBookingSuccess, getCustomerBookingFailure);
+        };
+
+        function getCustomerBookingSuccess(response) {
+            $scope.bookings = response.data.bookings;
+            $rootScope.$broadcast('hideLoading');
+        }
+
+        function getCustomerBookingFailure() {
             $rootScope.$broadcast('hideLoading');
             $scope.bookings = [];
         }
@@ -76,16 +92,26 @@ angular.module('app')
             else
                 return false;
         };
+
+        function refreshBookings() {
+            $scope.bookings = [];
+            if ($state.current.name == 'app.barber-detail.bookings') {
+                $scope.getBookings();
+            }
+            if ($state.current.name == 'app.customer-detail.bookings') {
+                $scope.getCustomerBookings();
+            }
+        }
     });
 
 
 angular.module('app')
-    .controller('BookingApproveController', function ($stateParams, $scope, $modalInstance, $log, id, BookingModel, ToasterService, $rootScope) {
+    .controller('BookingApproveController', function ($stateParams, $scope, $modalInstance, $log, id, barberId, BookingModel, ToasterService, $rootScope) {
         $scope.id = id;
         $scope.approveBooking = function () {
             BookingModel.approveBooking({
                 id: id,
-                barberId: $stateParams.barberId
+                barberId: barberId
             }, approveBookingSuccess, approveBookingFailure);
             $rootScope.$broadcast('showLoading');
         };
@@ -107,12 +133,12 @@ angular.module('app')
     });
 
 angular.module('app')
-    .controller('BookingProposeController', function ($stateParams, $scope, $modalInstance, $log, id, BookingModel, ToasterService, $rootScope) {
+    .controller('BookingProposeController', function ($stateParams, $scope, $modalInstance, $log, id, barberId, BookingModel, ToasterService, $rootScope) {
         $scope.id = id;
         $scope.proposeBooking = function () {
             BookingModel.proposeBooking({
                 id: id,
-                barberId: $stateParams.barberId
+                barberId: barberId
             }, proposeBookingSuccess, proposeBookingFailure);
             $rootScope.$broadcast('showLoading');
         };
@@ -134,6 +160,7 @@ angular.module('app')
         function getSlots() {
             BookingModel.getSlots(getAllSlotsSuccess, getAllSlotsFailure);
         }
+
         getSlots();
 
         function getAllSlotsSuccess(response) {
