@@ -24,7 +24,7 @@
                        ng-click="openApproveBooking('sm',booking.id,booking.barber.id)">
                     Approve</a>
                     <a class="h5 text-info m-l-sm" ng-show="showProposeButton(booking.order_state_id)"
-                       ng-click="openProposeBooking('sm',booking.id.booking.barber.id)">
+                       ng-click="openProposeBooking('sm',booking.id,booking.barber.id)">
                         Propose</a>
                 <a class="h5 text-danger m-l-sm" ng-show="showCancelButton(booking.order_state_id)"
                    ng-click="openCancelBooking('sm',booking.id,booking.barber.id)">
@@ -39,5 +39,9 @@
 
     <script type="text/ng-template" id="proposeBookingModal.html">
         <div ng-include="'templates/modals/propose-booking.html'"></div>
+    </script>
+
+    <script type="text/ng-template" id="cancelBookingModal.html">
+        <div ng-include="'templates/modals/cancel-booking.html'"></div>
     </script>
 </div>

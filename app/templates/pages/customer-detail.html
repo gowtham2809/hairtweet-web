@@ -1,6 +1,14 @@
 <div class="hbox hbox-auto-xs hbox-auto-sm" ng-controller="CustomerController"
-     ng-init="loadCustomerDetails()||getCustomerBookings()||approveCustomerBooking()">
+     ng-init="loadCustomerDetails()||getCustomerBookings()">
+
     <div class="col" ng-hide="isLoading">
+        <div class="bg-light lter b-b wrapper-md">
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                    <h1 class="m-n font-thin h3 text-black">{{customer.first_name}} {{customer.last_name}}</h1>
+                </div>
+            </div>
+        </div>
         <div style="background-size:cover">
             <div class="wrapper bg-white b-b">
                 <ul class="nav nav-pills nav-sm">

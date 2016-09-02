@@ -5,8 +5,9 @@ angular.module('app')
             get_bookings: BASE_URL + '/barber/{barberId}/bookings',
             approve_booking: BASE_URL + '/booking/{bookingId}/approve',
             propose_booking: BASE_URL + '/booking/{bookingId}/propose',
-            get_slots: BASE_URL + '/slot/get-all-slots',
-            get_customer_bookings: BASE_URL + '/user/{userId}/bookings'
+            get_slots: BASE_URL + '/barber/{id}/slots',
+            get_customer_bookings: BASE_URL + '/user/{userId}/bookings',
+            cancel_booking:BASE_URL+'/booking/{id}/cancel'
 
         };
 
@@ -46,7 +47,7 @@ angular.module('app')
             $http = $injector.get('$http');
             var url = urls.propose_booking.replace('{bookingId}', requestParams.id);
             return $http.post(url, {
-                id: requestParams.id,
+                slot_id: requestParams.slotId,
                 barber_id: requestParams.barberId
             }).success(function (response) {
                 successCallback(response);
@@ -55,9 +56,22 @@ angular.module('app')
             });
         };
 
-        model.getSlots = function (successCallback, failureCallback) {
+        model.cancelBooking = function (requestParams, successCallback, failureCallback) {
             $http = $injector.get('$http');
-            $http.get(urls.get_slots).success(function (response) {
+            var url = urls.cancel_booking.replace('{id}', requestParams.id);
+            return $http.post(url, {
+                barber_id: requestParams.barberId
+            }).success(function (response) {
+                successCallback(response);
+            }).error(function (data, status) {
+                failureCallback(data.error.message)
+            });
+        };
+
+        model.getSlots = function (requestParams, successCallback, failureCallback) {
+            $http = $injector.get('$http');
+            var url = urls.get_slots.replace('{id}', requestParams.barberId);
+            $http.get(url).success(function (response) {
                 successCallback(response.data);
             }).error(function (data) {
                 failureCallback(data.error.message)

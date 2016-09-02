@@ -5,7 +5,8 @@ angular.module('app')
             get_all_barbers: BASE_URL + '/barber/get-all-barber',
             add_barber: BASE_URL + '/admin/add-barber',
             get_barber: BASE_URL + '/barber/{barberId}/detail',
-            update_barber: BASE_URL + '/admin/{barberId}/update-barber'
+            update_barber: BASE_URL + '/admin/{barberId}/update-barber',
+            delete_barber: BASE_URL + '/admin/{id}/delete-barber'
         };
         model.addBarber = function (requestParams, successCallback, failureCallback) {
             var fd = new FormData();
@@ -54,7 +55,16 @@ angular.module('app')
                 failureCallback(data.error.message)
             });
         };
-
+        model.deleteBarber = function (requestParams, successCallback, failureCallback) {
+            $http = $injector.get('$http');
+            var url = urls.delete_barber.replace('{id}', requestParams.id);
+            $http.post(url, {
+            }).success(function (response) {
+                successCallback(response);
+            }).error(function (data) {
+                failureCallback(data.error.message)
+            });
+        };
 
         model.getBookings = function (barberId, successCallback, failureCallback) {
             $http = $injector.get('$http');
@@ -65,7 +75,6 @@ angular.module('app')
                 failureCallback(data.error.message)
             });
         };
-
 
 
         model.getBarberAddress = function (barber) {

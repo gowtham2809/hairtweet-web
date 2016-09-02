@@ -43,6 +43,28 @@ angular.module('app')
                 refreshBookings();
             });
         };
+        $scope.openCancelBooking = function (size, id, barberId) {
+            var modalInstance = $modal.open({
+                templateUrl: 'cancelBookingModal.html',
+                controller: 'BookingCancelController',
+                size: size,
+                resolve: {
+                    id: function () {
+                        return id;
+                    },
+                    barberId: function () {
+                        return barberId;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                refreshBookings();
+            });
+        };
+
         $scope.getBookings = function () {
             BookingModel.getBookings($stateParams.barberId,
                 getBookingSuccess, getBookingFailure);
@@ -134,11 +156,13 @@ angular.module('app')
 
 angular.module('app')
     .controller('BookingProposeController', function ($stateParams, $scope, $modalInstance, $log, id, barberId, BookingModel, ToasterService, $rootScope) {
-        $scope.id = id;
+        $scope.bookingId = id;
+        $scope.category = {};
         $scope.proposeBooking = function () {
             BookingModel.proposeBooking({
                 id: id,
-                barberId: barberId
+                barberId: barberId,
+                slotId:$scope.category.id
             }, proposeBookingSuccess, proposeBookingFailure);
             $rootScope.$broadcast('showLoading');
         };
@@ -156,13 +180,11 @@ angular.module('app')
         $scope.close = function () {
             $modalInstance.dismiss('cancel');
         };
-
-        function getSlots() {
-            BookingModel.getSlots(getAllSlotsSuccess, getAllSlotsFailure);
-        }
-
-        getSlots();
-
+        $scope.getSlots =function () {
+            BookingModel.getSlots({
+                barberId: barberId
+            },getAllSlotsSuccess, getAllSlotsFailure);
+        };
         function getAllSlotsSuccess(response) {
             $scope.slots = response.slots;
             $rootScope.$broadcast('hideLoading');
@@ -172,5 +194,31 @@ angular.module('app')
             $rootScope.$broadcast('hideLoading');
             $scope.slots = [];
         }
+
+    });
+
+angular.module('app')
+    .controller('BookingCancelController', function ($stateParams, $scope, $modalInstance, $log, id, barberId, BookingModel, ToasterService, $rootScope) {
+        $scope.cancelBooking = function () {
+            BookingModel.cancelBooking({
+                id: id,
+                barberId: barberId
+            }, cancelBookingSuccess, cancelBookingFailure);
+            $rootScope.$broadcast('showLoading');
+        };
+        function cancelBookingSuccess(Response) {
+            ToasterService.success(null, "Cancelled Successfully!");
+            $rootScope.$broadcast('hideLoading');
+            $scope.close();
+        }
+
+        function cancelBookingFailure($message) {
+            ToasterService.error(null, $message);
+            $rootScope.$broadcast('hideLoading');
+        }
+
+        $scope.close = function () {
+            $modalInstance.dismiss('cancel');
+        };
 
     });

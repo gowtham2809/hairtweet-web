@@ -1,14 +1,14 @@
-<div class="wrapper-sm">
+<div class="wrapper-sm" ng-init="getSlots()">
     <div class="" ng-repeat="slot in slots">
         <div class="radio">
             <label class="i-checks">
-                <input type="radio" name="toasts" ng-model="toaster.type" value="success">
+                <input type="radio" name="id" ng-model="category.id" value="{{slot.id}}">
                 <i></i>
                 {{slot.slot_timings}}
             </label>
         </div>
     </div>
-<div class="form-group">
+    <div class="form-group">
     <div class="col-sm-offset-2">
         <button type="submit" class="btn btn-default" ng-click="close()">Cancel</button>
         <button type="submit" class="btn btn-primary" ng-click="proposeBooking()">Yes , Propose</button>

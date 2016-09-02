@@ -17,10 +17,23 @@ angular.module('app')
             $scope.barber = [];
         }
 
+        $scope.removeBarber = function (size) {
+            var modalInstance = $modal.open({
+                templateUrl: 'removeBarberModal.html',
+                controller: 'RemoveBarberController',
+                size: size
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+            });
+        };
+
         $scope.setEditMode = function (state) {
             if (state == true)
             // deep copy
-            $scope.barberCopy = angular.copy($scope.barber);
+                $scope.barberCopy = angular.copy($scope.barber);
             $scope.barberCopy.is_active = $scope.barberCopy.is_active == 1;
             $scope.inEditMode = state;
         };
@@ -40,7 +53,7 @@ angular.module('app')
                 address_line_2: $scope.barberCopy.address_line_2,
                 address_line_3: $scope.barberCopy.address_line_3,
                 logo: $scope.myFile,
-                condition :$scope.barberCopy.is_active
+                condition: $scope.barberCopy.is_active
             }, updateSuccess, updateFailure);
 
             $rootScope.$broadcast('showLoading');
@@ -63,4 +76,26 @@ angular.module('app')
             return BarberModel.isBarberActive(barber);
         };
 
+    });
+angular.module('app')
+    .controller('RemoveBarberController', function ($rootScope, $scope, $stateParams, $modalInstance, BarberModel, ToasterService, $modal, $log) {
+        $scope.close = function () {
+            $modalInstance.dismiss('cancel');
+        };
+        $scope.deleteBarber = function () {
+            BarberModel.deleteBarber({
+                id: $stateParams.barberId
+            }, deleteBarberSuccess, deleteBarberFailure);
+            $rootScope.$broadcast('showLoading');
+        };
+        function deleteBarberSuccess(deleteResponse) {
+            ToasterService.success(null, "Deleted successful!");
+            $rootScope.$broadcast('hideLoading');
+            $scope.close();
+        }
+
+        function deleteBarberFailure($message) {
+            ToasterService.error(null, $message);
+            $rootScope.$broadcast('hideLoading');
+        }
     });

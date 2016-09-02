@@ -24,7 +24,7 @@
                     <li class="active"><a href data-toggle="tab" data-target="#tab_1">Info</a></li>
                     <li><a href data-toggle="tab" ui-sref="app.barber-detail.services" data-target="#tab_2">Services</a></li>
                     <li><a href data-toggle="tab" ui-sref="app.barber-detail.bookings" data-target="#tab_3">Bookings</a></li>
-                    <li><a href data-toggle="tab" data-target="#tab_4">Settings</a></li>
+                    <li><a href data-toggle="tab" ui-sref="app.barber-detail.others" data-target="#tab_4">Others</a></li>
                 </ul>
             </div>
             <div class="tab-container">
@@ -149,12 +149,7 @@
                         <div ui-view="barber_booking"></div>
                     </div>
                     <div class="tab-pane" id="tab_4">
-                        <h1 class="m-n font-thin h3 text-black block inline">Settings</h1>
-                        <div class="wrapper-md">
-                            <div class="panel panel-default">
-
-                            </div>
-                        </div>
+                        <div ui-view="barber_others"></div>
                     </div>
 
                 </div>
@@ -167,7 +162,9 @@
         <div ng-include="'templates/modals/update-service.html'"></div>
     </script>
     <!--Update service Model END-->
-
+    <script type="text/ng-template" id="removeBarberModal.html">
+        <div ng-include="'templates/modals/remove-barber.html'"></div>
+    </script>
 
 
 
