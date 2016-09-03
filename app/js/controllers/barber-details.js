@@ -1,5 +1,5 @@
 angular.module('app')
-    .controller('BarberController', function ($rootScope, $scope, $stateParams, BarberModel, ServiceModel, ToasterService, $modal, $log) {
+    .controller('BarberController', function ($rootScope, $scope,$state, $stateParams, BarberModel, ServiceModel, ToasterService, $modal, $log) {
         $scope.inEditMode = false;
         $scope.coverColor = "#78686F";
 
@@ -27,6 +27,7 @@ angular.module('app')
             modalInstance.result.then(function (selectedItem) {
                 $scope.selected = selectedItem;
             }, function () {
+                $state.go('app.manage-barber');
             });
         };
 

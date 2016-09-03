@@ -7,7 +7,7 @@ angular.module('app')
         ];
 
         service.request = function (config) {
-            console.log('Intercepting request ', config);
+           /* console.log('Intercepting request ', config);*/
             /*// check it req is for the same domain
             if (config.url.indexOf(BASE_URL) != 0) {
                 return config;

@@ -21,6 +21,25 @@ angular.module('app')
                 refreshBookings();
             });
         };
+        $scope.openBookingDetail = function (size, booking) {
+            console.log(booking);
+            var modalInstance = $modal.open({
+                templateUrl: 'bookingDetailModal.html',
+                controller: 'BookingDetailController',
+                size: size,
+                resolve: {
+                    booking: function () {
+                        return booking;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function () {
+
+            }, function () {
+                refreshBookings();
+            });
+        };
 
         $scope.openProposeBooking = function (size, id, barberId) {
             var modalInstance = $modal.open({
@@ -162,7 +181,7 @@ angular.module('app')
             BookingModel.proposeBooking({
                 id: id,
                 barberId: barberId,
-                slotId:$scope.category.id
+                slotId: $scope.category.id
             }, proposeBookingSuccess, proposeBookingFailure);
             $rootScope.$broadcast('showLoading');
         };
@@ -180,10 +199,10 @@ angular.module('app')
         $scope.close = function () {
             $modalInstance.dismiss('cancel');
         };
-        $scope.getSlots =function () {
+        $scope.getSlots = function () {
             BookingModel.getSlots({
                 barberId: barberId
-            },getAllSlotsSuccess, getAllSlotsFailure);
+            }, getAllSlotsSuccess, getAllSlotsFailure);
         };
         function getAllSlotsSuccess(response) {
             $scope.slots = response.slots;
@@ -221,4 +240,56 @@ angular.module('app')
             $modalInstance.dismiss('cancel');
         };
 
+    });
+
+angular.module('app')
+    .controller('BookingDetailController', function ($stateParams, $scope, $modalInstance, booking) {
+        $scope.booking = booking;
+        $scope.close = function () {
+            $modalInstance.dismiss('cancel');
+        };
+
+    });
+angular.module('app')
+    .directive('starRating', function () {
+        return {
+            restrict: 'EA',
+            template: '<ul class="star-rating" ng-class="{readonly: readonly}">' +
+            '  <li ng-repeat="star in stars" class="star" ng-class="{filled: star.filled}" ng-click="toggle($index)">' +
+            '    <i class="fa fa-star"></i>' + // or &#9733
+            '  </li>' +
+            '</ul>',
+            scope: {
+                ratingValue: '=ngModel',
+                max: '=?', // optional (default is 5)
+                onRatingSelect: '&?',
+                readonly: '=?'
+            },
+            link: function (scope, element, attributes) {
+                if (scope.max == undefined) {
+                    scope.max = 5;
+                }
+                function updateStars() {
+                    scope.stars = [];
+                    for (var i = 0; i < scope.max; i++) {
+                        scope.stars.push({
+                            filled: i < scope.ratingValue
+                        });
+                    }
+                };
+                scope.toggle = function (index) {
+                    if (scope.readonly == undefined || scope.readonly === false) {
+                        scope.ratingValue = index + 1;
+                        scope.onRatingSelect({
+                            rating: index + 1
+                        });
+                    }
+                };
+                scope.$watch('ratingValue', function (oldValue, newValue) {
+                    if (newValue) {
+                        updateStars();
+                    }
+                });
+            }
+        };
     });

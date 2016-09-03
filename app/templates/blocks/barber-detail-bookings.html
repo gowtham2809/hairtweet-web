@@ -14,7 +14,7 @@
             </thead>
             <tbody>
             <tr ng-repeat="booking in bookings">
-                <td>{{booking.order_number}}</td>
+                <td ng-click="openBookingDetail('lg',booking)"><u>{{booking.order_number}}</u></td>
                 <td>{{booking.order_date}}</td>
                 <td>{{booking.user.first_name}} {{booking.user.last_name}}</td>
                 <td>{{booking.slot.slot_timings}}</td>
@@ -43,5 +43,9 @@
 
     <script type="text/ng-template" id="cancelBookingModal.html">
         <div ng-include="'templates/modals/cancel-booking.html'"></div>
+    </script>
+
+    <script type="text/ng-template" id="bookingDetailModal.html">
+        <div ng-include="'templates/modals/booking-detail.html'"></div>
     </script>
 </div>
