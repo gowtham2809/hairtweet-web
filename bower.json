@@ -83,7 +83,8 @@
     "videogular-overlay-play": "~0.7.0",
     "videogular-poster": "~0.7.0",
     "waves": "~0.7.2",
-    "vibrant": "*"
+    "vibrant": "*",
+    "chart.js": "npm:chart.js#^2.2.2"
   },
   "resolutions": {
     "angular-cookies": "1.4.7",

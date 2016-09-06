@@ -7,7 +7,8 @@ angular.module('app')
             propose_booking: BASE_URL + '/booking/{bookingId}/propose',
             get_slots: BASE_URL + '/barber/{id}/slots',
             get_customer_bookings: BASE_URL + '/user/{userId}/bookings',
-            cancel_booking:BASE_URL+'/booking/{id}/cancel'
+            cancel_booking: BASE_URL + '/booking/{id}/cancel',
+            getDashboardBooking: BASE_URL + '/latest/bookings'
 
         };
 
@@ -73,6 +74,15 @@ angular.module('app')
             var url = urls.get_slots.replace('{id}', requestParams.barberId);
             $http.get(url).success(function (response) {
                 successCallback(response.data);
+            }).error(function (data) {
+                failureCallback(data.error.message)
+            });
+        };
+
+        model.getDashboardBookings = function (successCallback, failureCallback) {
+            $http = $injector.get('$http');
+            $http.get(urls.getDashboardBooking).success(function (response) {
+                successCallback(response);
             }).error(function (data) {
                 failureCallback(data.error.message)
             });

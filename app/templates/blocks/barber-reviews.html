@@ -1,0 +1,8 @@
+<div ng-init="getReviewsForBarber()">
+    <div class="m-t" ng-repeat="review in reviews">
+        <span class="h4">{{review.user.first_name}} {{review.user.last_name}}</span><span class="h5 m-l">{{review.review_date}}</span><br>
+        <review-rating  ng-model="review.rating" readonly="true"></review-rating>
+        <div>{{review.review}}</div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+    </div>
+</div>
