@@ -14,4 +14,18 @@ angular.module('app')
             $scope.bookings = [];
         }
 
+        $scope.getChartInfo = function () {
+            BookingModel.getChartInfo(
+                getInfoSuccess, getInfoFailure);
+        };
+        function getInfoSuccess(response) {
+            $scope.chartInfo = response.data.data;
+            $rootScope.$broadcast('hideLoading');
+        }
+
+        function getInfoFailure() {
+            $rootScope.$broadcast('hideLoading');
+            $scope.chartInfo = [];
+        }
+
     });

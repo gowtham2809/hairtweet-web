@@ -101,7 +101,8 @@ angular.module('app')
             return $http.post(url, {
                 city_name: requestParams.city,
                 latitude: requestParams.latitude,
-                longitude: requestParams.longitude
+                longitude: requestParams.longitude,
+                range:requestParams.range
             }).success(function (response) {
                 successCallback(response);
             }).error(function (data, status) {
@@ -113,7 +114,8 @@ angular.module('app')
             return $http.post(url, {
                 city_name: requestParams.city,
                 latitude: requestParams.latitude,
-                longitude: requestParams.longitude
+                longitude: requestParams.longitude,
+                range:requestParams.range
             }).success(function (response) {
                 successCallback(response);
             }).error(function (data, status) {

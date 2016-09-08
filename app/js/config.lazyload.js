@@ -14,7 +14,8 @@ angular.module('app')
         service: ['js/models/service.js'],
         customer:['js/models/customer.js'],
         booking: ['js/models/booking.js'],
-        screenfull: ['bower_components/screenfull/dist/screenfull.js']
+        screenfull: ['bower_components/screenfull/dist/screenfull.js'],
+        chart:['bower_components/chart.js/dist/Chart.bundle.min.js','bower_components/chart.js/dist/Chart.min.js','js/directives/ui-chart.js']
     })
     .constant('MODULE_CONFIG', [
 

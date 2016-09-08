@@ -8,7 +8,8 @@ angular.module('app')
             get_slots: BASE_URL + '/barber/{id}/slots',
             get_customer_bookings: BASE_URL + '/user/{userId}/bookings',
             cancel_booking: BASE_URL + '/booking/{id}/cancel',
-            getDashboardBooking: BASE_URL + '/latest/bookings'
+            getDashboardBooking: BASE_URL + '/latest/bookings',
+            getChartInformation: BASE_URL + '/chart/info'
 
         };
 
@@ -82,6 +83,14 @@ angular.module('app')
         model.getDashboardBookings = function (successCallback, failureCallback) {
             $http = $injector.get('$http');
             $http.get(urls.getDashboardBooking).success(function (response) {
+                successCallback(response);
+            }).error(function (data) {
+                failureCallback(data.error.message)
+            });
+        };
+        model.getChartInfo = function (successCallback, failureCallback) {
+            $http = $injector.get('$http');
+            $http.get(urls.getChartInformation).success(function (response) {
                 successCallback(response);
             }).error(function (data) {
                 failureCallback(data.error.message)

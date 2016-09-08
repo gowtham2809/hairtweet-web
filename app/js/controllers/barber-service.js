@@ -357,7 +357,8 @@ angular.module('app')
             ServiceModel.addLocation({
                 city: $scope.location.city,
                 latitude: $scope.location.latitude,
-                longitude: $scope.location.longitude
+                longitude: $scope.location.longitude,
+                range:$scope.location.range
             }, addLocationSuccess, addLocationFailure);
             $rootScope.$broadcast('showLoading');
         };
@@ -383,7 +384,8 @@ angular.module('app')
                 id: $scope.location.id,
                 city: $scope.location.city_name,
                 latitude: $scope.location.latitude,
-                longitude: $scope.location.longitude
+                longitude: $scope.location.longitude,
+                range:$scope.location.range
             }, updateLocationSuccess, updateLocationFailure);
             $rootScope.$broadcast('showLoading');
         };

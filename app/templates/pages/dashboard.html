@@ -1,5 +1,5 @@
-<div class="hbox hbox-auto-xs hbox-auto-sm" ng-controller="DashboardController">
-    <div class="bg-light lter b-b wrapper-md">
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-controller="DashboardController"  ng-init="getDashboardBookings()">
+    <div class="bg-light lter b-b wrapper-md" ng-init="getChartInfo()">
         <div class="row">
             <div class="col-sm-6 col-xs-12">
                 <h1 class="m-n font-thin h3 text-black">Dashboard</h1>
@@ -7,7 +7,7 @@
             </div>
         </div>
     </div>
-    <div class="wrapper-md" ng-init="getDashboardBookings()">
+    <div class="wrapper-md">
         <div class="panel panel-default">
             <table st-table="rowCollectionBasic" class="table table-bordered table-striped fixed_headers">
                 <thead>
@@ -36,4 +36,6 @@
             </table>
         </div>
     </div>
+
+<canvas draw-chart ></canvas>
 </div>
