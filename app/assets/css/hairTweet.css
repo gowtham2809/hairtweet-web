@@ -134,6 +134,15 @@ input[type=number]::-webkit-outer-spin-button {
     width: 100%;
     height: 280px;
 }
+.ratingColorRed{
+    background-color: red;
+}
+.ratingColorOrange{
+    background-color: orange;
+}
+.ratingColorGreen{
+    background-color: green;
+}
 
 
 

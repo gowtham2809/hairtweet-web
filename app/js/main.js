@@ -57,5 +57,10 @@ angular.module('app')
             });
 
         }
-    );
+    )
+    .service('userManagement', function () {
+        service.isUser = function () {
+            return isManager() || isAdmin() || isSuperAdmin();
+        };
+    });
 

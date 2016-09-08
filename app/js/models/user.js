@@ -1,8 +1,8 @@
 angular.module('app')
-    .service('UserModel', function ($http, $localStorage, BASE_URL) {
+    .service('UserModel', function ($http, $localStorage, WEB_URL) {
         var model = this;
         var urls = {
-            login: BASE_URL + '/auth/login'
+            login: WEB_URL + '/web/login'
         };
         model.attemptLogin = function (loginRequest, successCallback, failureCallback) {
             // make a http request to attempt login

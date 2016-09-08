@@ -14,5 +14,6 @@ angular.module('app', [
     'ui.jq',
     'ui.select',
     'oc.lazyLoad',
-    'toaster'
+    'toaster',
+    'angularMoment'
 ]);

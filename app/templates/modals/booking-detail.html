@@ -40,9 +40,21 @@
         <div class="line line-dashed b-b line-lg pull-in"></div>
         <h1 class=" font-thin h4 text-black block inline">Reviews</h1>
         <div class="m-t" ng-repeat="review in booking.review">
-            <span class="h4">{{review.review_date}}</span><star-rating class="m-l" ng-model="review.rating" readonly="true"></star-rating>
-            <div>{{review.review}} </div>
+            <div class="m-l m-b">
+                <div>
+                    <a href><strong>{{booking.user.first_name}} {{booking.user.last_name}}</strong>
+                        <span class="badge m-l-xs" ng-class="{'ratingColorRed':review.rating<1.5,
+                    'ratingColorOrange':review.rating<3.5 && review.rating>1.5,'ratingColorGreen':review.rating>3.5}"
+                        >{{review.rating}}</span></a>
+                    <span class="text-muted text-xs block m-t-xs" am-time-ago="review.review_date">
+              </span>
+                </div>
+                <div class="m-t-xs">{{review.review}}</div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+
         </div>
+
 
         <div class="form-group">
             <button type="submit" class="btn btn-default pull-right" ng-click="close()">Close</button>

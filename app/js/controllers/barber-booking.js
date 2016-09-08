@@ -22,7 +22,6 @@ angular.module('app')
             });
         };
         $scope.openBookingDetail = function (size, booking) {
-            console.log(booking);
             var modalInstance = $modal.open({
                 templateUrl: 'bookingDetailModal.html',
                 controller: 'BookingDetailController',

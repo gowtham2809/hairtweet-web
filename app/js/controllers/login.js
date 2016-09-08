@@ -18,6 +18,7 @@ angular.module('app')
 
         function loginSuccess(loginResponse) {
             // save toke and current user data
+            console.log('hsdgkfhfdgkj',loginResponse);
             TokenModel.setToken(loginResponse.token);
             UserModel.setCurrentUser(loginResponse.user);
             $state.go('app');
