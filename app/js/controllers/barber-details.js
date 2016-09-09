@@ -1,7 +1,8 @@
 angular.module('app')
-    .controller('BarberController', function ($rootScope, $scope,$state, $stateParams, BarberModel, ServiceModel, ToasterService, $modal, $log) {
+    .controller('BarberController', function ($rootScope, $scope, $state, $stateParams, UserModel, BarberModel, ServiceModel, ToasterService, $modal, $log) {
         $scope.inEditMode = false;
         $scope.coverColor = "#78686F";
+        $scope.userType = UserModel.getUserType();
 
         $rootScope.$broadcast('showLoading');
         BarberModel.loadBarberDetails($stateParams.barberId,
@@ -79,7 +80,7 @@ angular.module('app')
 
         $scope.getReviewsForBarber = function () {
             BarberModel.getReviewsForBarber({
-                barberId:$stateParams.barberId
+                barberId: $stateParams.barberId
             }, getReviewSuccess, getReviewFailure);
             $rootScope.$broadcast('showLoading');
         };

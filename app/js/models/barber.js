@@ -1,13 +1,24 @@
 angular.module('app')
-    .service('BarberModel', function ($injector, BASE_URL) {
+    .service('BarberModel', function ($localStorage, $injector, BASE_URL, BARBER_URL, UserModel) {
         var model = this;
+        if (UserModel.getUserType() == 'barber') {
+            var get_barber = BARBER_URL + '/barber/{barberId}/detail';
+            var update_barber = BARBER_URL + '/admin/{barberId}/update-barber';
+            var barber_review = BARBER_URL + '/barber/{id}/reviews'
+
+        } else {
+            var get_barber = BASE_URL + '/barber/{barberId}/detail';
+            var update_barber = BASE_URL + '/admin/{barberId}/update-barber';
+            var barber_review = BASE_URL + '/barber/{id}/reviews'
+
+        }
         var urls = {
             get_all_barbers: BASE_URL + '/barber/get-all-barber',
             add_barber: BASE_URL + '/admin/add-barber',
-            get_barber: BASE_URL + '/barber/{barberId}/detail',
-            update_barber: BASE_URL + '/admin/{barberId}/update-barber',
+            get_barber: get_barber,
+            update_barber: update_barber,
             delete_barber: BASE_URL + '/admin/{id}/delete-barber',
-            barber_review: BASE_URL + '/barber/{id}/reviews'
+            barber_review: barber_review
         };
         model.addBarber = function (requestParams, successCallback, failureCallback) {
             var fd = new FormData();

@@ -1,13 +1,29 @@
 angular.module('app')
-    .service('BookingModel', function ($injector, BASE_URL, BARBER_URL) {
+    .service('BookingModel', function ($injector, BASE_URL, BARBER_URL, UserModel) {
         var model = this;
+        if (UserModel.getUserType() == 'barber') {
+            var get_bookings = BARBER_URL + '/barber/{barberId}/bookings';
+            var approve_booking = BARBER_URL + '/booking/{bookingId}/approve';
+            var propose_booking = BARBER_URL + '/booking/{bookingId}/propose';
+            var cancel_booking = BARBER_URL + '/booking/{id}/cancel';
+            var get_slots = BARBER_URL + '/barber/{id}/slots';
+
+        } else {
+            var get_bookings = BASE_URL + '/barber/{barberId}/bookings';
+            var approve_booking = BASE_URL + '/booking/{bookingId}/approve';
+            var propose_booking = BASE_URL + '/booking/{bookingId}/propose';
+            var cancel_booking = BASE_URL + '/booking/{id}/cancel';
+            var get_slots = BASE_URL + '/barber/{id}/slots';
+
+
+        }
         var urls = {
-            get_bookings: BASE_URL + '/barber/{barberId}/bookings',
-            approve_booking: BASE_URL + '/booking/{bookingId}/approve',
-            propose_booking: BASE_URL + '/booking/{bookingId}/propose',
-            get_slots: BASE_URL + '/barber/{id}/slots',
+            get_bookings: get_bookings,
+            approve_booking: approve_booking,
+            propose_booking: propose_booking,
+            cancel_booking: cancel_booking,
+            get_slots: get_slots,
             get_customer_bookings: BASE_URL + '/user/{userId}/bookings',
-            cancel_booking: BASE_URL + '/booking/{id}/cancel',
             getDashboardBooking: BASE_URL + '/latest/bookings',
             getChartInformation: BASE_URL + '/chart/info',
             getBarberDashboardBooking: BARBER_URL + '/barber/latest/bookings',

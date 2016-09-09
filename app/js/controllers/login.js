@@ -19,7 +19,12 @@ angular.module('app')
         function loginSuccess(loginResponse) {
             // save toke and current user data
             TokenModel.setToken(loginResponse.token);
-            UserModel.setCurrentUser(loginResponse.user);
+            if(loginResponse.user_type == "barber") {
+                UserModel.setCurrentUser(loginResponse.barber);
+            }
+            if(loginResponse.user_type == "admin") {
+                UserModel.setCurrentUser(loginResponse.admin);
+            }
             UserModel.currentUserType(loginResponse.user_type);
             if(loginResponse.user_type == "barber"){
                 $state.go('app.barber-dashboard');

@@ -1,21 +1,41 @@
 angular.module('app')
-    .service('ServiceModel', function ($injector, BASE_URL) {
+    .service('ServiceModel', function ($injector, BASE_URL, BARBER_URL, UserModel) {
         var model = this;
+        if (UserModel.getUserType() == 'barber') {
+            var get_services = BARBER_URL + '/barber/{id}/categories';
+            var update_service = BARBER_URL + '/services/{serviceId}/update';
+            var add_service = BARBER_URL + '/services/add';
+            var delete_service = BARBER_URL + '/services/{serviceId}/delete';
+            var get_service_location = BARBER_URL + '/get-service-locations';
+            var add_category = BARBER_URL + '/category/add';
+            var update_category = BARBER_URL+'/category/{id}/update';
+            var delete_category =BARBER_URL+'/category/{id}/delete'
+        } else {
+            var get_services = BASE_URL + '/barber/{id}/categories';
+            var update_service = BASE_URL + '/services/{serviceId}/update';
+            var add_service = BASE_URL + '/services/add';
+            var delete_service = BASE_URL + '/services/{serviceId}/delete';
+            var get_service_location = BASE_URL + '/get-service-locations';
+            var add_category = BASE_URL + '/category/add';
+            var update_category = BASE_URL+'/category/{id}/update';
+            var delete_category =BASE_URL+'/category/{id}/delete'
+
+        }
         var urls = {
-            get_services: BASE_URL + '/barber/{id}/categories',
-            update_service: BASE_URL + '/services/{serviceId}/update',
-            delete_service: BASE_URL + '/services/{serviceId}/delete',
-            get_service_location: BASE_URL + '/get-service-locations',
+            get_services: get_services,
+            update_service: update_service,
+            delete_service: delete_service,
+            get_service_location: get_service_location,
             add_location: BASE_URL + '/add/service-location',
             update_location: BASE_URL + '/update/{id}/service-location',
             delete_location: BASE_URL + '/delete/{id}/service-location',
             add_area: BASE_URL + '/add/service-area',
             update_area: BASE_URL + '/update/{id}/service-area',
             delete_area: BASE_URL + '/delete/{id}/service-area',
-            add_category: BASE_URL + '/category/add',
-            update_category: BASE_URL + '/category/{id}/update',
-            delete_category: BASE_URL + '/category/{id}/delete',
-            add_service: BASE_URL + '/services/add'
+            add_category: add_category,
+            update_category: update_category,
+            delete_category: delete_category,
+            add_service: add_service
         };
 
         model.getServices = function (barberId, successCallback, failureCallback) {
@@ -38,7 +58,7 @@ angular.module('app')
                 cost: requestParams.cost,
                 discount: requestParams.discount,
                 discount_type_id: requestParams.discount_type,
-                category_id:requestParams.category_id
+                category_id: requestParams.category_id
             }).success(function (response) {
                 successCallback(response);
             }).error(function (data, status) {
@@ -102,7 +122,7 @@ angular.module('app')
                 city_name: requestParams.city,
                 latitude: requestParams.latitude,
                 longitude: requestParams.longitude,
-                range:requestParams.range
+                range: requestParams.range
             }).success(function (response) {
                 successCallback(response);
             }).error(function (data, status) {
@@ -115,7 +135,7 @@ angular.module('app')
                 city_name: requestParams.city,
                 latitude: requestParams.latitude,
                 longitude: requestParams.longitude,
-                range:requestParams.range
+                range: requestParams.range
             }).success(function (response) {
                 successCallback(response);
             }).error(function (data, status) {
