@@ -15,8 +15,8 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, JQ_CONFI
             templateUrl: 'templates/pages/dashboard.html',
             resolve: load(['js/controllers/dashboard.js', 'booking', 'user', 'chart'])
         })
-        .state('app-barber.dashboard', {
-            url: 'barber/dashboard',
+        .state('app.barber-dashboard', {
+            url: '/barber/dashboard',
             templateUrl: 'templates/pages/barber-dashboard.html',
             resolve: load(['js/controllers/dashboard.js', 'booking', 'user', 'chart'])
         })

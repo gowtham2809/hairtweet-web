@@ -1,5 +1,5 @@
 angular.module('app')
-    .service('BookingModel', function ($injector, BASE_URL) {
+    .service('BookingModel', function ($injector, BASE_URL, BARBER_URL) {
         var model = this;
         var urls = {
             get_bookings: BASE_URL + '/barber/{barberId}/bookings',
@@ -9,7 +9,9 @@ angular.module('app')
             get_customer_bookings: BASE_URL + '/user/{userId}/bookings',
             cancel_booking: BASE_URL + '/booking/{id}/cancel',
             getDashboardBooking: BASE_URL + '/latest/bookings',
-            getChartInformation: BASE_URL + '/chart/info'
+            getChartInformation: BASE_URL + '/chart/info',
+            getBarberDashboardBooking: BARBER_URL + '/barber/latest/bookings',
+            getBarberChartInformation: BARBER_URL + '/barber/chart/info'
 
         };
 
@@ -88,6 +90,14 @@ angular.module('app')
                 failureCallback(data.error.message)
             });
         };
+        model.getBarberDashboardBookings = function (successCallback, failureCallback) {
+            $http = $injector.get('$http');
+            $http.get(urls.getBarberDashboardBooking).success(function (response) {
+                successCallback(response);
+            }).error(function (data) {
+                failureCallback(data.error.message)
+            });
+        };
         model.getChartInfo = function (successCallback, failureCallback) {
             $http = $injector.get('$http');
             $http.get(urls.getChartInformation).success(function (response) {
@@ -96,5 +106,12 @@ angular.module('app')
                 failureCallback(data.error.message)
             });
         };
-
+        model.getBarberChartInfo = function (successCallback, failureCallback) {
+            $http = $injector.get('$http');
+            $http.get(urls.getBarberChartInformation).success(function (response) {
+                successCallback(response);
+            }).error(function (data) {
+                failureCallback(data.error.message)
+            });
+        };
     });

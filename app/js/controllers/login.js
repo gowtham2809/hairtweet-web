@@ -21,6 +21,10 @@ angular.module('app')
             TokenModel.setToken(loginResponse.token);
             UserModel.setCurrentUser(loginResponse.user);
             UserModel.currentUserType(loginResponse.user_type);
+            if(loginResponse.user_type == "barber"){
+                $state.go('app.barber-dashboard');
+                return;
+            }
             $state.go('app');
         }
 

@@ -17,6 +17,22 @@ angular.module('app')
             $scope.bookings = [];
         }
 
+        $scope.getBarberDashboardBookings = function () {
+            if ($scope.userType == "admin")
+                return;
+            BookingModel.getBarberDashboardBookings(
+                getBarberBookingSuccess, getBarberBookingFailure);
+        };
+        function getBarberBookingSuccess(response) {
+            $scope.bookings = response.data.bookings;
+            $rootScope.$broadcast('hideLoading');
+        }
+
+        function getBarberBookingFailure() {
+            $rootScope.$broadcast('hideLoading');
+            $scope.bookings = [];
+        }
+
         $scope.getChartInfo = function () {
             if ($scope.userType == "barber")
                 return;
@@ -29,6 +45,22 @@ angular.module('app')
         }
 
         function getInfoFailure() {
+            $rootScope.$broadcast('hideLoading');
+            $scope.chartInfo = [];
+        }
+
+        $scope.getBarberChartInfo = function () {
+            if ($scope.userType == "admin")
+                return;
+            BookingModel.getBarberChartInfo(
+                getBarberInfoSuccess, getBarberInfoFailure);
+        };
+        function getBarberInfoSuccess(response) {
+            $scope.chartInfo = response.data.data;
+            $rootScope.$broadcast('hideLoading');
+        }
+
+        function getBarberInfoFailure() {
             $rootScope.$broadcast('hideLoading');
             $scope.chartInfo = [];
         }

@@ -1,4 +1,4 @@
-<div class="hbox hbox-auto-xs hbox-auto-sm" ng-controller="DashboardController"  ng-init="getBarberBookings()"
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-controller="DashboardController"  ng-init="getBarberDashboardBookings()"
      ng-show="userType == 'barber'">
     <div class="bg-light lter b-b wrapper-md" ng-init="getBarberChartInfo()">
         <div class="row">
@@ -16,7 +16,7 @@
                     <th>Order Number</th>
                     <th>Order Date</th>
                     <th>Customer Name</th>
-                    <th>Barber Name</th>
+                    <th>Gender</th>
                     <th>Slot Timing</th>
                     <th>Order State</th>
                     <th>Total</th>
@@ -27,7 +27,7 @@
                     <td>{{booking.order_number}}</td>
                     <td>{{booking.order_date}}</td>
                     <td>{{booking.user.first_name}} {{booking.user.last_name}}</td>
-                    <td>{{booking.barber.first_name}} {{booking.barber.last_name}}</td>
+                    <td>{{booking.user.gender}}</td>
                     <td>{{booking.slot.slot_timings}}</td>
                     <td>{{booking.order_state.state}}</td>
                     <td>{{booking.total}}</td>
