@@ -1,9 +1,11 @@
 angular.module('app')
-    .service('APIInterceptor', function (TokenModel, $rootScope, $q, BASE_URL) {
+    .service('APIInterceptor', function (TokenModel, $rootScope, $q, BASE_URL,BARBER_URL) {
         var service = this;
         var exceptionUrls = [
             BASE_URL + '/auth/login',
-            BASE_URL + '/auth/refresh-token'
+            BASE_URL + '/auth/refresh-token',
+            BARBER_URL + '/auth/login',
+            BARBER_URL + '/auth/refresh-token'
         ];
 
         service.request = function (config) {

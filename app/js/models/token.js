@@ -1,8 +1,14 @@
 angular.module('app')
-    .service('TokenModel', function ($localStorage, $injector, BASE_URL) {
+    .service('TokenModel', function ($localStorage, $injector, BASE_URL, BARBER_URL) {
         var model = this;
+        if ($localStorage.userType == 'barber') {
+            var refresh_token = BARBER_URL + '/auth/refresh-token'
+        }else {
+            var refresh_token = BASE_URL + '/auth/refresh-token'
+
+        }
         var urls = {
-            refresh_token: BASE_URL + '/auth/refresh-token'
+            refresh_token: refresh_token
         };
         model.getToken = function () {
             return $localStorage.token;

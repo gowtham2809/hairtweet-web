@@ -1,7 +1,7 @@
 app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, JQ_CONFIG, MODULE_CONFIG) {
-    $urlRouterProvider.when('', '/app/manage-barber');
-    $urlRouterProvider.when('/', '/app/manage-barber');
-    $urlRouterProvider.when('/app', '/app/manage-barber');
+    $urlRouterProvider.when('', '/app/dashboard');
+    $urlRouterProvider.when('/', '/app/dashboard');
+    $urlRouterProvider.when('/app', '/app/dashboard');
     $urlRouterProvider.otherwise('/access/404');
     $httpProvider.interceptors.push('APIInterceptor');
     $stateProvider
@@ -13,7 +13,12 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, JQ_CONFI
         .state('app.dashboard', {
             url: '/dashboard',
             templateUrl: 'templates/pages/dashboard.html',
-            resolve: load(['js/controllers/dashboard.js', 'booking','chart'])
+            resolve: load(['js/controllers/dashboard.js', 'booking', 'user', 'chart'])
+        })
+        .state('app-barber.dashboard', {
+            url: 'barber/dashboard',
+            templateUrl: 'templates/pages/barber-dashboard.html',
+            resolve: load(['js/controllers/dashboard.js', 'booking', 'user', 'chart'])
         })
         .state('app.manage-barber', {
             url: '/manage-barber',
@@ -28,7 +33,9 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, JQ_CONFI
         .state('app.service-locations', {
             url: '/service-locations',
             templateUrl: 'templates/pages/service-locations.html',
-            resolve: load(['js/controllers/barber-service.js', 'service','js/map/load-google-maps.js', 'js/map/ui-map.js', 'js/map/map.js'], function(){ return loadGoogleMaps(); })
+            resolve: load(['js/controllers/barber-service.js', 'service', 'js/map/load-google-maps.js', 'js/map/ui-map.js', 'js/map/map.js'], function () {
+                return loadGoogleMaps();
+            })
         })
         .state('app.add-barber', {
             url: '/add-barber',
@@ -47,17 +54,17 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, JQ_CONFI
         })
         .state('app.barber-detail.services', {
             url: '/service',
-            views : {
-              'barber_service' : {
-                  templateUrl: 'templates/blocks/barber-detail-services.html'
-              }
+            views: {
+                'barber_service': {
+                    templateUrl: 'templates/blocks/barber-detail-services.html'
+                }
             },
             resolve: load(['js/controllers/barber-service.js', 'service'])
         })
         .state('app.barber-detail.bookings', {
             url: '/booking',
-            views : {
-                'barber_booking' : {
+            views: {
+                'barber_booking': {
                     templateUrl: 'templates/blocks/barber-detail-bookings.html'
                 }
             },
@@ -65,8 +72,8 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, JQ_CONFI
         })
         .state('app.barber-detail.others', {
             url: '/others',
-            views : {
-                'barber_others' : {
+            views: {
+                'barber_others': {
                     templateUrl: 'templates/blocks/barber-others.html'
                 }
             },
@@ -74,8 +81,8 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, JQ_CONFI
         })
         .state('app.barber-detail.reviews', {
             url: '/reviews',
-            views : {
-                'barber_reviews' : {
+            views: {
+                'barber_reviews': {
                     templateUrl: 'templates/blocks/barber-reviews.html'
                 }
             },
@@ -83,8 +90,8 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, JQ_CONFI
         })
         .state('app.customer-detail.bookings', {
             url: '/booking',
-            views : {
-                'customer_booking' : {
+            views: {
+                'customer_booking': {
                     templateUrl: 'templates/blocks/customer-detail-booking.html'
                 }
             },

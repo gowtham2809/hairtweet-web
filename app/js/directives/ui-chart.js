@@ -6,7 +6,6 @@ angular.module('app')
                 scope.$watch('chartInfo', function (chartInfo) {
                     if (_.isUndefined(chartInfo))
                         return;
-                    console.log('adgdsfg', chartInfo);
                     var data = constructDataForChart(chartInfo);
                     var labels = constructLabelsForChart(chartInfo);
                     var myChart = new Chart(element, {

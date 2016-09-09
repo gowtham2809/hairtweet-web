@@ -1,5 +1,6 @@
 angular.module('app')
-    .service('UserModel', function ($http, $localStorage, WEB_URL) {
+    .service('UserModel', function ($localStorage, $injector, WEB_URL) {
+        $http = $injector.get('$http');
         var model = this;
         var urls = {
             login: WEB_URL + '/web/login'
@@ -27,9 +28,15 @@ angular.module('app')
         model.getCurrentUser = function () {
             return $localStorage.currentUser
         };
+        model.getUserType = function () {
+            return $localStorage.userType
+        };
 
         model.setCurrentUser = function (user) {
             $localStorage.currentUser = user;
+        };
+        model.currentUserType = function (type) {
+            $localStorage.userType = type;
         };
         model.getFullName = function (user) {
             return user.first_name + " " + user.last_name;

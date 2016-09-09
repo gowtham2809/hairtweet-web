@@ -1,6 +1,6 @@
-<div class="hbox hbox-auto-xs hbox-auto-sm" ng-controller="DashboardController"  ng-init="getDashboardBookings()"
-ng-hide="userType == 'barber'">
-    <div class="bg-light lter b-b wrapper-md" ng-init="getChartInfo()">
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-controller="DashboardController"  ng-init="getBarberBookings()"
+     ng-show="userType == 'barber'">
+    <div class="bg-light lter b-b wrapper-md" ng-init="getBarberChartInfo()">
         <div class="row">
             <div class="col-sm-6 col-xs-12">
                 <h1 class="m-n font-thin h3 text-black">Dashboard</h1>
@@ -37,9 +37,9 @@ ng-hide="userType == 'barber'">
             </table>
         </div>
     </div>
-<div class="wrapper-md">
-    <div class="panel">
-<canvas draw-chart ></canvas>
+    <div class="wrapper-md">
+        <div class="panel">
+            <canvas draw-chart ></canvas>
+        </div>
     </div>
-</div>
 </div>

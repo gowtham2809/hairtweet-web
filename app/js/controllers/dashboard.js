@@ -1,6 +1,9 @@
 angular.module('app')
-    .controller('DashboardController', function ($rootScope, $scope, BookingModel, $state, $stateParams, ToasterService, $modal, $log) {
+    .controller('DashboardController', function ($rootScope, $scope, BookingModel, UserModel) {
+        $scope.userType = UserModel.getUserType();
         $scope.getDashboardBookings = function () {
+            if ($scope.userType == "barber")
+                return;
             BookingModel.getDashboardBookings(
                 getBookingSuccess, getBookingFailure);
         };
@@ -15,6 +18,8 @@ angular.module('app')
         }
 
         $scope.getChartInfo = function () {
+            if ($scope.userType == "barber")
+                return;
             BookingModel.getChartInfo(
                 getInfoSuccess, getInfoFailure);
         };
