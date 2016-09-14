@@ -1,28 +1,7 @@
 angular.module('app')
     .service('BookingModel', function ($injector, BASE_URL, BARBER_URL, UserModel) {
         var model = this;
-        if (UserModel.getUserType() == 'barber') {
-            var get_bookings = BARBER_URL + '/barber/{barberId}/bookings';
-            var approve_booking = BARBER_URL + '/booking/{bookingId}/approve';
-            var propose_booking = BARBER_URL + '/booking/{bookingId}/propose';
-            var cancel_booking = BARBER_URL + '/booking/{id}/cancel';
-            var get_slots = BARBER_URL + '/barber/{id}/slots';
-
-        } else {
-            var get_bookings = BASE_URL + '/barber/{barberId}/bookings';
-            var approve_booking = BASE_URL + '/booking/{bookingId}/approve';
-            var propose_booking = BASE_URL + '/booking/{bookingId}/propose';
-            var cancel_booking = BASE_URL + '/booking/{id}/cancel';
-            var get_slots = BASE_URL + '/barber/{id}/slots';
-
-
-        }
         var urls = {
-            get_bookings: get_bookings,
-            approve_booking: approve_booking,
-            propose_booking: propose_booking,
-            cancel_booking: cancel_booking,
-            get_slots: get_slots,
             get_customer_bookings: BASE_URL + '/user/{userId}/bookings',
             getDashboardBooking: BASE_URL + '/latest/bookings',
             getChartInformation: BASE_URL + '/chart/info',
@@ -33,7 +12,12 @@ angular.module('app')
 
         model.approveBooking = function (requestParams, successCallback, failureCallback) {
             $http = $injector.get('$http');
-            var url = urls.approve_booking.replace('{bookingId}', requestParams.id);
+            if (UserModel.getUserType() == 'barber') {
+                var approve_booking = BARBER_URL + '/booking/{bookingId}/approve';
+            }else {
+                var approve_booking = BASE_URL + '/booking/{bookingId}/approve';
+            }
+            var url = approve_booking.replace('{bookingId}', requestParams.id);
             return $http.post(url, {
                 id: requestParams.id,
                 barber_id: requestParams.barberId
@@ -46,7 +30,12 @@ angular.module('app')
 
         model.getBookings = function (barberId, successCallback, failureCallback) {
             $http = $injector.get('$http');
-            var url = urls.get_bookings.replace('{barberId}', barberId);
+            if (UserModel.getUserType() == 'barber') {
+                var get_bookings = BARBER_URL + '/barber/{barberId}/bookings';
+            }else{
+                var get_bookings = BASE_URL + '/barber/{barberId}/bookings';
+            }
+            var url = get_bookings.replace('{barberId}', barberId);
             $http.get(url).success(function (response) {
                 successCallback(response);
             }).error(function (data) {
@@ -65,7 +54,12 @@ angular.module('app')
 
         model.proposeBooking = function (requestParams, successCallback, failureCallback) {
             $http = $injector.get('$http');
-            var url = urls.propose_booking.replace('{bookingId}', requestParams.id);
+            if (UserModel.getUserType() == 'barber') {
+                var propose_booking = BARBER_URL + '/booking/{bookingId}/propose';
+            }else {
+                var propose_booking = BASE_URL + '/booking/{bookingId}/propose';
+            }
+            var url = propose_booking.replace('{bookingId}', requestParams.id);
             return $http.post(url, {
                 slot_id: requestParams.slotId,
                 barber_id: requestParams.barberId
@@ -78,7 +72,12 @@ angular.module('app')
 
         model.cancelBooking = function (requestParams, successCallback, failureCallback) {
             $http = $injector.get('$http');
-            var url = urls.cancel_booking.replace('{id}', requestParams.id);
+            if (UserModel.getUserType() == 'barber') {
+                var cancel_booking = BARBER_URL + '/booking/{id}/cancel';
+            }else {
+                var cancel_booking = BASE_URL + '/booking/{id}/cancel';
+            }
+            var url = cancel_booking.replace('{id}', requestParams.id);
             return $http.post(url, {
                 barber_id: requestParams.barberId
             }).success(function (response) {
@@ -90,7 +89,12 @@ angular.module('app')
 
         model.getSlots = function (requestParams, successCallback, failureCallback) {
             $http = $injector.get('$http');
-            var url = urls.get_slots.replace('{id}', requestParams.barberId);
+            if (UserModel.getUserType() == 'barber') {
+                var get_slots = BARBER_URL + '/barber/{id}/slots';
+            }else {
+                var get_slots = BASE_URL + '/barber/{id}/slots';
+            }
+            var url = get_slots.replace('{id}', requestParams.barberId);
             $http.get(url).success(function (response) {
                 successCallback(response.data);
             }).error(function (data) {

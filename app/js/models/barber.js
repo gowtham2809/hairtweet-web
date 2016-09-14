@@ -1,24 +1,10 @@
 angular.module('app')
     .service('BarberModel', function ($localStorage, $injector, BASE_URL, BARBER_URL, UserModel) {
         var model = this;
-        if (UserModel.getUserType() == 'barber') {
-            var get_barber = BARBER_URL + '/barber/{barberId}/detail';
-            var update_barber = BARBER_URL + '/admin/{barberId}/update-barber';
-            var barber_review = BARBER_URL + '/barber/{id}/reviews'
-
-        } else {
-            var get_barber = BASE_URL + '/barber/{barberId}/detail';
-            var update_barber = BASE_URL + '/admin/{barberId}/update-barber';
-            var barber_review = BASE_URL + '/barber/{id}/reviews'
-
-        }
         var urls = {
             get_all_barbers: BASE_URL + '/barber/get-all-barber',
             add_barber: BASE_URL + '/admin/add-barber',
-            get_barber: get_barber,
-            update_barber: update_barber,
-            delete_barber: BASE_URL + '/admin/{id}/delete-barber',
-            barber_review: barber_review
+            delete_barber: BASE_URL + '/admin/{id}/delete-barber'
         };
         model.addBarber = function (requestParams, successCallback, failureCallback) {
             var fd = new FormData();
@@ -33,6 +19,8 @@ angular.module('app')
             fd.append('address_line_1', requestParams.address1);
             fd.append('address_line_2', requestParams.address2);
             fd.append('address_line_3', requestParams.address3);
+            fd.append('latitude',requestParams.latitude);
+            fd.append('longitude',requestParams.longitude);
             $http = $injector.get('$http');
             $http.post(urls.add_barber, fd, {
                 //add headers to upload
@@ -59,7 +47,12 @@ angular.module('app')
         };
         model.getReviewsForBarber = function (requestParams, successCallback, failureCallback) {
             $http = $injector.get('$http');
-            var url = urls.barber_review.replace('{id}', requestParams.barberId);
+            if (UserModel.getUserType() == 'barber') {
+                var barber_review = BARBER_URL + '/barber/{id}/reviews';
+            }else{
+                var barber_review = BASE_URL + '/barber/{id}/reviews'
+            }
+            var url = barber_review.replace('{id}', requestParams.barberId);
             $http.get(url).success(function (response) {
                 successCallback(response);
             }).error(function (data) {
@@ -68,8 +61,13 @@ angular.module('app')
         };
 
         model.loadBarberDetails = function (barberId, successCallback, failureCallback) {
-            $http = $injector.get('$http');
-            var url = urls.get_barber.replace('{barberId}', barberId);
+            if (UserModel.getUserType() == 'barber') {
+                var get_barber = BARBER_URL + '/barber/{barberId}/detail';
+            }else{
+                var get_barber = BASE_URL + '/barber/{barberId}/detail';
+            }
+                $http = $injector.get('$http');
+            var url = get_barber.replace('{barberId}', barberId);
             $http.get(url).success(function (response) {
                 successCallback(response);
             }).error(function (data) {
@@ -88,7 +86,12 @@ angular.module('app')
 
         model.getBookings = function (barberId, successCallback, failureCallback) {
             $http = $injector.get('$http');
-            var url = urls.get_bookings.replace('{barberId}', barberId);
+            if (UserModel.getUserType() == 'barber') {
+                var get_bookings = BARBER_URL + '/barber/{barberId}/bookings';
+            }else{
+                var get_bookings = BASE_URL + '/barber/{barberId}/bookings';
+            }
+            var url = get_bookings.replace('{barberId}', barberId);
             $http.get(url).success(function (response) {
                 successCallback(response);
             }).error(function (data) {
@@ -119,7 +122,14 @@ angular.module('app')
             fd.append('address_line_1', requestParams.address_line_1);
             fd.append('address_line_2', requestParams.address_line_2);
             fd.append('address_line_3', requestParams.address_line_3);
-            var url = urls.update_barber.replace('{barberId}', requestParams.id);
+            fd.append('latitude', requestParams.latitude);
+            fd.append('longitude', requestParams.longitude);
+            if (UserModel.getUserType() == 'barber') {
+                var update_barber = BARBER_URL + '/admin/{barberId}/update-barber';
+            }else {
+                var update_barber = BASE_URL + '/admin/{barberId}/update-barber';
+            }
+            var url = update_barber.replace('{barberId}', requestParams.id);
             return $http.post(url, fd, {
                 transformRequest: angular.identity,
                 headers: {'Content-Type': undefined}

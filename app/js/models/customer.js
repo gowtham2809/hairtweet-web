@@ -1,6 +1,11 @@
 angular.module('app')
-    .service('CustomerModel', function ($injector, BASE_URL) {
+    .service('CustomerModel', function ($injector, BASE_URL, BARBER_URL, UserModel) {
         var model = this;
+        if (UserModel.getUserType() == 'barber') {
+            var get_all_customers=BARBER_URL+'/user/{id}/get-users-for-barber'
+        } else {
+
+        }
         var urls = {
             get_all_customers: BASE_URL + '/user/get-all-users',
             get_user: BASE_URL + '/user/{userId}/detail',
@@ -9,7 +14,7 @@ angular.module('app')
 
         model.getAllCustomers = function (requestParams, successCallback, failureCallback) {
             $http = $injector.get('$http');
-            $http.get(urls.get_all_customers,{
+            $http.get(urls.get_all_customers, {
                 params: {
                     page: requestParams.page
                 }

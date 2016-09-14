@@ -1,46 +1,23 @@
 angular.module('app')
     .service('ServiceModel', function ($injector, BASE_URL, BARBER_URL, UserModel) {
         var model = this;
-        if (UserModel.getUserType() == 'barber') {
-            var get_services = BARBER_URL + '/barber/{id}/categories';
-            var update_service = BARBER_URL + '/services/{serviceId}/update';
-            var add_service = BARBER_URL + '/services/add';
-            var delete_service = BARBER_URL + '/services/{serviceId}/delete';
-            var get_service_location = BARBER_URL + '/get-service-locations';
-            var add_category = BARBER_URL + '/category/add';
-            var update_category = BARBER_URL+'/category/{id}/update';
-            var delete_category =BARBER_URL+'/category/{id}/delete'
-        } else {
-            var get_services = BASE_URL + '/barber/{id}/categories';
-            var update_service = BASE_URL + '/services/{serviceId}/update';
-            var add_service = BASE_URL + '/services/add';
-            var delete_service = BASE_URL + '/services/{serviceId}/delete';
-            var get_service_location = BASE_URL + '/get-service-locations';
-            var add_category = BASE_URL + '/category/add';
-            var update_category = BASE_URL+'/category/{id}/update';
-            var delete_category =BASE_URL+'/category/{id}/delete'
-
-        }
         var urls = {
-            get_services: get_services,
-            update_service: update_service,
-            delete_service: delete_service,
-            get_service_location: get_service_location,
             add_location: BASE_URL + '/add/service-location',
             update_location: BASE_URL + '/update/{id}/service-location',
             delete_location: BASE_URL + '/delete/{id}/service-location',
             add_area: BASE_URL + '/add/service-area',
             update_area: BASE_URL + '/update/{id}/service-area',
-            delete_area: BASE_URL + '/delete/{id}/service-area',
-            add_category: add_category,
-            update_category: update_category,
-            delete_category: delete_category,
-            add_service: add_service
+            delete_area: BASE_URL + '/delete/{id}/service-area'
         };
 
         model.getServices = function (barberId, successCallback, failureCallback) {
             $http = $injector.get('$http');
-            var url = urls.get_services.replace('{id}', barberId);
+            if (UserModel.getUserType() == 'barber') {
+                var get_services = BARBER_URL + '/barber/{id}/categories';
+            }else {
+                var get_services = BASE_URL + '/barber/{id}/categories';
+            }
+            var url = get_services.replace('{id}', barberId);
             $http.get(url).success(function (response) {
                 successCallback(response);
             }).error(function (data) {
@@ -49,7 +26,12 @@ angular.module('app')
         };
 
         model.updateService = function (requestParams, successCallback, failureCallback) {
-            var url = urls.update_service.replace('{serviceId}', requestParams.id);
+            if (UserModel.getUserType() == 'barber') {
+                var update_service = BARBER_URL + '/services/{serviceId}/update';
+            }else {
+                var update_service = BASE_URL + '/services/{serviceId}/update';
+            }
+            var url = update_service.replace('{serviceId}', requestParams.id);
             return $http.post(url, {
                 barber_id: requestParams.barberId,
                 id: requestParams.id,
@@ -67,7 +49,12 @@ angular.module('app')
         };
 
         model.deleteService = function (requestParams, successCallback, failureCallback) {
-            var url = urls.delete_service.replace('{serviceId}', requestParams.id);
+            if (UserModel.getUserType() == 'barber') {
+                var delete_service = BARBER_URL + '/services/{serviceId}/delete';
+            }else {
+                var delete_service = BASE_URL + '/services/{serviceId}/delete';
+            }
+            var url = delete_service.replace('{serviceId}', requestParams.id);
             return $http.post(url, {
                 barber_id: requestParams.barberId
             }).success(function (response) {
@@ -108,7 +95,12 @@ angular.module('app')
 
         model.getServiceLocations = function (successCallback, failureCallback) {
             $http = $injector.get('$http');
-            var url = urls.get_service_location
+            if (UserModel.getUserType() == 'barber') {
+                var get_service_location = BARBER_URL + '/get-service-locations';
+            }else {
+                var get_service_location = BASE_URL + '/get-service-locations';
+            }
+            var url = get_service_location;
             $http.get(url).success(function (response) {
                 successCallback(response);
             }).error(function (data) {
@@ -176,7 +168,12 @@ angular.module('app')
             });
         };
         model.addServiceCategory = function (requestParams, successCallback, failureCallback) {
-            var url = urls.add_category;
+            if (UserModel.getUserType() == 'barber') {
+                var add_category = BARBER_URL + '/category/add';
+            }else {
+                var add_category = BASE_URL + '/category/add';
+            }
+            var url = add_category;
             return $http.post(url, {
                 barber_id: requestParams.barber_id,
                 category_name: requestParams.category_name,
@@ -188,7 +185,12 @@ angular.module('app')
             });
         };
         model.updateServiceCategory = function (requestParams, successCallback, failureCallback) {
-            var url = urls.update_category.replace('{id}', requestParams.category_id);
+            if (UserModel.getUserType() == 'barber') {
+                var update_category = BARBER_URL + '/category/{id}/update';
+            }else {
+                var update_category = BASE_URL+'/category/{id}/update';
+            }
+            var url = update_category.replace('{id}', requestParams.category_id);
             return $http.post(url, {
                 barber_id: requestParams.barber_id,
                 category_name: requestParams.category_name,
@@ -200,7 +202,12 @@ angular.module('app')
             });
         };
         model.deleteServiceCategory = function (requestParams, successCallback, failureCallback) {
-            var url = urls.delete_category.replace('{id}', requestParams.id);
+            if (UserModel.getUserType() == 'barber') {
+                var delete_category = BARBER_URL + '/category/{id}/delete'
+            }else {
+                var delete_category =BASE_URL+'/category/{id}/delete'
+            }
+            var url = delete_category.replace('{id}', requestParams.id);
             return $http.post(url, {barber_id: requestParams.barber_id}).success(function (response) {
                 successCallback(response);
             }).error(function (data, status) {
@@ -208,7 +215,12 @@ angular.module('app')
             });
         };
         model.addBarberService = function (requestParams, successCallback, failureCallback) {
-            var url = urls.add_service;
+            if (UserModel.getUserType() == 'barber') {
+                var add_service = BARBER_URL + '/services/add';
+            }else {
+                var add_service = BASE_URL + '/services/add';
+            }
+            var url = add_service;
             return $http.post(url, {
                 barber_id: requestParams.barber_id,
                 service_name: requestParams.service_name,

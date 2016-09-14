@@ -1,11 +1,13 @@
 angular.module('app')
-    .controller('CustomerManageController', function ($rootScope, $scope, CustomerModel) {
+    .controller('CustomerManageController', function ($rootScope, $scope, CustomerModel,UserModel) {
         var controller = this;
         $scope.allCustomers = [];
         controller.busy = false;
         controller.page = 1;
         controller.hasMore = true;
         var tempArray = [];
+        $scope.userType = UserModel.getUserType();
+
 
         $scope.nextPage = function () {
             if (controller.busy || !controller.hasMore)

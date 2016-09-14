@@ -1,13 +1,17 @@
 angular.module('app')
-    .service('APIInterceptor', function (TokenModel, $rootScope, $q, BASE_URL,BARBER_URL) {
+    .service('APIInterceptor', function (TokenModel, $rootScope, $q, BASE_URL,BARBER_URL,$localStorage) {
         var service = this;
-        var exceptionUrls = [
-            BASE_URL + '/auth/login',
-            BASE_URL + '/auth/refresh-token',
-            BARBER_URL + '/auth/login',
-            BARBER_URL + '/auth/refresh-token'
-        ];
-
+        if ($localStorage.userType == 'barber') {
+            var exceptionUrls = [
+                BARBER_URL + '/auth/login',
+                BARBER_URL + '/auth/refresh-token'
+            ];
+        }else{
+            var exceptionUrls = [
+                BASE_URL + '/auth/login',
+                BASE_URL + '/auth/refresh-token'
+            ];
+        }
         service.request = function (config) {
            /* console.log('Intercepting request ', config);*/
             /*// check it req is for the same domain

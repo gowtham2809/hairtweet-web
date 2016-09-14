@@ -6,7 +6,8 @@
                 <div class="row m-t">
                     <div class="col-sm-7">
                         <a href class="thumb-lg pull-left m-r">
-                            <img src="{{barber.logo}}" alt="barber-image" class="img-circle box-shadow-light center-crop" vibrant>
+                            <img src="{{barber.logo}}" alt="barber-image"
+                                 class="img-circle box-shadow-light center-crop" vibrant>
                         </a>
                         <div class="clear m-b">
                             <div class="m-b m-t-sm">
@@ -22,10 +23,14 @@
             <div class="wrapper bg-white b-b">
                 <ul class="nav nav-pills nav-sm">
                     <li class="active"><a href data-toggle="tab" data-target="#tab_1">Info</a></li>
-                    <li><a href data-toggle="tab" ui-sref="app.barber-detail.services" data-target="#tab_2">Services</a></li>
-                    <li><a href data-toggle="tab" ui-sref="app.barber-detail.bookings" data-target="#tab_3">Bookings</a></li>
-                    <li><a href data-toggle="tab" ui-sref="app.barber-detail.reviews" data-target="#tab_4">Reviews</a></li>
-                    <li><a href data-toggle="tab" ui-sref="app.barber-detail.others" data-target="#tab_5" ng-hide="userType =='barber'">Others</a></li>
+                    <li><a href data-toggle="tab" ui-sref="app.barber-detail.services" data-target="#tab_2">Services</a>
+                    </li>
+                    <li><a href data-toggle="tab" ui-sref="app.barber-detail.bookings" data-target="#tab_3">Bookings</a>
+                    </li>
+                    <li><a href data-toggle="tab" ui-sref="app.barber-detail.reviews" data-target="#tab_4">Reviews</a>
+                    </li>
+                    <li><a href data-toggle="tab" ui-sref="app.barber-detail.others" data-target="#tab_5"
+                           ng-hide="userType =='barber'">Others</a></li>
                 </ul>
             </div>
             <div class="tab-container">
@@ -132,6 +137,9 @@
                                            placeholder="email" ng-model="barberCopy.email">
                                 </div>
                             </div>
+                            <span class="text-primary m-b" ng-click="open('lg')">Add
+                                Location
+                            </span>
                             <!--Submit button-->
                             <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-2">
@@ -169,7 +177,8 @@
     <script type="text/ng-template" id="removeBarberModal.html">
         <div ng-include="'templates/modals/remove-barber.html'"></div>
     </script>
-
-
+    <script type="text/ng-template" id="updateBarberLocation.html">
+        <div ng-include="'templates/modals/update-barber-location.html'"></div>
+    </script>
 
 </div>

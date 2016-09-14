@@ -1,12 +1,15 @@
 angular.module('app')
-    .controller('BarberController', function ($rootScope, $scope, $state, $stateParams, UserModel, BarberModel, ServiceModel, ToasterService, $modal, $log) {
+    .controller('BarberController', function ($rootScope, $scope, $state, $stateParams, UserModel, BarberModel, ServiceModel, ToasterService, $modal, $localStorage, $log) {
         $scope.inEditMode = false;
         $scope.coverColor = "#78686F";
         $scope.userType = UserModel.getUserType();
 
         $rootScope.$broadcast('showLoading');
-        BarberModel.loadBarberDetails($stateParams.barberId,
-            getBarberSuccess, getBarberFailure);
+        $scope.loadBarberDetails = function () {
+            BarberModel.loadBarberDetails($stateParams.barberId,
+                getBarberSuccess, getBarberFailure);
+        };
+
 
         function getBarberSuccess(response) {
             $scope.barber = response.data.barber;
@@ -18,6 +21,23 @@ angular.module('app')
             $scope.barber = [];
         }
 
+        $scope.open = function (size) {
+            var modalInstance = $modal.open({
+                templateUrl: 'updateBarberLocation.html',
+                controller: 'BarberLocationController',
+                size: size
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                refreshBarberDetail();
+            });
+            function refreshBarberDetail() {
+                $scope.barber = [];
+                $scope.loadBarberDetails();
+            }
+        };
         $scope.removeBarber = function (size) {
             var modalInstance = $modal.open({
                 templateUrl: 'removeBarberModal.html',
@@ -30,6 +50,10 @@ angular.module('app')
             }, function () {
                 $state.go('app.manage-barber');
             });
+        };
+
+        $scope.loadMap = function () {
+            loadGoogleMaps();
         };
 
         $scope.setEditMode = function (state) {
@@ -55,6 +79,8 @@ angular.module('app')
                 address_line_2: $scope.barberCopy.address_line_2,
                 address_line_3: $scope.barberCopy.address_line_3,
                 logo: $scope.myFile,
+                latitude: $localStorage.location.latitude,
+                longitude: $localStorage.location.longitude,
                 condition: $scope.barberCopy.is_active
             }, updateSuccess, updateFailure);
 
@@ -65,6 +91,7 @@ angular.module('app')
             ToasterService.success(null, "Update successful!");
             $rootScope.$broadcast('hideLoading');
             $scope.inEditMode = false;
+            $localStorage.location = {};
         }
 
         function updateFailure($message) {
@@ -159,4 +186,21 @@ angular.module('app')
             ToasterService.error(null, $message);
             $rootScope.$broadcast('hideLoading');
         }
+    });
+angular.module('app')
+    .controller('BarberLocationController', function ($rootScope, $scope, $modalInstance, $localStorage, $stateParams, ServiceModel, ToasterService, $modal, $log) {
+        $scope.close = function () {
+            $modalInstance.dismiss('cancel');
+        };
+        $scope.location = {
+            latitude: 0,
+            longitude: 0
+        };
+        $scope.addBarberLocation = function () {
+            $localStorage.location = {
+                latitude: $scope.location.latitude,
+                longitude: $scope.location.longitude
+            };
+            $modalInstance.dismiss('cancel');
+        };
     });
