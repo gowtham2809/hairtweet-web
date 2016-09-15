@@ -40,7 +40,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, JQ_CONFI
         .state('app.add-barber', {
             url: '/add-barber',
             templateUrl: 'templates/pages/add-barber.html',
-            resolve: load(['js/controllers/add-barber.js', 'barber','js/map/load-google-maps.js', 'js/map/ui-map.js', 'js/map/map.js'], function () {
+            resolve: load(['js/controllers/add-barber.js', 'barber', 'js/map/load-google-maps.js', 'js/map/ui-map.js', 'js/map/map.js'], function () {
                 return loadGoogleMaps();
             })
         })
@@ -112,7 +112,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, JQ_CONFI
         .state('app.update-barber', {
             url: '/update-barber/:barberId',
             templateUrl: 'templates/pages/barber-detail.html',
-            resolve: load(['js/controllers/barber-details.js', 'barber','js/map/load-google-maps.js', 'js/map/ui-map.js', 'js/map/map.js'], function () {
+            resolve: load(['js/controllers/barber-details.js', 'barber', 'js/map/load-google-maps.js', 'js/map/ui-map.js', 'js/map/map.js'], function () {
                 return loadGoogleMaps();
             })
         })

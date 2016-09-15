@@ -1,5 +1,5 @@
 angular.module('app')
-    .service('UserModel', function ($localStorage, $injector, WEB_URL) {
+    .service('UserModel', function ($localStorage, $injector, WEB_URL,$state) {
         $http = $injector.get('$http');
         var model = this;
         var urls = {
@@ -14,6 +14,9 @@ angular.module('app')
                 failureCallback("You are not authorised to login.");
                 // login success
                 successCallback(response.data);
+                if(model.getUserType()=='barber'){
+                    $state.go('app.barber-dashboard');
+                }
             }).error(function (data, status) {
                 // incorrect credentials specified
                 if (status == 400)
