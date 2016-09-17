@@ -40,7 +40,7 @@ angular.module('app')
             });
         };
 
-        $scope.openProposeBooking = function (size, id, barberId) {
+        $scope.openProposeBooking = function (size, id, barberId, date) {
             var modalInstance = $modal.open({
                 templateUrl: 'proposeBookingModal.html',
                 controller: 'BookingProposeController',
@@ -51,6 +51,9 @@ angular.module('app')
                     },
                     barberId: function () {
                         return barberId;
+                    },
+                    date: function () {
+                        return date;
                     }
                 }
             });
@@ -127,7 +130,7 @@ angular.module('app')
         };
 
         $scope.showCancelButton = function (bookingStatusId) {
-            if (bookingStatusId == 2 || bookingStatusId == 3)
+            if (bookingStatusId == 2 || bookingStatusId == 3 || bookingStatusId == 1)
                 return true;
             else
                 return false;
@@ -173,7 +176,8 @@ angular.module('app')
     });
 
 angular.module('app')
-    .controller('BookingProposeController', function ($stateParams, $scope, $modalInstance, $log, id, barberId, BookingModel, ToasterService, $rootScope) {
+    .controller('BookingProposeController', function ($stateParams, $scope, date, $modalInstance, $log, id, barberId, BookingModel, ToasterService, $rootScope) {
+        $scope.date = date;
         $scope.bookingId = id;
         $scope.category = {};
         $scope.proposeBooking = function () {

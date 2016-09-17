@@ -1,4 +1,7 @@
 <div class="wrapper-sm" ng-init="getSlots()">
+    <h1 class="m-n font-thin h4 text-black block inline">Propose Booking</h1>
+    <div class="line line-dashed b-b line-lg "></div>
+    <h1 class="m-n font-thin h5 text-black block">Choose a time slot on  <span class="text-info m-l-sm">{{date}}</span></h1>
     <div class="" ng-repeat="slot in slots">
         <div class="radio">
             <label class="i-checks">
@@ -11,7 +14,7 @@
     <div class="form-group">
     <div class="col-sm-offset-2">
         <button type="submit" class="btn btn-default" ng-click="close()">Cancel</button>
-        <button type="submit" class="btn btn-primary" ng-click="proposeBooking()">Yes , Propose</button>
+        <button type="submit" class="btn btn-primary" ng-click="proposeBooking()">Propose slot</button>
     </div>
 </div>
 </div>

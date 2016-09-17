@@ -11,7 +11,7 @@
                         <span class="pull-right">
                             <a href><i class="fa fa-fw m-r-xs fa-pencil"
                                        ng-click="updateCategory('md',category)"></i></a>
-                            <a href><i class="fa fa-fw fa-times" ng-click="deleteCategory('md',category.id)"></i></a>
+                            <a href><i class="fa fa-fw fa-times" ng-click="deleteCategory('sm',category.id)"></i></a>
                         </span>
                     <i class="fa fa-angle-right m-r"
                        ng-class="{'fa-angle-down': status.open, 'fa-angle-right': !status.open}"></i>
@@ -28,7 +28,7 @@
                     <span class="text-sm text-black m-r">Discount Type :</span><span class="text-sm">{{service.discount_type.type}}</span>
                     <span class="pull-right">
                             <a href><i class="fa fa-fw m-r-xs fa-pencil" ng-click="serviceUpdate('md',service,category.id)"></i></a>
-                            <a href><i class="fa fa-fw fa-times" ng-click="openDeleteService('md',service.id)"></i></a>
+                            <a href><i class="fa fa-fw fa-times" ng-click="openDeleteService('sm',service.id)"></i></a>
                         </span>
                     <hr>
                 </div>

@@ -2,7 +2,7 @@ angular.module('app')
     .service('BookingModel', function ($injector, BASE_URL, BARBER_URL, UserModel) {
         var model = this;
         var urls = {
-            get_customer_bookings: BASE_URL + '/user/{userId}/bookings',
+            getDashboardBookingsDetail: BASE_URL + '/booking/details',
             getDashboardBooking: BASE_URL + '/latest/bookings',
             getChartInformation: BASE_URL + '/chart/info',
             getBarberDashboardBooking: BARBER_URL + '/barber/latest/bookings',
@@ -14,7 +14,7 @@ angular.module('app')
             $http = $injector.get('$http');
             if (UserModel.getUserType() == 'barber') {
                 var approve_booking = BARBER_URL + '/booking/{bookingId}/approve';
-            }else {
+            } else {
                 var approve_booking = BASE_URL + '/booking/{bookingId}/approve';
             }
             var url = approve_booking.replace('{bookingId}', requestParams.id);
@@ -32,7 +32,7 @@ angular.module('app')
             $http = $injector.get('$http');
             if (UserModel.getUserType() == 'barber') {
                 var get_bookings = BARBER_URL + '/barber/{barberId}/bookings';
-            }else{
+            } else {
                 var get_bookings = BASE_URL + '/barber/{barberId}/bookings';
             }
             var url = get_bookings.replace('{barberId}', barberId);
@@ -44,7 +44,12 @@ angular.module('app')
         };
         model.getCustomerBookings = function (userId, successCallback, failureCallback) {
             $http = $injector.get('$http');
-            var url = urls.get_customer_bookings.replace('{userId}', userId);
+            if (UserModel.getUserType() == 'barber') {
+                var get_customer_bookings = BARBER_URL + '/user/{userId}/bookings';
+            }else {
+                var get_customer_bookings = BASE_URL + '/user/{userId}/bookings';
+            }
+            var url = get_customer_bookings.replace('{userId}', userId);
             $http.get(url).success(function (response) {
                 successCallback(response);
             }).error(function (data) {
@@ -56,7 +61,7 @@ angular.module('app')
             $http = $injector.get('$http');
             if (UserModel.getUserType() == 'barber') {
                 var propose_booking = BARBER_URL + '/booking/{bookingId}/propose';
-            }else {
+            } else {
                 var propose_booking = BASE_URL + '/booking/{bookingId}/propose';
             }
             var url = propose_booking.replace('{bookingId}', requestParams.id);
@@ -74,7 +79,7 @@ angular.module('app')
             $http = $injector.get('$http');
             if (UserModel.getUserType() == 'barber') {
                 var cancel_booking = BARBER_URL + '/booking/{id}/cancel';
-            }else {
+            } else {
                 var cancel_booking = BASE_URL + '/booking/{id}/cancel';
             }
             var url = cancel_booking.replace('{id}', requestParams.id);
@@ -91,7 +96,7 @@ angular.module('app')
             $http = $injector.get('$http');
             if (UserModel.getUserType() == 'barber') {
                 var get_slots = BARBER_URL + '/barber/{id}/slots';
-            }else {
+            } else {
                 var get_slots = BASE_URL + '/barber/{id}/slots';
             }
             var url = get_slots.replace('{id}', requestParams.barberId);
@@ -105,6 +110,14 @@ angular.module('app')
         model.getDashboardBookings = function (successCallback, failureCallback) {
             $http = $injector.get('$http');
             $http.get(urls.getDashboardBooking).success(function (response) {
+                successCallback(response);
+            }).error(function (data) {
+                failureCallback(data.error.message)
+            });
+        };
+        model.getDashboardBookingDetail = function (successCallback, failureCallback) {
+            $http = $injector.get('$http');
+            $http.get(urls.getDashboardBookingsDetail).success(function (response) {
                 successCallback(response);
             }).error(function (data) {
                 failureCallback(data.error.message)

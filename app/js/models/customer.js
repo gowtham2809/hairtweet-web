@@ -1,9 +1,6 @@
 angular.module('app')
     .service('CustomerModel', function ($injector, BASE_URL, BARBER_URL, UserModel) {
         var model = this;
-        var urls = {
-            get_user: BASE_URL + '/user/{userId}/detail'
-        };
 
         model.getAllCustomers = function (requestParams, successCallback, failureCallback) {
             $http = $injector.get('$http');
@@ -24,7 +21,12 @@ angular.module('app')
         };
         model.loadCustomerDetails = function (customerId, successCallback, failureCallback) {
             $http = $injector.get('$http');
-            var url = urls.get_user.replace('{userId}', customerId);
+            if (UserModel.getUserType() == 'barber') {
+                var get_user = BARBER_URL + '/user/{userId}/detail';
+            }else{
+                var get_user = BASE_URL + '/user/{userId}/detail';
+            }
+            var url = get_user.replace('{userId}', customerId);
             $http.get(url).success(function (response) {
                 successCallback(response);
             }).error(function (data) {

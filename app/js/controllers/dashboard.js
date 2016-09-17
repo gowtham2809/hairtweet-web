@@ -8,13 +8,33 @@ angular.module('app')
                 getBookingSuccess, getBookingFailure);
         };
         function getBookingSuccess(response) {
+            $scope.createdBookings = response.data.createdBookings;
             $scope.bookings = response.data.bookings;
             $rootScope.$broadcast('hideLoading');
         }
 
         function getBookingFailure() {
             $rootScope.$broadcast('hideLoading');
+            $scope.createdBookings = [];
             $scope.bookings = [];
+        }
+
+        $scope.getDashboardBookingDetail = function () {
+            if ($scope.userType == "barber")
+                return;
+            BookingModel.getDashboardBookingDetail(
+                getBookingDetailSuccess, getBookingDetailFailure);
+        };
+        function getBookingDetailSuccess(response) {
+            $scope.todaySales = response.data.todaySales;
+            $scope.todayBookings = response.data.todayBookings;
+            $rootScope.$broadcast('hideLoading');
+        }
+
+        function getBookingDetailFailure() {
+            $rootScope.$broadcast('hideLoading');
+            $scope.todaySales = [];
+            $scope.todayBookings = [];
         }
 
         $scope.getBarberDashboardBookings = function () {

@@ -24,11 +24,11 @@
                        ng-click="openApproveBooking('sm',booking.id,booking.barber.id)">
                     Approve</a>
                     <a class="h5 text-info m-l-sm" ng-show="showProposeButton(booking.order_state_id)"
-                       ng-click="openProposeBooking('sm',booking.id,booking.barber.id)">
+                       ng-click="openProposeBooking('sm',booking.id,booking.barber.id,booking.order_date)">
                         Propose</a>
                     <a class="h5 text-danger m-l-sm" ng-show="showCancelButton(booking.order_state_id)"
                        ng-click="openCancelBooking('sm',booking.id,booking.barber.id)">
-                        Cancel booking</a></td>
+                        Cancel</a></td>
             </tr>
             </tbody>
         </table>

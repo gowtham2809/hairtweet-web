@@ -8,7 +8,7 @@ var app = angular.module('app')
         app.constant = $provide.constant;
         app.value = $provide.value;
     })
-    .constant('BASE_URL', 'http://hairtweet-api.tartlabs.com/api-admin/v1')
-    .constant('WEB_URL', 'http://hairtweet-api.tartlabs.com/api-common/v1')
-    .constant('BARBER_URL', 'http://hairtweet-api.tartlabs.com/api-barber/v1')
+    .constant('BASE_URL', 'http://localhost:8888/api-admin/v1')
+    .constant('WEB_URL', 'http://localhost:8888/api-common/v1')
+    .constant('BARBER_URL', 'http://localhost:8888/api-barber/v1')
     .constant('DEBUG_ENABLED', true);
