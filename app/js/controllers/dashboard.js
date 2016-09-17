@@ -44,6 +44,7 @@ angular.module('app')
                 getBarberBookingSuccess, getBarberBookingFailure);
         };
         function getBarberBookingSuccess(response) {
+            $scope.createdBookings = response.data.createdBookings;
             $scope.bookings = response.data.bookings;
             $rootScope.$broadcast('hideLoading');
         }
@@ -51,6 +52,23 @@ angular.module('app')
         function getBarberBookingFailure() {
             $rootScope.$broadcast('hideLoading');
             $scope.bookings = [];
+        }
+        $scope.getBarberDashboardBookingDetail = function () {
+            if ($scope.userType == "admin")
+                return;
+            BookingModel.getBarberDashboardBookingDetail(
+                getBarberBookingDetailSuccess, getBarberBookingDetailFailure);
+        };
+        function getBarberBookingDetailSuccess(response) {
+            $scope.todaySales = response.data.todaySales;
+            $scope.todayBookings = response.data.todayBookings;
+            $rootScope.$broadcast('hideLoading');
+        }
+
+        function getBarberBookingDetailFailure() {
+            $rootScope.$broadcast('hideLoading');
+            $scope.todaySales = [];
+            $scope.todayBookings = [];
         }
 
         $scope.getChartInfo = function () {

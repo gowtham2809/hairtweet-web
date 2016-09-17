@@ -6,7 +6,8 @@ angular.module('app')
             getDashboardBooking: BASE_URL + '/latest/bookings',
             getChartInformation: BASE_URL + '/chart/info',
             getBarberDashboardBooking: BARBER_URL + '/barber/latest/bookings',
-            getBarberChartInformation: BARBER_URL + '/barber/chart/info'
+            getBarberChartInformation: BARBER_URL + '/barber/chart/info',
+            getBarberDashboardBookingsDetail: BARBER_URL + '/booking/details'
 
         };
 
@@ -126,6 +127,14 @@ angular.module('app')
         model.getBarberDashboardBookings = function (successCallback, failureCallback) {
             $http = $injector.get('$http');
             $http.get(urls.getBarberDashboardBooking).success(function (response) {
+                successCallback(response);
+            }).error(function (data) {
+                failureCallback(data.error.message)
+            });
+        };
+        model.getBarberDashboardBookingDetail = function (successCallback, failureCallback) {
+            $http = $injector.get('$http');
+            $http.get(urls.getBarberDashboardBookingsDetail).success(function (response) {
                 successCallback(response);
             }).error(function (data) {
                 failureCallback(data.error.message)
