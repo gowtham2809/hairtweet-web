@@ -1,0 +1,190 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-controller="BarberController"
+     ng-init="loadBarberDetails()||getBookings()||approveBooking()">
+    <div class="col" ng-hide="isLoading">
+        <div style="background-size:cover">
+            <div class="wrapper-lg" ng-style="{'background-color': coverColor}">
+                <div class="row m-t">
+                    <div class="col-sm-7">
+                        <a href class="thumb-lg pull-left m-r">
+                            <img src="{{barber.logo}}" alt="barber-image"
+                                 class="img-circle box-shadow-light center-crop" vibrant>
+                        </a>
+                        <div class="clear m-b">
+                            <div class="m-b m-t-sm">
+                                <span class="h3 text-white">{{barber.first_name}} {{barber.last_name}}</span>
+                                <button class="badge badge-sm btn-danger" ng-if="barber.is_active == 0">
+                                    inactive
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="wrapper bg-white b-b">
+                <ul class="nav nav-pills nav-sm">
+                    <li class="active"><a href data-toggle="tab" data-target="#tab_1">Info</a></li>
+                    <li><a href data-toggle="tab" ui-sref="app.barber-detail.services" data-target="#tab_2">Services</a>
+                    </li>
+                    <li><a href data-toggle="tab" ui-sref="app.barber-detail.bookings" data-target="#tab_3">Bookings</a>
+                    </li>
+                    <li><a href data-toggle="tab" ui-sref="app.barber-detail.reviews" data-target="#tab_4">Reviews</a>
+                    </li>
+                    <li><a href data-toggle="tab" ui-sref="app.barber-detail.others" data-target="#tab_5"
+                           ng-hide="userType =='barber'">Others</a></li>
+                </ul>
+            </div>
+            <div class="tab-container">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab_1">
+                        <h1 class="m-n font-thin h3 text-black block inline">Barber Details</h1>
+                        <a class="h5 text-primary m-l-sm" ng-click="setEditMode(true)" ng-hide="inEditMode">
+                            Edit</a>
+                        <div class="form-horizontal m-t" ng-hide="inEditMode">
+                            <div class="form-group" ng-if="getBarberAddress(barber) != null">
+                                <label class="col-sm-2 control-label font-bold">Address</label>
+                                <div class="col-sm-3">
+                                    <div class="control-label-form ">
+                                        {{getBarberAddress(barber)}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label font-bold">Phone</label>
+                                <div class="col-sm-3">
+                                    <div class="control-label-form ">{{barber.phone_number}}</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label font-bold">Email</label>
+                                <div class="col-sm-3">
+                                    <div class="control-label-form ">{{barber.email}}</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label font-bold">Shop Name</label>
+                                <div class="col-sm-3">
+                                    <div class="control-label-form ">{{barber.shop_name}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <form class="form-horizontal m-t" ng-show="inEditMode" novalidate>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label font-bold">Shop Logo</label>
+                                <div class="col-sm-6">
+                                    <input type="file" nv-file-select="" class="m-t"
+                                           file-model="myFile"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label font-bold">First Name</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control input-sm"
+                                           value="{{barberCopy.first_name}}" placeholder="first name"
+                                           ng-model="barberCopy.first_name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label font-bold">Last Name</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control input-sm"
+                                           value="{{barberCopy.last_name}}" placeholder="last name"
+                                           ng-model="barberCopy.last_name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label font-bold">Shop Name</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control input-sm" value="{{barberCopy.shop_name}}"
+                                           placeholder="shop name" ng-model="barberCopy.shop_name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label font-bold">Activate</label>
+                                <div class="col-sm-10">
+                                    <label class="i-switch m-t-xs m-r">
+                                        <input type="checkbox" name="isActive" ng-checked="barberCopy.is_active == true"
+                                               ng-model="barberCopy.is_active">
+
+                                        <i></i>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label font-bold">Address</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control input-sm m-b"
+                                           value="{{barberCopy.address_line_1}}" placeholder="address"
+                                           ng-model="barberCopy.address_line_1">
+                                    <input type="text" class="form-control input-sm m-b"
+                                           value="{{barberCopy.address_line_2}}" placeholder="address"
+                                           ng-model="barberCopy.address_line_2">
+                                    <input type="text" class="form-control input-sm"
+                                           value="{{barberCopy.address_line_3}}" placeholder="address"
+                                           ng-model="barberCopy.address_line_3">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label font-bold">Phone</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control input-sm" value="{{barberCopy.phone_number}}"
+                                           placeholder="phone number" ng-model="barberCopy.phone_number">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label font-bold">Email</label>
+                                <div class="col-sm-6">
+                                    <input type="email" class="form-control input-sm" value="{{barberCopy.email}}"
+                                           placeholder="email" ng-model="barberCopy.email">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label font-bold"></label>
+                                <div class="col-sm-6">
+                                    <span class="text-primary m-b" ng-click="open('lg')">Add
+                                Location
+                            </span>
+                                </div>
+                            </div>
+
+                            <!--Submit button-->
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button type="submit" class="btn btn-default" ng-click="setEditMode(false)">Cancel
+                                    </button>
+                                    <button type="submit" class="btn btn-primary" ng-click="updateBarber()">Update
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane" id="tab_2" ng-init="getServices()">
+                        <div ui-view="barber_service"></div>
+                    </div>
+                    <div class="tab-pane" id="tab_3" ng-init="getBookings()">
+                        <div ui-view="barber_booking"></div>
+                    </div>
+                    <div class="tab-pane" id="tab_4">
+                        <div ui-view="barber_reviews"></div>
+                    </div>
+                    <div class="tab-pane" id="tab_5">
+                        <div ui-view="barber_others"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Update service Model START-->
+    <script type="text/ng-template" id="updateServiceModal.html">
+        <div ng-include="'templates/modals/update-service.html'"></div>
+    </script>
+    <!--Update service Model END-->
+    <script type="text/ng-template" id="removeBarberModal.html">
+        <div ng-include="'templates/modals/remove-barber.html'"></div>
+    </script>
+    <script type="text/ng-template" id="updateBarberLocation.html">
+        <div ng-include="'templates/modals/update-barber-location.html'"></div>
+    </script>
+
+</div>

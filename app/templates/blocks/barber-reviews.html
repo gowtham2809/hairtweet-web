@@ -1,0 +1,17 @@
+<div ng-init="getReviewsForBarber()">
+    <div class="" ng-repeat="review in reviews">
+        <div class="m-l m-b">
+            <div>
+                <a href><strong>{{review.user.first_name}} {{review.user.last_name}}</strong>
+                    <span class="badge m-l-xs" ng-class="{'ratingColorRed':review.rating<1.5,
+                    'ratingColorOrange':review.rating<3.5 && review.rating>1.5,'ratingColorGreen':review.rating>3.5}"
+                    >{{review.rating}}</span></a>
+                <span class="text-muted text-xs block m-t-xs" am-time-ago="review.review_date">
+              </span>
+            </div>
+            <div class="m-t-xs">{{review.review}}</div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+
+    </div>
+</div>

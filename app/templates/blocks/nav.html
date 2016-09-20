@@ -1,0 +1,51 @@
+<!-- list -->
+<ul class="nav" ng-controller="NavController">
+    <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+        <span>Navigation</span>
+    </li>
+    <li ui-sref-active="active" ng-hide="userType == 'barber'">
+        <a ui-sref="app.dashboard" class="auto">
+
+            <i class="glyphicon glyphicon-stats icon text-primary-dker"></i>
+            <span class="font-bold" translate="aside.nav.DASHBOARD">Dashboard</span>
+        </a>
+    </li>
+    <li ui-sref-active="active" ng-show="userType == 'barber'">
+        <a ui-sref="app.barber-dashboard" class="auto">
+
+            <i class="glyphicon glyphicon-stats icon text-primary-dker"></i>
+            <span class="font-bold" translate="aside.nav.DASHBOARD">Dashboard</span>
+        </a>
+    </li>
+    <li ui-sref-active="active" ng-hide="userType == 'barber'">
+        <a ui-sref="app.manage-barber">
+            <i class="fa fa-building-o"></i>
+            <span>Manage Barber</span>
+        </a>
+    </li>
+    <li ui-sref-active="active" ng-show="userType == 'barber'">
+        <a ui-sref="app.barber-detail({barberId:currentUser.id})">
+            <i class="fa fa-building-o"></i>
+            <span>My Shop</span>
+        </a>
+    </li>
+    <li ui-sref-active="active" ng-show="userType == 'barber'">
+        <a ui-sref="app.manage-customer">
+            <i class="fa fa-building-o"></i>
+            <span>Customers</span>
+        </a>
+    </li>
+    <li ui-sref-active="active" ng-hide="userType == 'barber'">
+        <a ui-sref="app.manage-customer">
+            <i class="fa fa-building-o"></i>
+            <span>Manage Customer</span>
+        </a>
+    </li>
+    <li ui-sref-active="active" ng-hide="userType == 'barber'">
+        <a ui-sref="app.service-locations">
+            <i class="fa fa-building-o"></i>
+            <span>Service Locations</span>
+        </a>
+    </li>
+</ul>
+<!-- / list -->

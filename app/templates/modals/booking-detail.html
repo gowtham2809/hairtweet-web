@@ -1,0 +1,64 @@
+<div class="wrapper-lg">
+    <h1 class="m-n font-thin h3 text-black block inline">Booking Detail</h1><strong class="h4 m-l text-primary">{{booking.order_number}}</strong>
+    <div class="line line-dashed b-b line-lg pull-in"></div>
+    <form class="form-horizontal m-t" novalidate>
+        <div class="row">
+            <div class="col-md-4">
+                <strong>Booking :</strong>
+                <div class="row m-t">
+                    <div class="col-xs-10">
+                        <p>
+                            <span class="text-black">Order Date :</span> {{booking.order_date}}<br>
+                            <span class="text-black">Order State :</span> {{booking.order_state.state}}<br>
+                            <span class="text-black">Slot Timing :</span> {{booking.slot.slot_timings}}<br>
+                            <span class="text-black">Services : </span> <span ng-repeat="service in booking.services">{{service.service_name}},</span><br>
+                            <span class="text-black">Cost :</span> {{booking.total}}<br>
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <strong>User :</strong>
+                <h4 class="text-black">{{booking.user.first_name}} {{booking.user.last_name}}</h4>
+                <p>
+                    <span class="text-black">Phone :</span> {{booking.user.phone_number}}<br>
+                    <span class="text-black">Email :</span> {{booking.user.email}}<br>
+                    <span class="text-black">Gender :</span> {{booking.user.gender}}
+                </p>
+            </div>
+            <div class="col-md-4">
+                <strong>Barber :</strong>
+                <h4 class="text-black">{{booking.barber.first_name}} {{booking.barber.last_name}}</h4>
+                <p>
+                    <span class="text-black">Phone :</span> {{booking.barber.phone_number}}<br>
+                    <span class="text-black">Email :</span> {{booking.barber.email}}<br>
+                    <span class="text-black">Shop Name :</span> {{booking.barber.shop_name}}
+                </p>
+            </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+        <h1 class=" font-thin h4 text-black block inline">Reviews</h1>
+        <div class="m-t" ng-repeat="review in booking.review">
+            <div class="m-l m-b">
+                <div>
+                    <a href><strong>{{booking.user.first_name}} {{booking.user.last_name}}</strong>
+                        <span class="badge m-l-xs" ng-class="{'ratingColorRed':review.rating<1.5,
+                    'ratingColorOrange':review.rating<3.5 && review.rating>1.5,'ratingColorGreen':review.rating>3.5}"
+                        >{{review.rating}}</span></a>
+                    <span class="text-muted text-xs block m-t-xs" am-time-ago="review.review_date">
+              </span>
+                </div>
+                <div class="m-t-xs">{{review.review}}</div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+
+        </div>
+
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-default pull-right" ng-click="close()">Close</button>
+        </div>
+    </form>
+</div>
+

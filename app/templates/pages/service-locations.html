@@ -1,0 +1,62 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-controller="AccordionCtrl">
+    <div class="bg-light lter b-b wrapper-md">
+        <div class="row">
+            <div class="col-sm-6 col-xs-12">
+                <h1 class="m-n font-thin h3 text-black">Service Locations</h1>
+            </div>
+            <div class="col-sm-6 text-right">
+                <div class="inline m-r text-left">
+                    <button class="btn btn-primary btn-addon btn-large" ng-click="open('lg')"><i class="fa fa-plus"></i>Add
+                        Locations
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="wrapper-md">
+        <div ng-init="loadServiceLocation()">
+            <accordion close-others="oneAtATime">
+                <accordion-group is-open="status.open" ng-repeat="location in serviceLocations">
+                    <accordion-heading>
+                        <span class="pull-right">
+                            <a href ng-click="editLocation('lg',location)"><i class="fa fa-fw m-r-xs fa-pencil"></i></a>
+                            <a href ng-click="deleteLocation('sm',location.id)"><i class="fa fa-fw fa-times"></i></a>
+                        </span>
+                        <i class="fa fa-angle-right m-r"
+                           ng-class="{'fa-angle-down': status.open, 'fa-angle-right': !status.open}"></i>
+                        {{location.city_name}}
+                    </accordion-heading>
+                    <div ng-repeat="area in location.area">
+                        <span class="text-sm text-black">{{area.area}}</span>
+                        <span class="pull-right">
+                            <a href ng-click="updateArea('lg',area)"><i class="fa fa-fw m-r-xs fa-pencil"></i></a>
+                            <a href ng-click="deleteArea('sm',area.id)"><i class="fa fa-fw fa-times"></i></a>
+                        </span>
+                        <hr>
+                    </div>
+                    <span class="text-primary" ng-click="addArea('lg',location.id)">Add area</span>
+                </accordion-group>
+            </accordion>
+        </div>
+
+    </div>
+    <script type="text/ng-template" id="addServiceLocation.html">
+        <div ng-include="'templates/modals/add-service-location.html'"></div>
+    </script>
+    <script type="text/ng-template" id="updateServiceLocation.html">
+        <div ng-include="'templates/modals/update-service-location.html'"></div>
+    </script>
+    <script type="text/ng-template" id="deleteServiceLocation.html">
+        <div ng-include="'templates/modals/delete-service-location.html'"></div>
+    </script>
+    <script type="text/ng-template" id="addServiceArea.html">
+        <div ng-include="'templates/modals/add-service-area.html'"></div>
+    </script>
+    <script type="text/ng-template" id="updateServiceArea.html">
+        <div ng-include="'templates/modals/update-service-area.html'"></div>
+    </script>
+    <script type="text/ng-template" id="deleteServiceArea.html">
+        <div ng-include="'templates/modals/delete-service-area.html'"></div>
+    </script>
+</div>
+

@@ -1,0 +1,38 @@
+<div class="wrapper-lg">
+    <h1 class="m-n font-thin h3 text-black block inline">Add Category</h1>
+    <div class="line line-dashed b-b line-lg pull-in"></div>
+    <form class="form-horizontal m-t" novalidate>
+        <div class="form-group">
+            <label class="col-sm-4 control-label font-bold">Category Name</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control input-sm"
+                       placeholder="Category Name"
+                       ng-model="category.name">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-4"></div>
+            <div class="radio col-sm-4">
+                <label class="i-checks">
+                    <input type="radio" name="a" value="m" checked ng-model="category.gender">
+                    <i></i>
+                    Male
+                </label>
+            </div>
+            <div class="radio col-sm-4">
+                <label class="i-checks">
+                    <input type="radio" name="a" value="f" ng-model="category.gender">
+                    <i></i>
+                    Female
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-6">
+                <button type="submit" class="btn btn-default" ng-click="close()">Cancel</button>
+                <button type="submit" class="btn btn-primary" ng-click="addServiceCategory()">Add Category</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,79 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-controller="DashboardController"  ng-init="getBarberDashboardBookings()
+||getBarberDashboardBookingDetail()"
+     ng-show="userType == 'barber'">
+    <div class="bg-light lter b-b wrapper-md" ng-init="getBarberChartInfo()">
+        <div class="row">
+            <div class="col-sm-6 col-xs-12">
+                <h1 class="m-n font-thin h3 text-black">Dashboard</h1>
+                <small class="text-muted">Welcome</small>
+            </div>
+        </div>
+    </div>
+    <div class="wrapper-md">
+        <div class="row">
+            <div class="">
+                <div class="row  text-center">
+                    <div class="col-xs-3">
+                        <div class="panel padder-v item">
+                            <div class="h1 text-info font-thin h1">{{bookings.length}}</div>
+                            <span class="text-muted text-md">Total no of bookings</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="panel padder-v bg-primary item">
+                            <div class="h1 font-thin h1">{{todayBookings.length}}</div>
+                            <span class="text-muted text-md">Today Bookings</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="panel padder-v bg-info item">
+                            <span class=" h2"> ₹ </span>
+                            <span class="h1  font-thin h1">{{todaySales}}</span><br>
+                            <span class="text-muted text-md">Today sales</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="panel padder-v item">
+                            <div class="h1 text-info font-thin h1">{{createdBookings.length}}</div>
+                            <span class="text-muted text-md">Pending</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h1 class="m-n font-thin h4 text-black">Reason Bookings</h1>
+        <div class="panel panel-default m-t">
+            <table st-table="rowCollectionBasic" class="table table-bordered table-striped fixed_headers">
+                <thead>
+                <tr>
+                    <th>Order Number</th>
+                    <th>Order Date</th>
+                    <th>Customer Name</th>
+                    <th>Gender</th>
+                    <th>Slot Timing</th>
+                    <th>Order State</th>
+                    <th>Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="booking in bookings">
+                    <td>{{booking.order_number}}</td>
+                    <td>{{booking.order_date}}</td>
+                    <td>{{booking.user.first_name}} {{booking.user.last_name}}</td>
+                    <td>{{booking.user.gender}}</td>
+                    <td>{{booking.slot.slot_timings}}</td>
+                    <td>{{booking.order_state.state}}</td>
+                    <td>{{booking.total}}</td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="wrapper-md">
+        <h1 class="m-n font-thin h4 text-black">Bookings by location</h1>
+        <div class="panel m-t">
+            <canvas draw-chart></canvas>
+        </div>
+    </div>
+</div>

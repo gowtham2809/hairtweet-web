@@ -1,0 +1,51 @@
+<h1 class="m-n font-thin h3 text-black block inline">Customer Bookings</h1>
+<div class="wrapper-md" ng-controller="BookingController" ng-init="getCustomerBookings()">
+    <div class="panel panel-default">
+        <table st-table="rowCollectionBasic" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Order Number</th>
+                <th>Order Date</th>
+                <th>Barber Name</th>
+                <th>Slot Timing</th>
+                <th>Order State</th>
+                <th>Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="booking in bookings">
+                <td ng-click="openBookingDetail('lg',booking)"><u>{{booking.order_number}}</u></td>
+                <td>{{booking.order_date}}</td>
+                <td>{{booking.barber.first_name}} {{booking.barber.last_name}}</td>
+                <td>{{booking.slot.slot_timings}}</td>
+                <td>{{booking.order_state.state}}</td>
+                <td>{{booking.total}}</td>
+                <td><a class="h5 text-primary m-l-sm" ng-show="showApproveButton(booking.order_state_id)"
+                       ng-click="openApproveBooking('sm',booking.id,booking.barber.id)">
+                    Approve</a>
+                    <a class="h5 text-info m-l-sm" ng-show="showProposeButton(booking.order_state_id)"
+                       ng-click="openProposeBooking('sm',booking.id,booking.barber.id,booking.order_date)">
+                        Propose</a>
+                    <a class="h5 text-danger m-l-sm" ng-show="showCancelButton(booking.order_state_id)"
+                       ng-click="openCancelBooking('sm',booking.id,booking.barber.id)">
+                        Cancel</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <script type="text/ng-template" id="approveBookingModal.html">
+        <div ng-include="'templates/modals/approve-booking.html'"></div>
+    </script>
+
+    <script type="text/ng-template" id="proposeBookingModal.html">
+        <div ng-include="'templates/modals/propose-booking.html'"></div>
+    </script>
+
+    <script type="text/ng-template" id="cancelBookingModal.html">
+        <div ng-include="'templates/modals/cancel-booking.html'"></div>
+    </script>
+
+    <script type="text/ng-template" id="bookingDetailModal.html">
+        <div ng-include="'templates/modals/booking-detail.html'"></div>
+    </script>
+</div>
